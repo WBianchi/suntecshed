@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAdminPayload, unauthorized } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
 
-const CLEANUP_SECRET = "c7drop-cleanup-8f3a2b1c-2026";
+const CLEANUP_SECRET = "suntecshed-cleanup-8f3a2b1c-2026";
 
 function isAuthorized(req: NextRequest): boolean {
   // Aceita header secreto (para chamadas automatizadas) ou cookie de admin

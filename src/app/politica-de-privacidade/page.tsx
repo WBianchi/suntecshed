@@ -13,7 +13,7 @@ const sections = [
     icon: FiDatabase,
     title: "1. Coleta de Dados",
     content: `
-      <p>A C7 Drop coleta informações pessoais quando você:</p>
+      <p>A Suntecshed coleta informações pessoais quando você:</p>
       <ul>
         <li>Cria uma conta em nosso site</li>
         <li>Realiza uma compra ou solicitação de orçamento</li>
@@ -101,7 +101,7 @@ const sections = [
         <li>Revogar o consentimento a qualquer momento</li>
         <li>Obter informações sobre entidades com quem compartilhamos dados</li>
       </ul>
-      <p>Para exercer seus direitos, entre em contato pelo e-mail <strong>privacidade@C7drop.com.br</strong>.</p>
+      <p>Para exercer seus direitos, entre em contato pelo e-mail <strong>privacidade@Suntecshed.com.br</strong>.</p>
     `,
   },
   {
@@ -111,9 +111,9 @@ const sections = [
     content: `
       <p>Para questões relacionadas à proteção de dados pessoais:</p>
       <p><strong>Encarregado de Proteção de Dados (DPO)</strong><br/>
-      E-mail: privacidade@C7drop.com.br<br/>
-      Telefone: (21) 99879-2729<br/>
-      Endereço: Parque Dom Pedro II, 268 — Apto 22, Centro, São Paulo — SP</p>
+      E-mail: privacidade@Suntecshed.com.br<br/>
+      Telefone: (38) 9884-2080<br/>
+      Endereço: Endereço virtual</p>
       <p>Respondemos às solicitações em até 15 dias úteis.</p>
     `,
   },
@@ -169,7 +169,7 @@ export default function PoliticaPrivacidadePage() {
                     <div className="text-sm text-primary">
                       <p className="font-semibold">Compromisso com sua privacidade</p>
                       <p className="mt-1 text-xs leading-relaxed text-blue-600">
-                        A C7 Drop LTDA (CNPJ: 23.838.704/0001-33) está comprometida com a proteção dos seus dados pessoais,
+                        A Suntecshed LTDA (CNPJ: 23.838.704/0001-33) está comprometida com a proteção dos seus dados pessoais,
                         em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).
                       </p>
                     </div>

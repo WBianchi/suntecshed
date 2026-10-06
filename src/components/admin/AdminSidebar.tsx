@@ -41,7 +41,7 @@ export function AdminSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
               H
             </div>
             <div className="leading-tight overflow-hidden whitespace-nowrap">
-              <p className="text-sm font-bold text-gray-900">C7drop</p>
+              <p className="text-sm font-bold text-gray-900">Suntecshed</p>
               <p className="text-[10px] text-gray-400">Admin Panel</p>
             </div>
           </Link>

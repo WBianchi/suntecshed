@@ -195,7 +195,7 @@ export default function CheckoutPage() {
           setAuthModalOpen(true);
           return;
         }
-        setOrderError(data.error || "Erro ao criar pedido. Tente novamente.");
+        setOrderError(data.error || "Error creating order. Please try again.");
         return;
       }
       setOrderNumber(data.orderNumber);
@@ -205,7 +205,7 @@ export default function CheckoutPage() {
       clearCart();
       setStep(4);
     } catch {
-      setOrderError("Erro de conexão. Verifique sua internet e tente novamente.");
+      setOrderError("Connection error. Check your internet and try again.");
     } finally {
       setSubmitting(false);
     }
@@ -220,16 +220,16 @@ export default function CheckoutPage() {
             <FiShoppingBag className="h-8 w-8 text-gray-400" />
           </div>
           <h2 className="mt-5 text-xl font-bold text-gray-900" style={{ fontFamily: "var(--font-poppins)" }}>
-            Carrinho vazio
+            Empty cart
           </h2>
           <p className="mt-2 max-w-sm text-center text-sm text-gray-500">
-            Adicione produtos ao carrinho antes de prosseguir para o checkout.
+            Add products to your cart before proceeding to checkout.
           </p>
           <Link
             href="/produtos"
             className="mt-6 flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-bold text-white transition-all hover:bg-primary-dark"
           >
-            Explorar Produtos
+            Browse Products
           </Link>
         </main>
         <Footer />
@@ -245,7 +245,7 @@ export default function CheckoutPage() {
         <div className="mx-auto max-w-[1440px] px-4 py-4">
           <Breadcrumb
             items={[
-              { label: "Carrinho", href: "/carrinho" },
+              { label: "Cart", href: "/carrinho" },
               { label: "Checkout" },
             ]}
           />
@@ -259,9 +259,9 @@ export default function CheckoutPage() {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: "var(--font-poppins)" }}>
-                Checkout Seguro
+                Secure Checkout
               </h1>
-              <p className="text-sm text-gray-500">{itemCount} {itemCount === 1 ? "item" : "itens"} no pedido</p>
+              <p className="text-sm text-gray-500">{itemCount} {itemCount === 1 ? "item" : "items"} in the order</p>
             </div>
           </div>
 

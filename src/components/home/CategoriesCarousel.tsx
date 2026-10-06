@@ -12,6 +12,7 @@ interface CategoryFromAPI {
   name: string;
   slug: string;
   image: string | null;
+  featured: boolean;
   productCount: number;
 }
 
@@ -25,8 +26,11 @@ export function CategoriesCarousel() {
     },
   });
 
-  // Only show categories that have active products linked
-  const categories = allCategories.filter((c) => c.productCount > 0);
+  // Só categorias com produtos ativos; o carrossel da home mostra apenas as marcadas
+  // como destaque (featured no banco). Se nenhuma estiver marcada, volta a mostrar todas.
+  const comProduto = allCategories.filter((c) => c.productCount > 0);
+  const destaques = comProduto.filter((c) => c.featured);
+  const categories = destaques.length > 0 ? destaques : comProduto;
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
@@ -46,10 +50,10 @@ export function CategoriesCarousel() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-              Categorias
+              Categories
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Explore nossos departamentos
+              Explore our departments
             </p>
           </div>
           <div className="flex gap-2">

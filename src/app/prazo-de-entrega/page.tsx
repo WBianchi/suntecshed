@@ -17,7 +17,7 @@ const regions = [
   { region: "Centro-Oeste (DF, MT, MS)", prazo: "4 a 7 dias úteis", frete: "Calculado no checkout", color: "bg-blue-50 border-blue-200 text-blue-700" },
   { region: "Sudeste (SP, RJ, MG, ES)", prazo: "5 a 10 dias úteis", frete: "Calculado no checkout", color: "bg-purple-50 border-purple-200 text-purple-700" },
   { region: "Sul (PR, SC, RS)", prazo: "6 a 12 dias úteis", frete: "Calculado no checkout", color: "bg-cyan-50 border-cyan-200 text-cyan-700" },
-  { region: "Nordeste", prazo: "7 a 15 dias úteis", frete: "Calculado no checkout", color: "bg-amber-50 border-amber-200 text-amber-700" },
+  { region: "Nordeste", prazo: "7 a 15 dias úteis", frete: "Calculado no checkout", color: "bg-brand-50 border-brand-200 text-brand-700" },
   { region: "Norte", prazo: "8 a 18 dias úteis", frete: "Calculado no checkout", color: "bg-orange-50 border-orange-200 text-orange-700" },
 ];
 
@@ -145,7 +145,7 @@ export default function PrazoDeEntregaPage() {
                 )}
 
                 {results && results.length === 0 && (
-                  <div className="mt-4 rounded-xl bg-amber-50 p-3 text-center text-xs text-amber-700">
+                  <div className="mt-4 rounded-xl bg-brand-50 p-3 text-center text-xs text-brand-700">
                     Nenhuma opção de entrega disponível para este CEP. Tente outro.
                   </div>
                 )}

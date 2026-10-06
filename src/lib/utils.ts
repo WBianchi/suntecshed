@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 // Baixa um ou mais arquivos em sequência. Busca cada um como blob antes de
 // baixar — a maioria dos navegadores ignora o atributo `download` em links
-// de outra origem (ex: imagens em c7drop.com.br ou no Vercel Blob) e só abre
+// de outra origem (ex: imagens em suntecshed.com.br ou no Vercel Blob) e só abre
 // o arquivo numa aba nova em vez de baixar, então isso força o download de
 // verdade independente da origem.
 export async function downloadFiles(files: { url: string; name: string }[]) {

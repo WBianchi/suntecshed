@@ -57,7 +57,7 @@ export function ShareModal({ url, title, onClose }: ShareModalProps) {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
       <div className="relative z-10 w-full max-w-sm overflow-hidden rounded-3xl bg-white shadow-2xl">
         <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
-          <h2 className="text-base font-bold text-gray-900">Compartilhar produto</h2>
+          <h2 className="text-base font-bold text-gray-900">Share product</h2>
           <button onClick={onClose}
             className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100">
             <FiX className="h-4 w-4" />
@@ -84,7 +84,7 @@ export function ShareModal({ url, title, onClose }: ShareModalProps) {
             <button onClick={handleCopy}
               className="flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-white hover:bg-primary/90">
               {copied ? <FiCheck className="h-3.5 w-3.5" /> : null}
-              {copied ? "Copiado!" : "Copiar"}
+              {copied ? "Copied!" : "Copy"}
             </button>
           </div>
         </div>

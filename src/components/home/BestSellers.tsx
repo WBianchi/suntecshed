@@ -22,8 +22,8 @@ export function BestSellers() {
     <section className="py-12 bg-muted/50">
       <div className="mx-auto max-w-[1440px] px-4">
         <SectionHeader
-          title="Produtos Mais Vendidos"
-          subtitle="Os favoritos dos nossos clientes"
+          title="Best Sellers"
+          subtitle="Customer favorites"
           href="/produtos"
         />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">

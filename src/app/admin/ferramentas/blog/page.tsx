@@ -150,7 +150,7 @@ export default function BlogPage() {
               <div>
                 <label className="mb-1.5 text-xs font-semibold text-gray-600">Autor</label>
                 <input value={editing.author || ""} onChange={(e) => setField("author", e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="C7 Drop" />
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="Suntecshed" />
               </div>
             </div>
 

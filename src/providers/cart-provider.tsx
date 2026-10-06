@@ -55,9 +55,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // Load from localStorage
   useEffect(() => {
     try {
-      const stored = localStorage.getItem("C7drop_cart");
+      const stored = localStorage.getItem("Suntecshed_cart");
       if (stored) setItems(JSON.parse(stored));
-      const storedShipping = localStorage.getItem("C7drop_shipping");
+      const storedShipping = localStorage.getItem("Suntecshed_shipping");
       if (storedShipping) setShipping(JSON.parse(storedShipping));
     } catch {}
     setHydrated(true);
@@ -66,16 +66,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // Save to localStorage
   useEffect(() => {
     if (hydrated) {
-      localStorage.setItem("C7drop_cart", JSON.stringify(items));
+      localStorage.setItem("Suntecshed_cart", JSON.stringify(items));
     }
   }, [items, hydrated]);
 
   useEffect(() => {
     if (!hydrated) return;
     if (shipping) {
-      localStorage.setItem("C7drop_shipping", JSON.stringify(shipping));
+      localStorage.setItem("Suntecshed_shipping", JSON.stringify(shipping));
     } else {
-      localStorage.removeItem("C7drop_shipping");
+      localStorage.removeItem("Suntecshed_shipping");
     }
   }, [shipping, hydrated]);
 

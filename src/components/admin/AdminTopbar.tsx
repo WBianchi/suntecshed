@@ -118,7 +118,7 @@ function timeAgo(iso: string): string {
 
 function NotificationIcon({ type }: { type: string }) {
   if (type === "order") return <FiPackage className="h-4 w-4 text-blue-500" />;
-  if (type === "alert") return <FiAlertCircle className="h-4 w-4 text-amber-500" />;
+  if (type === "alert") return <FiAlertCircle className="h-4 w-4 text-brand-500" />;
   if (type === "success") return <FiCheckCircle className="h-4 w-4 text-green-500" />;
   if (type === "stock_change") return <FiPackage className="h-4 w-4 text-indigo-500" />;
   if (type === "stock_out") return <FiAlertTriangle className="h-4 w-4 text-red-500" />;
@@ -349,8 +349,8 @@ export function AdminTopbar({ onToggleMobileSidebar }: { onToggleMobileSidebar?:
                   {user?.name?.charAt(0) || "A"}
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">{user?.name || "Admin C7drop"}</p>
-                  <p className="text-xs text-gray-500">{user?.email || "admin@C7drop.com.br"}</p>
+                  <p className="font-semibold text-gray-900">{user?.name || "Admin Suntecshed"}</p>
+                  <p className="text-xs text-gray-500">{user?.email || "admin@Suntecshed.com.br"}</p>
                   <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-green-600">
                     <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                     Online

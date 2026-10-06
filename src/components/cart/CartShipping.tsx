@@ -6,7 +6,7 @@ import { useCart, type ShippingOption } from "@/providers/cart-provider";
 
 export type { ShippingOption } from "@/providers/cart-provider";
 
-const LAST_CEP_KEY = "C7drop_last_cep";
+const LAST_CEP_KEY = "suntecshed_last_cep";
 
 export function CartShipping() {
   const { items, shipping: selectedShipping, setShipping } = useCart();
@@ -80,7 +80,7 @@ export function CartShipping() {
       const data = await shippingRes.json().catch(() => ({}));
 
       if (!shippingRes.ok) {
-        setError(data.error || "Não foi possível calcular o frete. Tente novamente.");
+        setError(data.error || "Could not calculate shipping. Please try again.");
         setOptions([]);
         return;
       }
@@ -109,7 +109,7 @@ export function CartShipping() {
         if (stillAvailable) setExpanded(false);
       }
     } catch {
-      setError("Erro de conexão. Verifique sua internet e tente novamente.");
+      setError("Connection error. Check your internet and try again.");
       setOptions([]);
     } finally {
       setLoading(false);
@@ -129,7 +129,7 @@ export function CartShipping() {
               <span className="ml-1.5 text-[10px] font-normal text-gray-400">{selectedShipping.company}</span>
             </p>
             <p className={`text-xs font-semibold ${selectedShipping.price === 0 ? "text-green-600" : "text-gray-500"}`}>
-              {selectedShipping.price === 0 ? "Grátis" : `R$ ${selectedShipping.price.toFixed(2).replace(".", ",")}`}
+              {selectedShipping.price === 0 ? "Free" : `R$ ${selectedShipping.price.toFixed(2).replace(".", ",")}`}
               {" · "}{selectedShipping.days}
             </p>
           </div>
@@ -138,7 +138,7 @@ export function CartShipping() {
           onClick={() => setExpanded(true)}
           className="flex shrink-0 items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold text-primary hover:bg-primary/5"
         >
-          Alterar <FiChevronDown className="h-3.5 w-3.5" />
+          Change <FiChevronDown className="h-3.5 w-3.5" />
         </button>
       </div>
     );
@@ -149,14 +149,14 @@ export function CartShipping() {
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <FiTruck className="h-4 w-4 text-primary" />
-          <p className="text-sm font-semibold text-gray-900">Calcular frete</p>
+          <p className="text-sm font-semibold text-gray-900">Calculate shipping</p>
         </div>
         {selectedShipping && (
           <button
             onClick={() => setExpanded(false)}
             className="flex items-center gap-1 text-xs font-medium text-gray-400 hover:text-gray-600"
           >
-            Recolher <FiChevronUp className="h-3.5 w-3.5" />
+            Collapse <FiChevronUp className="h-3.5 w-3.5" />
           </button>
         )}
       </div>
@@ -181,7 +181,7 @@ export function CartShipping() {
           disabled={loading || cep.replace(/\D/g, "").length < 8}
           className="flex h-11 items-center justify-center gap-1.5 rounded-full bg-primary px-5 text-sm font-bold text-white transition-all hover:bg-primary-dark active:scale-[0.98] disabled:opacity-50"
         >
-          {loading ? <FiLoader className="h-4 w-4 animate-spin" /> : "Calcular"}
+          {loading ? <FiLoader className="h-4 w-4 animate-spin" /> : "Calculate"}
         </button>
       </div>
 
@@ -191,7 +191,7 @@ export function CartShipping() {
         rel="noopener noreferrer"
         className="mt-1.5 inline-block text-[11px] text-primary hover:underline"
       >
-        Não sei meu CEP
+        I don't know my postal code
       </a>
 
       {/* Error */}
@@ -244,7 +244,7 @@ export function CartShipping() {
                 </div>
               </div>
               <p className={`text-sm font-bold ${opt.price === 0 ? "text-green-600" : "text-gray-900"}`}>
-                {opt.price === 0 ? "Grátis" : `R$ ${opt.price.toFixed(2).replace(".", ",")}`}
+                {opt.price === 0 ? "Free" : `R$ ${opt.price.toFixed(2).replace(".", ",")}`}
               </p>
             </button>
           ))}

@@ -15,15 +15,15 @@
 
 @theme {
   --container-8xl: 1440px;
-  --color-primary: #F2B705;
+  --color-primary: #7530fa;
   --color-primary-foreground: #ffffff;
-  --color-primary-light: #FCD34D;
-  --color-primary-dark: #D97706;
+  --color-primary-light: #9d6bff;
+  --color-primary-dark: #5a14cf;
 
   --color-secondary: #F3F4F6;
   --color-secondary-foreground: #1a1a1a;
 
-  --color-accent: #F2B705;
+  --color-accent: #7530fa;
   --color-accent-foreground: #ffffff;
 
   --color-muted: #F9FAFB;
@@ -33,8 +33,20 @@
   --color-card-foreground: #1a1a1a;
 
   --color-border: #E5E7EB;
-  --color-ring: #F2B705;
+  --color-ring: #7530fa;
   --color-destructive: #EF4444;
+
+  /* Paleta da marca — o dourado/amber (#F2B705) foi trocado por #7530FA */
+  --color-brand-50: #f5f1ff;
+  --color-brand-100: #ece2ff;
+  --color-brand-200: #d9c4ff;
+  --color-brand-300: #c3a3ff;
+  --color-brand-400: #9d6bff;
+  --color-brand-500: #7530fa;
+  --color-brand-600: #6421e6;
+  --color-brand-700: #5116bd;
+  --color-brand-800: #3f108f;
+  --color-brand-900: #2f0a6b;
 
   --color-background: #ffffff;
   --color-foreground: #1a1a1a;
@@ -64,15 +76,15 @@ h2, h3 {
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #F9FAFB; }
-::-webkit-scrollbar-thumb { background: #F2B705; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #D97706; }
+::-webkit-scrollbar-thumb { background: #7530fa; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #5a14cf; }
 
 ::selection {
-  background: #F2B705;
+  background: #7530fa;
   color: white;
 }
 
-/* Degradê dourado/laranja aplicado sobre a cor primária sólida (mantém
+/* Degradê roxo da marca aplicado sobre a cor primária sólida (mantém
    text-primary/border-primary/ring-primary como cor sólida, obrigatório
    para essas propriedades funcionarem). */
 .bg-primary {
@@ -150,7 +162,7 @@ h2, h3 {
 .neo-inset:focus-within {
   background-color: #ffffff;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+  box-shadow: 0 0 0 3px rgba(117, 48, 250, 0.12);
 }
 
 .neo-pill {
@@ -161,7 +173,7 @@ h2, h3 {
 }
 
 .neo-pill-selected {
-  background-color: rgba(245, 158, 11, 0.06);
+  background-color: rgba(117, 48, 250, 0.06);
   border-color: var(--color-primary);
 }
 
@@ -236,7 +248,7 @@ h2, h3 {
 }
 
 .ProseMirror a {
-  color: #D97706;
+  color: #5a14cf;
   text-decoration: underline;
   cursor: pointer;
 }

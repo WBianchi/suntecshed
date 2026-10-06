@@ -37,7 +37,7 @@ async function getShippingRuleOptions(destCep: string) {
     name: r.name,
     price: r.price,
     days: r.estimatedDays ? `${r.estimatedDays} ${r.estimatedDays > 1 ? "dias úteis" : "dia útil"}` : "A combinar",
-    company: "C7 Drop",
+    company: "Suntecshed",
   }));
 }
 
@@ -124,7 +124,7 @@ async function getMelhorEnvioOptions(destCep: string, items: { id?: string; quan
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
         Accept: "application/json",
-        "User-Agent": "C7 Drop (contato@c7drop.com.br)",
+        "User-Agent": "Suntecshed (contato@suntecshed.com.br)",
       },
       body: JSON.stringify({
         from: { postal_code: originCep },

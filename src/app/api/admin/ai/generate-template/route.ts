@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 
     const prompt = `Você é um copywriter especialista em ${channelLabel} para e-commerce de eletrônicos e dropshipping.
 
-Loja: ${storeName || "C7 Drop"}
+Loja: ${storeName || "Suntecshed"}
 Objetivo da campanha: ${purpose}
 Tom: ${toneLabel}
 

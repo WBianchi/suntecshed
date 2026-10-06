@@ -43,7 +43,7 @@ const formatDocument = (v: string) => {
 };
 
 const inputClass = "h-12 w-full bg-transparent px-4 text-sm text-gray-900 outline-none placeholder:text-gray-400";
-const LAST_CEP_KEY = "C7drop_last_cep";
+const LAST_CEP_KEY = "suntecshed_last_cep";
 
 export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
   const { items, shipping, setShipping } = useCart();
@@ -70,13 +70,13 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setShippingError(json.error || "Não foi possível calcular o frete. Tente novamente.");
+        setShippingError(json.error || "Could not calculate shipping. Please try again.");
         setShippingOptions([]);
         return;
       }
       setShippingOptions(json.options || []);
     } catch {
-      setShippingError("Erro de conexão ao calcular o frete.");
+      setShippingError("Connection error while calculating shipping.");
       setShippingOptions([]);
     } finally {
       setLoadingShipping(false);
@@ -124,15 +124,15 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
 
   const validate = () => {
     const e: Partial<AddressData> & { shipping?: string } = {};
-    if (data.cep.replace(/\D/g, "").length < 8) e.cep = "CEP inválido";
-    if (!data.street.trim()) e.street = "Rua obrigatória";
-    if (!data.number.trim()) e.number = "Número obrigatório";
-    if (!data.neighborhood.trim()) e.neighborhood = "Bairro obrigatório";
-    if (!data.city.trim()) e.city = "Cidade obrigatória";
-    if (!data.state.trim()) e.state = "Estado obrigatório";
-    if (!data.recipientName.trim()) e.recipientName = "Nome do destinatário obrigatório";
-    if (data.recipientDocument.replace(/\D/g, "").length < 11) e.recipientDocument = "CPF/CNPJ do destinatário obrigatório";
-    if (!shipping) e.shipping = "Escolha uma opção de frete";
+    if (data.cep.replace(/\D/g, "").length < 8) e.cep = "Invalid postal code";
+    if (!data.street.trim()) e.street = "Street required";
+    if (!data.number.trim()) e.number = "Number required";
+    if (!data.neighborhood.trim()) e.neighborhood = "Neighborhood required";
+    if (!data.city.trim()) e.city = "City required";
+    if (!data.state.trim()) e.state = "State required";
+    if (!data.recipientName.trim()) e.recipientName = "Recipient name required";
+    if (data.recipientDocument.replace(/\D/g, "").length < 11) e.recipientDocument = "Recipient CPF/CNPJ required";
+    if (!shipping) e.shipping = "Choose a shipping option";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -144,13 +144,13 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
   return (
     <div className="neo-surface p-5 sm:p-8">
       <h2 className="mb-6 text-lg font-bold text-gray-900" style={{ fontFamily: "var(--font-poppins)" }}>
-        Endereço de Entrega
+        Delivery Address
       </h2>
 
       <div className="space-y-4">
         {/* CEP */}
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-600">CEP</label>
+          <label className="mb-1.5 block text-sm font-medium text-gray-600">Postal code</label>
           <div className="neo-inset relative flex items-center">
             <FiMapPin className="pointer-events-none absolute left-4 h-4 w-4 text-gray-400" />
             <input
@@ -172,13 +172,13 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
 
         {/* Street */}
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-600">Rua / Avenida</label>
+          <label className="mb-1.5 block text-sm font-medium text-gray-600">Street / Avenue</label>
           <div className="neo-inset">
             <input
               type="text"
               value={data.street}
               onChange={(e) => onChange({ ...data, street: e.target.value })}
-              placeholder="Nome da rua"
+              placeholder="Street name"
               className={inputClass}
             />
           </div>
@@ -188,26 +188,26 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
         {/* Number + Complement */}
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-600">Número</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-600">Number</label>
             <div className="neo-inset">
               <input
                 type="text"
                 value={data.number}
                 onChange={(e) => onChange({ ...data, number: e.target.value })}
-                placeholder="Nº"
+                placeholder="No."
                 className={inputClass}
               />
             </div>
             {errors.number && <p className="mt-1 text-xs text-red-500">{errors.number}</p>}
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-600">Complemento</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-600">Complement</label>
             <div className="neo-inset">
               <input
                 type="text"
                 value={data.complement}
                 onChange={(e) => onChange({ ...data, complement: e.target.value })}
-                placeholder="Apto, bloco..."
+                placeholder="Apt, block..."
                 className={inputClass}
               />
             </div>
@@ -216,13 +216,13 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
 
         {/* Neighborhood */}
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-600">Bairro</label>
+          <label className="mb-1.5 block text-sm font-medium text-gray-600">Neighborhood</label>
           <div className="neo-inset">
             <input
               type="text"
               value={data.neighborhood}
               onChange={(e) => onChange({ ...data, neighborhood: e.target.value })}
-              placeholder="Bairro"
+              placeholder="Neighborhood"
               className={inputClass}
             />
           </div>
@@ -232,20 +232,20 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
         {/* City + State */}
         <div className="grid grid-cols-[1fr_100px] gap-3">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-600">Cidade</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-600">City</label>
             <div className="neo-inset">
               <input
                 type="text"
                 value={data.city}
                 onChange={(e) => onChange({ ...data, city: e.target.value })}
-                placeholder="Cidade"
+                placeholder="City"
                 className={inputClass}
               />
             </div>
             {errors.city && <p className="mt-1 text-xs text-red-500">{errors.city}</p>}
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-600">UF</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-600">State</label>
             <div className="neo-inset">
               <input
                 type="text"
@@ -265,18 +265,18 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
       <div className="neo-inset mt-6 space-y-3 p-4">
         <div className="flex items-center gap-2">
           <FiUserCheck className="h-4 w-4 text-primary" />
-          <p className="text-sm font-semibold text-gray-900">Dados do Destinatário</p>
+          <p className="text-sm font-semibold text-gray-900">Recipient Details</p>
         </div>
-        <p className="text-xs text-gray-500">Informe os dados de quem vai receber a mercadoria</p>
+        <p className="text-xs text-gray-500">Enter the details of who will receive the order</p>
 
         <div>
-          <label className="mb-1.5 block text-xs font-medium text-gray-600">Nome Completo do Destinatário</label>
+          <label className="mb-1.5 block text-xs font-medium text-gray-600">Recipient Full Name</label>
           <div className="neo-surface-sm">
             <input
               type="text"
               value={data.recipientName}
               onChange={(e) => onChange({ ...data, recipientName: e.target.value })}
-              placeholder="Nome de quem vai receber"
+              placeholder="Name of the recipient"
               className={inputClass}
             />
           </div>
@@ -284,7 +284,7 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
         </div>
 
         <div>
-          <label className="mb-1.5 block text-xs font-medium text-gray-600">CPF ou CNPJ do Destinatário</label>
+          <label className="mb-1.5 block text-xs font-medium text-gray-600">Recipient CPF or CNPJ</label>
           <div className="neo-surface-sm relative flex items-center">
             <FiFileText className="pointer-events-none absolute left-4 h-4 w-4 text-gray-400" />
             <input
@@ -296,7 +296,7 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
             />
           </div>
           {errors.recipientDocument && <p className="mt-1 text-xs text-red-500">{errors.recipientDocument}</p>}
-          <p className="mt-1 flex items-center gap-1 text-[11px] text-amber-600">
+          <p className="mt-1 flex items-center gap-1 text-[11px] text-brand-600">
             <FiAlertCircle className="h-3 w-3 shrink-0" /> Necessário para emissão do frete pelo Melhor Envio
           </p>
         </div>
@@ -311,7 +311,7 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
           <textarea
             value={data.observations}
             onChange={(e) => onChange({ ...data, observations: e.target.value })}
-            placeholder="Instruções de entrega, referências, etc."
+            placeholder="Delivery instructions, references, etc."
             rows={3}
             className="w-full resize-none bg-transparent px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400"
           />
@@ -322,7 +322,7 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
       <div className="mt-6">
         <div className="mb-2 flex items-center gap-2">
           <FiTruck className="h-4 w-4 text-primary" />
-          <p className="text-sm font-semibold text-gray-900">Opção de frete</p>
+          <p className="text-sm font-semibold text-gray-900">Shipping option</p>
         </div>
 
         {loadingShipping && (
@@ -371,7 +371,7 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
                   </div>
                 </div>
                 <p className={cn("text-sm font-bold", opt.price === 0 ? "text-green-600" : "text-gray-900")}>
-                  {opt.price === 0 ? "Grátis" : `R$ ${opt.price.toFixed(2).replace(".", ",")}`}
+                  {opt.price === 0 ? "Free" : `R$ ${opt.price.toFixed(2).replace(".", ",")}`}
                 </p>
               </button>
             ))}
@@ -379,7 +379,7 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
         )}
 
         {!loadingShipping && !shippingError && shippingOptions.length === 0 && data.cep.replace(/\D/g, "").length === 8 && (
-          <p className="text-xs text-gray-400">Nenhuma opção de frete encontrada para este CEP.</p>
+          <p className="text-xs text-gray-400">No shipping options found for this postal code.</p>
         )}
 
         {errors.shipping && <p className="mt-1.5 text-xs text-red-500">{errors.shipping}</p>}
@@ -390,13 +390,13 @@ export function CheckoutAddress({ data, onChange, onNext, onBack }: Props) {
           onClick={onBack}
           className="neo-btn flex h-12 flex-1 items-center justify-center text-sm font-semibold text-gray-700"
         >
-          Voltar
+          Back
         </button>
         <button
           onClick={handleSubmit}
           className="neo-btn flex h-12 flex-[2] items-center justify-center bg-primary text-sm font-bold uppercase tracking-wide text-white"
         >
-          Continuar para Pagamento
+          Continue to Payment
         </button>
       </div>
     </div>

@@ -22,8 +22,8 @@ export function OutOfStockProducts() {
     <section className="py-12">
       <div className="mx-auto max-w-[1440px] px-4">
         <SectionHeader
-          title="Fora de Estoque"
-          subtitle="Produtos que estão temporariamente indisponíveis"
+          title="Out of Stock"
+          subtitle="Products temporarily unavailable"
           href="/produtos"
         />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">

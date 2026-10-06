@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       try {
         const html = buildEmailHtml(campaign.template.body, campaign.template.footer, r.name);
         await transporter.sendMail({
-          from: `"C7 Drop" <${process.env.EMAIL_FROM || process.env.EMAIL_SERVER_USER}>`,
+          from: `"Suntecshed" <${process.env.EMAIL_FROM || process.env.EMAIL_SERVER_USER}>`,
           to: r.email,
           subject: campaign.template.subject,
           html,
@@ -93,7 +93,7 @@ function buildEmailHtml(body: string, footer: string | null, recipientName: stri
     <tr><td align="center">
       <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;">
         <tr><td style="background:#1a1a2e;padding:24px;text-align:center;">
-          <h1 style="color:#ffffff;margin:0;font-size:22px;">C7 Drop</h1>
+          <h1 style="color:#ffffff;margin:0;font-size:22px;">Suntecshed</h1>
         </td></tr>
         <tr><td style="padding:32px 24px;color:#333333;font-size:15px;line-height:1.6;">
           ${processedBody}
@@ -102,7 +102,7 @@ function buildEmailHtml(body: string, footer: string | null, recipientName: stri
           ${footer}
         </td></tr>` : ""}
         <tr><td style="padding:16px 24px;background:#1a1a2e;color:#888888;font-size:11px;text-align:center;">
-          &copy; ${new Date().getFullYear()} C7 Drop. Todos os direitos reservados.
+          &copy; ${new Date().getFullYear()} Suntecshed. Todos os direitos reservados.
         </td></tr>
       </table>
     </td></tr>

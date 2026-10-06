@@ -18,7 +18,7 @@ export function CheckoutOrderSummary({ shippingCost = 0, couponDiscount = 0 }: P
 
   return (
     <div className="neo-surface p-4 sm:p-6">
-      <h3 className="mb-4 text-base font-bold text-gray-900">Resumo do Pedido</h3>
+      <h3 className="mb-4 text-base font-bold text-gray-900">Order Summary</h3>
 
       {/* Items */}
       <div className="max-h-60 space-y-3 overflow-y-auto pr-1" style={{ scrollbarWidth: "thin" }}>
@@ -34,7 +34,7 @@ export function CheckoutOrderSummary({ shippingCost = 0, couponDiscount = 0 }: P
               <p className="truncate text-xs font-medium text-gray-900">{item.name}</p>
               {item.tier && (
                 <span className="mt-0.5 inline-block rounded-full bg-primary/10 px-1.5 py-0.5 text-[9px] font-semibold text-primary">
-                  Compra: {item.tier}
+                  Purchase: {item.tier}
                 </span>
               )}
               {item.color && <p className="text-[10px] text-gray-400">{item.color}{item.size ? ` • ${item.size}` : ""}</p>}
@@ -49,21 +49,21 @@ export function CheckoutOrderSummary({ shippingCost = 0, couponDiscount = 0 }: P
       {/* Totals */}
       <div className="mt-4 space-y-2 border-t border-gray-200/60 pt-4">
         <div className="flex justify-between text-sm">
-          <span className="text-gray-500">Subtotal ({itemCount} {itemCount === 1 ? "item" : "itens"})</span>
+          <span className="text-gray-500">Subtotal ({itemCount} {itemCount === 1 ? "item" : "items"})</span>
           <span className="font-medium text-gray-900">{formatCurrency(subtotal)}</span>
         </div>
 
         {couponDiscount > 0 && (
           <div className="flex justify-between text-sm">
-            <span className="text-green-600">Desconto</span>
+            <span className="text-green-600">Discount</span>
             <span className="font-medium text-green-600">- {formatCurrency(couponDiscount)}</span>
           </div>
         )}
 
         <div className="flex justify-between text-sm">
-          <span className="text-gray-500">Frete</span>
+          <span className="text-gray-500">Shipping</span>
           <span className={`font-medium ${shippingCost === 0 ? "text-green-600" : "text-gray-900"}`}>
-            {shippingCost === 0 ? "Grátis" : formatCurrency(shippingCost)}
+            {shippingCost === 0 ? "Free" : formatCurrency(shippingCost)}
           </span>
         </div>
 

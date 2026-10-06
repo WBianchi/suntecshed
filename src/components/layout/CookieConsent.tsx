@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FiX } from "react-icons/fi";
 import { TbCookie } from "react-icons/tb";
 
-const CONSENT_KEY = "C7drop_cookie_consent";
+const CONSENT_KEY = "suntecshed_cookie_consent";
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
@@ -43,12 +43,12 @@ export function CookieConsent() {
             <TbCookie className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-900">Usamos cookies</p>
+            <p className="text-sm font-bold text-gray-900">We use cookies</p>
             <p className="mt-1 text-xs leading-relaxed text-gray-500">
-              Usamos cookies para melhorar sua experiência, lembrar suas preferências e
-              analisar o uso do site. Saiba mais na nossa{" "}
+              We use cookies to improve your experience, remember your preferences and
+              analyze site usage. Learn more in our{" "}
               <Link href="/politica-de-privacidade" className="font-medium text-primary hover:underline">
-                Política de Privacidade
+                Privacy Policy
               </Link>.
             </p>
           </div>
@@ -59,13 +59,13 @@ export function CookieConsent() {
             onClick={() => decide("declined")}
             className="flex-1 rounded-xl border border-gray-200 py-2.5 text-xs font-semibold text-gray-600 transition-colors hover:bg-gray-50"
           >
-            Recusar
+            Decline
           </button>
           <button
             onClick={() => decide("accepted")}
             className="flex-1 rounded-xl bg-primary py-2.5 text-xs font-bold text-white transition-colors hover:bg-primary/90"
           >
-            Aceitar
+            Accept
           </button>
         </div>
       </div>

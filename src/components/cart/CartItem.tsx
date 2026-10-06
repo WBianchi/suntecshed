@@ -76,14 +76,14 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
             <div className="flex shrink-0 gap-1">
               <button
                 className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-primary"
-                title="Mover para favoritos"
+                title="Move to favorites"
               >
                 <FiHeart className="h-4 w-4" />
               </button>
               <button
                 onClick={handleRemove}
                 className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-red-50 hover:text-red-500"
-                title="Remover"
+                title="Remove"
               >
                 <FiTrash2 className="h-4 w-4" />
               </button>
@@ -98,7 +98,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
                   item.tier === "Grupo Vip"
                     ? "bg-primary/10 text-primary"
                     : item.tier === "Atacado"
-                    ? "bg-amber-50 text-amber-700"
+                    ? "bg-brand-50 text-brand-700"
                     : "bg-gray-100 text-gray-600"
                 }`}
               >
@@ -131,7 +131,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
             <button
               onClick={() => onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))}
               disabled={item.quantity <= 1 || (item.tier === "Atacado" && item.quantity <= ATACADO_MIN_QTY)}
-              title={item.tier === "Atacado" && item.quantity <= ATACADO_MIN_QTY ? "Quantidade mínima do Atacado: 6 unidades" : undefined}
+              title={item.tier === "Atacado" && item.quantity <= ATACADO_MIN_QTY ? "Wholesale minimum: 6 units" : undefined}
               className="flex h-8 w-8 items-center justify-center rounded-l-full text-gray-500 transition-colors hover:bg-gray-50 disabled:text-gray-300"
             >
               <FiMinus className="h-3.5 w-3.5" />

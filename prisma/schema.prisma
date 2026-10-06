@@ -741,7 +741,7 @@ model SeoSettings {
 
 model GlobalSettings {
   id                  String  @id @default(cuid())
-  storeName           String  @default("C7 Drop")
+  storeName           String  @default("Suntecshed")
   storeEmail          String?
   storePhone          String?
   storeWhatsapp       String?

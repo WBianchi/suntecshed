@@ -66,23 +66,23 @@ const methods = [
   {
     id: "pix" as PaymentMethod,
     label: "PIX",
-    desc: "Aprovação rápida",
+    desc: "Fast approval",
     icon: FiSmartphone,
     badge: null,
     badgeColor: "",
   },
   {
     id: "card" as PaymentMethod,
-    label: "Cartão de Crédito",
-    desc: "Em até 12x",
+    label: "Credit Card",
+    desc: "Up to 12x",
     icon: FiCreditCard,
     badge: "12x",
     badgeColor: "bg-primary/10 text-primary",
   },
   {
     id: "wallet" as PaymentMethod,
-    label: "Carteira",
-    desc: "Pague com seu saldo",
+    label: "Wallet",
+    desc: "Pay with your balance",
     icon: FaWallet,
     badge: null,
     badgeColor: "",
@@ -97,7 +97,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
     queryKey: ["wallet"],
     queryFn: async () => {
       const res = await fetch("/api/wallet");
-      if (!res.ok) throw new Error("Erro ao buscar carteira");
+      if (!res.ok) throw new Error("Error loading wallet");
       return res.json();
     },
   });
@@ -141,20 +141,20 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
     const e: Record<string, string> = {};
 
     if (data.method === "card" && !(data.useWalletBalance && remainingAfterWallet <= 0)) {
-      if (data.cardNumber.replace(/\D/g, "").length < 16) e.cardNumber = "Número do cartão inválido";
-      if (!data.cardName.trim()) e.cardName = "Nome obrigatório";
-      if (data.cardExpiry.replace(/\D/g, "").length < 4) e.cardExpiry = "Validade inválida";
-      if (data.cardCvv.length < 3) e.cardCvv = "CVV inválido";
+      if (data.cardNumber.replace(/\D/g, "").length < 16) e.cardNumber = "Invalid card number";
+      if (!data.cardName.trim()) e.cardName = "Name required";
+      if (data.cardExpiry.replace(/\D/g, "").length < 4) e.cardExpiry = "Invalid expiry";
+      if (data.cardCvv.length < 3) e.cardCvv = "Invalid CVV";
     }
 
     if (needsBilling) {
-      if (data.billingCep.replace(/\D/g, "").length < 8) e.billingCep = "CEP obrigatório";
-      if (!data.billingNumber.trim()) e.billingNumber = "Número obrigatório";
-      if (!data.billingCity.trim()) e.billingCity = "Cidade obrigatória";
-      if (!data.billingState.trim()) e.billingState = "Estado obrigatório";
+      if (data.billingCep.replace(/\D/g, "").length < 8) e.billingCep = "Postal code required";
+      if (!data.billingNumber.trim()) e.billingNumber = "Number required";
+      if (!data.billingCity.trim()) e.billingCity = "City required";
+      if (!data.billingState.trim()) e.billingState = "State required";
     }
 
-    if (data.method === "wallet" && insufficientBalance) e.wallet = "Saldo insuficiente";
+    if (data.method === "wallet" && insufficientBalance) e.wallet = "Insufficient balance";
 
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -172,7 +172,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
   return (
     <div className="neo-surface p-5 sm:p-8">
       <h2 className="mb-6 text-lg font-bold text-gray-900" style={{ fontFamily: "var(--font-poppins)" }}>
-        Forma de Pagamento
+        Payment Method
       </h2>
 
       {/* Method Selection */}
@@ -220,7 +220,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
       {/* PIX */}
       {data.method === "pix" && (
         <div className="neo-inset mt-6 p-5 text-center">
-          <p className="text-sm text-gray-600">Valor a pagar:</p>
+          <p className="text-sm text-gray-600">Amount due:</p>
           <p className="mt-1 text-3xl font-extrabold text-gray-900">
             R$ {total.toFixed(2).replace(".", ",")}
           </p>
@@ -234,7 +234,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
                 className="h-4 w-4 shrink-0 accent-primary"
               />
               <span className="text-xs font-medium text-gray-700">
-                Usar meu saldo da carteira ({formatCurrency(walletBalance)} disponível)
+                Use my wallet balance ({formatCurrency(walletBalance)} available)
               </span>
             </label>
           )}
@@ -242,11 +242,11 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
           {data.useWalletBalance && walletUsed > 0 && (
             <div className="mt-3 space-y-1 rounded-xl bg-white/60 p-3 text-xs">
               <div className="flex justify-between text-gray-600">
-                <span>Pago com saldo</span>
+                <span>Paid with balance</span>
                 <span className="font-semibold text-primary">- {formatCurrency(walletUsed)}</span>
               </div>
               <div className="flex justify-between border-t border-gray-200/60 pt-1 font-semibold text-gray-900">
-                <span>{remainingAfterWallet > 0 ? "Restante via Pix" : "Total"}</span>
+                <span>{remainingAfterWallet > 0 ? "Remaining via Pix" : "Total"}</span>
                 <span>{formatCurrency(remainingAfterWallet)}</span>
               </div>
             </div>
@@ -254,8 +254,8 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
 
           <p className="mt-3 text-xs text-gray-500">
             {data.useWalletBalance && remainingAfterWallet <= 0
-              ? "Seu saldo cobre o pedido inteiro — nenhum Pix será necessário."
-              : "O QR Code será gerado após a confirmação do pedido"}
+              ? "Your balance covers the whole order — no Pix needed."
+              : "The QR Code will be generated after order confirmation"}
           </p>
         </div>
       )}
@@ -272,7 +272,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
                 className="h-4 w-4 shrink-0 accent-primary"
               />
               <span className="text-xs font-medium text-gray-700">
-                Usar meu saldo da carteira ({formatCurrency(walletBalance)} disponível)
+                Use my wallet balance ({formatCurrency(walletBalance)} available)
               </span>
             </label>
           )}
@@ -280,11 +280,11 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
           {data.useWalletBalance && walletUsed > 0 && (
             <div className="space-y-1 rounded-xl bg-gray-50 p-3 text-xs">
               <div className="flex justify-between text-gray-600">
-                <span>Pago com saldo</span>
+                <span>Paid with balance</span>
                 <span className="font-semibold text-primary">- {formatCurrency(walletUsed)}</span>
               </div>
               <div className="flex justify-between border-t border-gray-200 pt-1 font-semibold text-gray-900">
-                <span>{remainingAfterWallet > 0 ? "Restante no cartão" : "Total"}</span>
+                <span>{remainingAfterWallet > 0 ? "Remaining on card" : "Total"}</span>
                 <span>{formatCurrency(remainingAfterWallet)}</span>
               </div>
             </div>
@@ -292,12 +292,12 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
 
           {data.useWalletBalance && remainingAfterWallet <= 0 ? (
             <p className="rounded-xl bg-green-50 p-3 text-xs font-medium text-green-700">
-              Seu saldo cobre o pedido inteiro — nenhuma cobrança será feita no cartão.
+              Your balance covers the whole order — nothing will be charged to the card.
             </p>
           ) : (
           <>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-600">Número do cartão</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-600">Card number</label>
             <div className="neo-inset">
               <input
                 type="text"
@@ -311,13 +311,13 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-600">Nome no cartão</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-600">Name on card</label>
             <div className="neo-inset">
               <input
                 type="text"
                 value={data.cardName}
                 onChange={(e) => onChange({ ...data, cardName: e.target.value.toUpperCase() })}
-                placeholder="NOME COMO NO CARTÃO"
+                placeholder="NAME AS ON CARD"
                 className="h-12 w-full bg-transparent px-4 text-sm font-mono uppercase text-gray-900 outline-none placeholder:text-gray-400 placeholder:normal-case"
               />
             </div>
@@ -326,7 +326,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-gray-600">Validade</label>
+              <label className="mb-1.5 block text-sm font-medium text-gray-600">Expiry</label>
               <div className="neo-inset">
                 <input
                   type="text"
@@ -357,17 +357,17 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
 
           {/* Endereço de Cobrança (quando etiqueta própria) */}
           {needsBilling && (
-            <div className="space-y-4 rounded-xl border border-amber-200 bg-amber-50/60 p-4">
+            <div className="space-y-4 rounded-xl border border-brand-200 bg-brand-50/60 p-4">
               <div>
-                <p className="text-sm font-semibold text-amber-900">Endereço de Cobrança</p>
-                <p className="text-xs text-amber-700">
-                  Como você anexou sua própria etiqueta, precisamos do endereço de cobrança para processar o cartão.
+                <p className="text-sm font-semibold text-brand-900">Billing Address</p>
+                <p className="text-xs text-brand-700">
+                  Since you attached your own label, we need the billing address to process the card.
                 </p>
               </div>
 
               {/* CEP */}
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-gray-600">CEP</label>
+                <label className="mb-1.5 block text-sm font-medium text-gray-600">Postal code</label>
                 <div className="neo-inset relative flex items-center">
                   <FiMapPin className="pointer-events-none absolute left-4 h-4 w-4 text-gray-400" />
                   <input
@@ -390,7 +390,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
 
               {/* Número */}
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-gray-600">Número</label>
+                <label className="mb-1.5 block text-sm font-medium text-gray-600">Number</label>
                 <div className="neo-inset">
                   <input
                     type="text"
@@ -418,7 +418,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
                         onChange({ ...data, billingCity: e.target.value });
                         if (errors.billingCity) setErrors((p) => clearError(p, "billingCity"));
                       }}
-                      placeholder="Cidade"
+                      placeholder="City"
                       className="h-12 w-full bg-transparent px-4 text-sm text-gray-900 outline-none placeholder:text-gray-400"
                     />
                   </div>
@@ -434,7 +434,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
                         onChange({ ...data, billingState: e.target.value.toUpperCase().slice(0, 2) });
                         if (errors.billingState) setErrors((p) => clearError(p, "billingState"));
                       }}
-                      placeholder="UF"
+                      placeholder="State"
                       maxLength={2}
                       className="h-12 w-full bg-transparent px-4 text-center font-bold text-gray-900 outline-none placeholder:text-gray-400"
                     />
@@ -447,7 +447,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
 
           {/* Installments */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-600">Parcelas</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-600">Installments</label>
             <div className="neo-inset">
               <select
                 value={data.installments}
@@ -456,7 +456,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
               >
                 {installmentOptions.map((o) => (
                   <option key={o.n} value={o.n}>
-                    {o.n}x de R$ {o.installmentValue.toFixed(2).replace(".", ",")} {o.hasInterest ? `(total R$ ${o.total.toFixed(2).replace(".", ",")})` : "sem juros"}
+                    {o.n}x of R$ {o.installmentValue.toFixed(2).replace(".", ",")} {o.hasInterest ? `(total R$ ${o.total.toFixed(2).replace(".", ",")})` : "interest-free"}
                   </option>
                 ))}
               </select>
@@ -470,17 +470,17 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
       {/* Carteira */}
       {data.method === "wallet" && (
         <div className="neo-inset mt-6 p-5 text-center">
-          <p className="text-sm text-gray-700">Saldo disponível</p>
+          <p className="text-sm text-gray-700">Available balance</p>
           <p className="mt-1 text-2xl font-extrabold text-gray-900">{formatCurrency(walletBalance)}</p>
-          <p className="mt-3 text-sm text-gray-700">Valor do pedido</p>
+          <p className="mt-3 text-sm text-gray-700">Order total</p>
           <p className="mt-1 text-xl font-bold text-primary">R$ {total.toFixed(2).replace(".", ",")}</p>
           {insufficientBalance ? (
             <p className="mt-3 text-xs font-semibold text-red-500">
-              Saldo insuficiente. Faltam {formatCurrency(total - walletBalance)} — recarregue sua carteira no ícone do topo do site ou escolha outra forma de pagamento.
+              Insufficient balance. You are missing {formatCurrency(total - walletBalance)} — top up your wallet from the icon at the top of the site or choose another payment method.
             </p>
           ) : (
             <p className="mt-3 text-xs text-gray-500">
-              O valor será debitado do seu saldo assim que o pedido for confirmado.
+              The amount will be debited from your balance as soon as the order is confirmed.
             </p>
           )}
         </div>
@@ -489,7 +489,7 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
       {/* Trust */}
       <div className="mt-5 flex items-center justify-center gap-2 text-[10px] text-gray-400">
         <FiCheck className="h-3.5 w-3.5 text-green-500" />
-        Ambiente 100% seguro e criptografado
+        100% secure and encrypted environment
       </div>
 
       <div className="mt-6 flex gap-3">
@@ -497,14 +497,14 @@ export function CheckoutPayment({ data, onChange, onNext, onBack, total, submitt
           onClick={onBack}
           className="neo-btn flex h-12 flex-1 items-center justify-center text-sm font-semibold text-gray-700"
         >
-          Voltar
+          Back
         </button>
         <button
           onClick={handleSubmit}
           disabled={submitting || insufficientBalance}
           className="neo-btn flex h-12 flex-[2] items-center justify-center gap-2 bg-primary text-sm font-bold uppercase tracking-wide text-white disabled:opacity-60"
         >
-          {submitting ? <><FiLoader className="h-4 w-4 animate-spin" /> Processando...</> : "Confirmar Pedido"}
+          {submitting ? <><FiLoader className="h-4 w-4 animate-spin" /> Processando...</> : "Confirm Order"}
         </button>
       </div>
     </div>

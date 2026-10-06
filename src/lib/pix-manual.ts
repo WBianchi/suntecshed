@@ -8,7 +8,7 @@ import QRCode from "qrcode";
 // ============================================
 
 const PIX_KEY = "60354224000123"; // CNPJ 60.354.224/0001-23
-const MERCHANT_NAME = "C7 DROP LTDA";
+const MERCHANT_NAME = "SUNTECSHED LTDA";
 const MERCHANT_CITY = "BRASILIA";
 
 function tlv(id: string, value: string): string {

@@ -27,10 +27,10 @@ interface WalletResponse {
 const SOURCE_LABELS: Record<string, string> = {
   MANUAL: "Ajuste",
   RECHARGE_PIX: "Recarga Pix",
-  RECHARGE_CARD: "Recarga cartão",
-  ORDER_CASHBACK: "Crédito de pedido",
-  ORDER_PAYMENT: "Compra",
-  MIGRATION: "Histórico",
+  RECHARGE_CARD: "Card top-up",
+  ORDER_CASHBACK: "Order credit",
+  ORDER_PAYMENT: "Purchase",
+  MIGRATION: "History",
 };
 
 const formatCardNumber = (v: string) => v.replace(/\D/g, "").slice(0, 16).replace(/(\d{4})/g, "$1 ").trim();
@@ -54,7 +54,7 @@ export function WalletWidget() {
     queryKey: ["wallet"],
     queryFn: async () => {
       const res = await fetch("/api/wallet");
-      if (!res.ok) throw new Error("Erro ao buscar carteira");
+      if (!res.ok) throw new Error("Error loading wallet");
       return res.json();
     },
   });
@@ -78,7 +78,7 @@ export function WalletWidget() {
   const handleRecharge = async () => {
     setError("");
     const value = Number(amount.replace(",", "."));
-    if (!value || value <= 0) { setError("Informe um valor válido"); return; }
+    if (!value || value <= 0) { setError("Enter a valid amount"); return; }
 
     setSubmitting(true);
     try {
@@ -130,7 +130,7 @@ export function WalletWidget() {
         >
           {/* Header / balance */}
           <div className="border-b border-gray-100 bg-gray-50/50 px-5 py-4 text-center">
-            <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Saldo em carteira</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Wallet balance</p>
             <p className="mt-1 text-2xl font-extrabold text-primary">{formatCurrency(balance)}</p>
           </div>
 
@@ -143,14 +143,14 @@ export function WalletWidget() {
                   onClick={() => setRecharging(true)}
                   className="flex w-full flex-col items-center gap-1.5 rounded-xl border border-gray-200 py-3 text-xs font-semibold text-gray-600 hover:border-primary hover:text-primary"
                 >
-                  <FiCreditCard className="h-4 w-4" /> Cartão de crédito
+                  <FiCreditCard className="h-4 w-4" /> Credit card
                 </button>
 
                 <p className="mb-2 mt-5 text-xs font-bold uppercase tracking-wider text-gray-400">Extrato recente</p>
                 {transactions.length === 0 ? (
                   <div className="rounded-xl border border-dashed border-gray-200 py-6 text-center">
                     <FiClock className="mx-auto h-5 w-5 text-gray-300" />
-                    <p className="mt-1.5 text-[11px] text-gray-400">Nenhuma movimentação ainda</p>
+                    <p className="mt-1.5 text-[11px] text-gray-400">No transactions yet</p>
                   </div>
                 ) : (
                   <div className="space-y-1.5">
@@ -183,9 +183,9 @@ export function WalletWidget() {
                     className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" />
                 </div>
                 <input value={card.number} onChange={(e) => setCard({ ...card, number: formatCardNumber(e.target.value) })}
-                  placeholder="Número do cartão" className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm font-mono outline-none focus:border-primary" />
+                  placeholder="Card number" className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm font-mono outline-none focus:border-primary" />
                 <input value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value.toUpperCase() })}
-                  placeholder="Nome no cartão" className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" />
+                  placeholder="Name on card" className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" />
                 <div className="flex gap-2">
                   <input value={card.expiry} onChange={(e) => setCard({ ...card, expiry: formatExpiry(e.target.value) })}
                     placeholder="MM/AA" maxLength={5} className="w-1/2 rounded-xl border border-gray-200 px-3 py-2.5 text-center text-sm font-mono outline-none focus:border-primary" />
@@ -199,7 +199,7 @@ export function WalletWidget() {
                       className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary">
                       {getInstallmentOptions(Number(amount.replace(",", "."))).map((o) => (
                         <option key={o.n} value={o.n}>
-                          {o.n}x de {formatCurrency(o.installmentValue)} {o.hasInterest ? `(total ${formatCurrency(o.total)})` : "sem juros"}
+                          {o.n}x de {formatCurrency(o.installmentValue)} {o.hasInterest ? `(total ${formatCurrency(o.total)})` : "interest-free"}
                         </option>
                       ))}
                     </select>

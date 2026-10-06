@@ -40,7 +40,7 @@ A descrição deve:
 Retorne APENAS a descrição em HTML simples (use <p>, <strong>, <ul>, <li>).`,
 
       seoTitle: `Gere um meta title SEO otimizado para o produto "${productName}" de uma loja de eletrônicos e dropshipping.
-Inclua a marca "C7 Drop" no final.
+Inclua a marca "Suntecshed" no final.
 Máximo 60 caracteres. Retorne APENAS o título.`,
 
       seoDescription: `Gere uma meta description SEO otimizada para o produto "${productName}" de uma loja de eletrônicos e dropshipping.

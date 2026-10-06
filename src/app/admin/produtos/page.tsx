@@ -317,7 +317,7 @@ export default function AdminProductsPage() {
                             <FiX className="h-3 w-3" /> Esgotado
                           </span>
                         ) : p.stock <= p.lowStockAlert ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-600">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 text-[11px] font-semibold text-brand-600">
                             <FiAlertTriangle className="h-3 w-3" /> {p.stock}
                           </span>
                         ) : (

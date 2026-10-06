@@ -15,8 +15,8 @@ interface ProductTabsProps {
 }
 
 const tabs = [
-  { id: "description", label: "Descrição" },
-  { id: "specs", label: "Especificações" },
+  { id: "description", label: "Description" },
+  { id: "specs", label: "Specifications" },
 ];
 
 export function ProductTabs({ productId, description, specs }: ProductTabsProps) {

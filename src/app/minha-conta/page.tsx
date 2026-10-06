@@ -13,16 +13,14 @@ import { AccountFavorites } from "@/components/account/AccountFavorites";
 import { AccountTracking } from "@/components/account/AccountTracking";
 import { AccountSettings } from "@/components/account/AccountSettings";
 import { AccountReviews } from "@/components/account/AccountReviews";
-import { AccountVip } from "@/components/account/AccountVip";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import {
   FiUser, FiPackage, FiHeart, FiTruck, FiSettings,
   FiChevronDown, FiX, FiStar,
 } from "react-icons/fi";
-import { FaCrown } from "react-icons/fa";
 
-type ModuleId = "perfil" | "pedidos" | "favoritos" | "avaliacoes" | "rastrear" | "vip" | "config";
+type ModuleId = "perfil" | "pedidos" | "favoritos" | "avaliacoes" | "rastrear" | "config";
 
 const modules: { id: ModuleId; label: string; icon: any; description: string; color: string }[] = [
   { id: "perfil", label: "Meu Perfil", icon: FiUser, description: "Dados pessoais e endereço", color: "from-primary-light to-primary-dark" },
@@ -30,7 +28,6 @@ const modules: { id: ModuleId; label: string; icon: any; description: string; co
   { id: "favoritos", label: "Meus Favoritos", icon: FiHeart, description: "Produtos salvos", color: "from-primary-light to-primary-dark" },
   { id: "avaliacoes", label: "Minhas Avaliações", icon: FiStar, description: "Suas avaliações de produtos", color: "from-primary-light to-primary-dark" },
   { id: "rastrear", label: "Rastrear Pedido", icon: FiTruck, description: "Acompanhe sua entrega", color: "from-primary-light to-primary-dark" },
-  { id: "vip", label: "Grupo VIP", icon: FaCrown, description: "Seus benefícios exclusivos", color: "from-primary-light to-primary-dark" },
   { id: "config", label: "Configurações", icon: FiSettings, description: "Senha e preferências", color: "from-primary-light to-primary-dark" },
 ];
 
@@ -40,7 +37,6 @@ const moduleComponents: Record<ModuleId, React.FC> = {
   favoritos: AccountFavorites,
   avaliacoes: AccountReviews,
   rastrear: AccountTracking,
-  vip: AccountVip,
   config: AccountSettings,
 };
 
@@ -93,11 +89,7 @@ function MinhaContaContent() {
               </div>
 
               <div className="space-y-3">
-                {modules.filter((mod) => {
-                  if (mod.id !== "vip") return true;
-                  const vipActive = !!user.isVip && (!user.vipExpiresAt || new Date(user.vipExpiresAt).getTime() > Date.now());
-                  return vipActive;
-                }).map((mod) => {
+                {modules.map((mod) => {
                   const isOpen = active === mod.id;
                   const ModIcon = mod.icon;
                   const Content = moduleComponents[mod.id];

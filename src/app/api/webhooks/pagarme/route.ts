@@ -5,11 +5,11 @@ import { sendOrderStatusEmails } from "@/lib/order-emails";
 // POST — Recebe notificações assíncronas do Pagar.me (ex: análise
 // antifraude que resolve depois do checkout, estorno, chargeback).
 // Configurar em Pagar.me > Configurações > Webhooks:
-// https://c7drop.com.br/api/webhooks/pagarme
+// https://suntecshed.com.br/api/webhooks/pagarme
 //
 // Verificação opcional: se PAGARME_WEBHOOK_SECRET estiver setado no .env,
 // a URL cadastrada no Pagar.me deve incluir ?secret=<mesmo valor>, ex:
-// https://c7drop.com.br/api/webhooks/pagarme?secret=xxxxx
+// https://suntecshed.com.br/api/webhooks/pagarme?secret=xxxxx
 const PAID_STATUSES = new Set(["paid", "authorized_pending_capture"]);
 const FAILED_STATUSES = new Set(["failed", "refused", "processing_failed"]);
 const REFUNDED_STATUSES = new Set(["refunded", "chargedback", "charged_back"]);

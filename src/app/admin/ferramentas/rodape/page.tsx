@@ -215,7 +215,7 @@ export default function RodapePage() {
             <div className="sm:col-span-2">
               <label className="mb-1.5 text-xs font-semibold text-gray-600">Copyright</label>
               <input value={config.copyright || ""} onChange={(e) => setField("copyright", e.target.value)}
-                className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="© 2025 C7 Drop. Todos os direitos reservados." />
+                className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="© 2025 Suntecshed. Todos os direitos reservados." />
             </div>
             <div>
               <label className="mb-1.5 text-xs font-semibold text-gray-600">Cor de Fundo</label>
@@ -306,7 +306,7 @@ export default function RodapePage() {
             <div>
               <label className="mb-1.5 text-xs font-semibold text-gray-600">E-mail</label>
               <input value={config.contactEmail || ""} onChange={(e) => setField("contactEmail", e.target.value)}
-                className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="contato@C7drop.com.br" />
+                className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="contato@Suntecshed.com.br" />
             </div>
             <div>
               <label className="mb-1.5 text-xs font-semibold text-gray-600">Telefone</label>
@@ -333,12 +333,12 @@ export default function RodapePage() {
             <h2 className="text-sm font-semibold text-gray-900">Redes Sociais</h2>
             <div className="grid gap-4 sm:grid-cols-2">
               {[
-                { key: "instagram", label: "Instagram", placeholder: "https://instagram.com/C7drop" },
-                { key: "facebook", label: "Facebook", placeholder: "https://facebook.com/C7drop" },
-                { key: "tiktok", label: "TikTok", placeholder: "https://tiktok.com/@C7drop" },
-                { key: "youtube", label: "YouTube", placeholder: "https://youtube.com/@C7drop" },
-                { key: "pinterest", label: "Pinterest", placeholder: "https://pinterest.com/C7drop" },
-                { key: "twitter", label: "Twitter/X", placeholder: "https://x.com/C7drop" },
+                { key: "instagram", label: "Instagram", placeholder: "https://instagram.com/Suntecshed" },
+                { key: "facebook", label: "Facebook", placeholder: "https://facebook.com/Suntecshed" },
+                { key: "tiktok", label: "TikTok", placeholder: "https://tiktok.com/@Suntecshed" },
+                { key: "youtube", label: "YouTube", placeholder: "https://youtube.com/@Suntecshed" },
+                { key: "pinterest", label: "Pinterest", placeholder: "https://pinterest.com/Suntecshed" },
+                { key: "twitter", label: "Twitter/X", placeholder: "https://x.com/Suntecshed" },
               ].map((s) => (
                 <div key={s.key}>
                   <label className="mb-1.5 text-xs font-semibold text-gray-600">{s.label}</label>

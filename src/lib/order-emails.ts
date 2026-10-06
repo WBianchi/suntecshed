@@ -1,6 +1,6 @@
 import { brandedEmailHtml, sendBrandedEmail } from "@/lib/email";
 
-const ADMIN_EMAIL = "admin@c7drop.com.br";
+const ADMIN_EMAIL = "admin@suntecshed.com.br";
 
 interface OrderStatusInfo {
   label: string;

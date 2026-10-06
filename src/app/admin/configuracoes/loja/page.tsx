@@ -128,12 +128,12 @@ export default function LojaPage() {
               <div className="sm:col-span-2">
                 <label className="mb-1.5 text-xs font-semibold text-gray-600">Nome da Loja</label>
                 <input value={config.storeName} onChange={(e) => setField("storeName", e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="C7 Drop" />
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="Suntecshed" />
               </div>
               <div>
                 <label className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-gray-600"><FiMail className="h-3 w-3" /> E-mail</label>
                 <input value={config.storeEmail || ""} onChange={(e) => setField("storeEmail", e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="contato@C7drop.com.br" />
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="contato@Suntecshed.com.br" />
               </div>
               <div>
                 <label className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-gray-600"><FiPhone className="h-3 w-3" /> Telefone</label>
@@ -159,22 +159,22 @@ export default function LojaPage() {
               <div>
                 <label className="mb-1.5 text-xs font-semibold text-gray-600">Instagram</label>
                 <input value={config.instagram || ""} onChange={(e) => setField("instagram", e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="https://instagram.com/C7drop" />
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="https://instagram.com/Suntecshed" />
               </div>
               <div>
                 <label className="mb-1.5 text-xs font-semibold text-gray-600">Facebook</label>
                 <input value={config.facebook || ""} onChange={(e) => setField("facebook", e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="https://facebook.com/C7drop" />
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="https://facebook.com/Suntecshed" />
               </div>
               <div>
                 <label className="mb-1.5 text-xs font-semibold text-gray-600">TikTok</label>
                 <input value={config.tiktok || ""} onChange={(e) => setField("tiktok", e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="https://tiktok.com/@C7drop" />
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="https://tiktok.com/@Suntecshed" />
               </div>
               <div>
                 <label className="mb-1.5 text-xs font-semibold text-gray-600">YouTube</label>
                 <input value={config.youtube || ""} onChange={(e) => setField("youtube", e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="https://youtube.com/@C7drop" />
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="https://youtube.com/@Suntecshed" />
               </div>
             </div>
           </div>

@@ -13,7 +13,7 @@ const sections = [
     icon: FiCheckCircle,
     title: "1. Aceitação dos Termos",
     content: `
-      <p>Ao acessar e utilizar o site da C7 Drop (C7drop.com.br), você concorda integralmente com estes Termos de Uso. Caso não concorde com algum dos termos, recomendamos que não utilize nossos serviços.</p>
+      <p>Ao acessar e utilizar o site da Suntecshed (Suntecshed.com.br), você concorda integralmente com estes Termos de Uso. Caso não concorde com algum dos termos, recomendamos que não utilize nossos serviços.</p>
       <p>Reservamo-nos o direito de alterar estes termos a qualquer momento, sendo que a versão atualizada será sempre publicada nesta página com a data da última revisão.</p>
     `,
   },
@@ -29,7 +29,7 @@ const sections = [
         <li>Notificar imediatamente qualquer uso não autorizado</li>
         <li>Manter seus dados cadastrais atualizados</li>
       </ul>
-      <p>A C7 Drop reserva-se o direito de suspender ou cancelar contas que violem estes termos ou que apresentem indícios de fraude.</p>
+      <p>A Suntecshed reserva-se o direito de suspender ou cancelar contas que violem estes termos ou que apresentem indícios de fraude.</p>
     `,
   },
   {
@@ -57,9 +57,9 @@ const sections = [
       <ul>
         <li><strong>Cartão de crédito:</strong> Visa, Mastercard, Elo, Amex, Hipercard — em até 12x</li>
         <li><strong>PIX:</strong> pagamento instantâneo, com confirmação em até algumas horas</li>
-        <li><strong>Carteira:</strong> pagamento com o saldo da carteira C7 Drop, com confirmação imediata</li>
+        <li><strong>Carteira:</strong> pagamento com o saldo da carteira Suntecshed, com confirmação imediata</li>
       </ul>
-      <p>Todos os pagamentos são processados por gateways certificados PCI-DSS, garantindo máxima segurança nas transações. A C7 Drop não armazena dados de cartão de crédito.</p>
+      <p>Todos os pagamentos são processados por gateways certificados PCI-DSS, garantindo máxima segurança nas transações. A Suntecshed não armazena dados de cartão de crédito.</p>
     `,
   },
   {
@@ -96,12 +96,12 @@ const sections = [
     icon: FiBookOpen,
     title: "7. Propriedade Intelectual",
     content: `
-      <p>Todo o conteúdo do site é propriedade da C7 Drop ou de seus licenciadores:</p>
+      <p>Todo o conteúdo do site é propriedade da Suntecshed ou de seus licenciadores:</p>
       <ul>
         <li>Textos, imagens, logotipos, ícones e layout são protegidos por direitos autorais</li>
         <li>Marcas registradas não podem ser utilizadas sem autorização prévia por escrito</li>
         <li>É proibida a reprodução, distribuição ou modificação do conteúdo sem autorização</li>
-        <li>Fotos de produtos são de uso exclusivo da C7 Drop</li>
+        <li>Fotos de produtos são de uso exclusivo da Suntecshed</li>
       </ul>
     `,
   },
@@ -110,7 +110,7 @@ const sections = [
     icon: FiAlertTriangle,
     title: "8. Limitação de Responsabilidade",
     content: `
-      <p>A C7 Drop não se responsabiliza por:</p>
+      <p>A Suntecshed não se responsabiliza por:</p>
       <ul>
         <li>Danos decorrentes de interrupções temporárias do site por manutenção ou falhas técnicas</li>
         <li>Uso indevido de credenciais de acesso por negligência do usuário</li>
@@ -126,7 +126,7 @@ const sections = [
     content: `
       <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil.</p>
       <p>Para dirimir quaisquer controvérsias, fica eleito o Foro da Comarca de Goiânia — GO, com renúncia expressa a qualquer outro, por mais privilegiado que seja.</p>
-      <p>Em caso de dúvidas, entre em contato pelo e-mail <strong>contato@C7drop.com.br</strong> ou pelo telefone <strong>(21) 99879-2729</strong>.</p>
+      <p>Em caso de dúvidas, entre em contato pelo e-mail <strong>contato@Suntecshed.com.br</strong> ou pelo telefone <strong>(38) 9884-2080</strong>.</p>
     `,
   },
 ];

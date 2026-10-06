@@ -22,8 +22,8 @@ export function FeaturedProducts() {
     <section className="py-12">
       <div className="mx-auto max-w-[1440px] px-4">
         <SectionHeader
-          title="Últimos Adicionados"
-          subtitle="Os produtos mais recentes do nosso catálogo"
+          title="New Arrivals"
+          subtitle="The latest products in our catalog"
           href="/produtos"
         />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">

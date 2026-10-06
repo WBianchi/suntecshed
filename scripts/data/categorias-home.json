@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "promocoes-do-mes",
+    "tituloEn": "Monthly Deals",
+    "rotulo": "MONTHLY DEALS",
+    "produto": "an open glossy red gift box with a blank sale tag, with a small modern gadget (wireless earbuds case) leaning against it"
+  },
+  {
+    "slug": "produtos-mais-vendidos",
+    "tituloEn": "Best Sellers",
+    "rotulo": "BEST SELLERS",
+    "produto": "a modern black smartwatch and a white wireless earbuds case displayed side by side"
+  },
+  {
+    "slug": "fones-de-ouvido",
+    "tituloEn": "Headphones",
+    "rotulo": "HEADPHONES",
+    "produto": "white wireless earbuds inside an opened glossy charging case, earbuds visible"
+  },
+  {
+    "slug": "cabos",
+    "tituloEn": "Chargers & Power Banks",
+    "rotulo": "CHARGERS",
+    "produto": "a slim black power bank standing upright with a coiled USB-C cable on the ground next to it"
+  },
+  {
+    "slug": "caixas-de-som",
+    "tituloEn": "Speakers",
+    "rotulo": "SPEAKERS",
+    "produto": "a black portable bluetooth speaker with a round metal passive radiator and a fabric mesh front"
+  },
+  {
+    "slug": "celulares-e-smartphones",
+    "tituloEn": "Smartphones",
+    "rotulo": "SMARTPHONES",
+    "produto": "a modern black smartphone standing upright, screen glowing with a colorful gradient wallpaper"
+  },
+  {
+    "slug": "informatica",
+    "tituloEn": "Computers",
+    "rotulo": "COMPUTERS",
+    "produto": "a slim silver laptop opened at a slight angle, screen on with a soft purple glow"
+  },
+  {
+    "slug": "iluminacao",
+    "tituloEn": "Lighting",
+    "rotulo": "LIGHTING",
+    "produto": "a modern black LED desk lamp switched on, glowing warm light, minimalist design"
+  },
+  {
+    "slug": "casa-e-decoracao",
+    "tituloEn": "Home & Kitchen",
+    "rotulo": "HOME & KITCHEN",
+    "produto": "a polished stainless steel kitchen utensil set (tongs, whisk, ladle) standing in a holder"
+  },
+  {
+    "slug": "relogios-e-smartwatchs",
+    "tituloEn": "Smartwatches",
+    "rotulo": "SMARTWATCHES",
+    "produto": "a black smartwatch with a rectangular glowing screen and a silicone strap, standing upright"
+  }
+]

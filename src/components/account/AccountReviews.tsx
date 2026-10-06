@@ -14,7 +14,7 @@ function Stars({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5">
       {[1, 2, 3, 4, 5].map((i) =>
-        i <= rating ? <FaStar key={i} className="h-3 w-3 text-amber-400" /> : <FaRegStar key={i} className="h-3 w-3 text-gray-300" />
+        i <= rating ? <FaStar key={i} className="h-3 w-3 text-brand-400" /> : <FaRegStar key={i} className="h-3 w-3 text-gray-300" />
       )}
     </div>
   );
@@ -81,7 +81,7 @@ export function AccountReviews() {
                   <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                     review.approved
                       ? "bg-green-100 text-green-700"
-                      : "bg-amber-100 text-amber-700"
+                      : "bg-brand-100 text-brand-700"
                   }`}>
                     {review.approved ? (
                       <span className="flex items-center gap-1"><FiCheck className="h-2.5 w-2.5" /> Aprovada</span>

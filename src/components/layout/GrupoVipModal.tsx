@@ -43,7 +43,7 @@ export function GrupoVipModal({ onClose }: GrupoVipModalProps) {
 
         {/* Body */}
         <div className="p-6">
-          <div className="space-y-2.5 rounded-2xl bg-amber-50/60 p-4">
+          <div className="space-y-2.5 rounded-2xl bg-brand-50/60 p-4">
             {benefits.map((b) => (
               <div key={b} className="flex items-start gap-2 text-sm text-gray-700">
                 <FiCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />

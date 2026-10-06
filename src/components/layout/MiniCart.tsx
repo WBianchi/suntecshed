@@ -67,9 +67,9 @@ export function MiniCart() {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <h3 className="text-lg font-bold">
-            Meu Carrinho{" "}
+            My Cart{" "}
             <span className="text-sm font-normal text-muted-foreground">
-              ({itemCount} {itemCount === 1 ? "item" : "itens"})
+              ({itemCount} {itemCount === 1 ? "item" : "items"})
             </span>
           </h3>
           <button
@@ -85,9 +85,9 @@ export function MiniCart() {
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <FiShoppingCart className="mb-4 h-16 w-16 text-muted-foreground/30" />
-              <p className="text-lg font-semibold text-foreground">Carrinho vazio</p>
+              <p className="text-lg font-semibold text-foreground">Your cart is empty</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Adicione produtos para continuar
+                Add products to continue
               </p>
             </div>
           ) : (
@@ -120,7 +120,7 @@ export function MiniCart() {
                                 item.tier === "Grupo Vip"
                                   ? "bg-primary/10 text-primary"
                                   : item.tier === "Atacado"
-                                  ? "bg-amber-50 text-amber-700"
+                                  ? "bg-brand-50 text-brand-700"
                                   : "bg-gray-100 text-gray-600"
                               )}
                             >
@@ -144,7 +144,7 @@ export function MiniCart() {
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           disabled={item.tier === "Atacado" && item.quantity <= ATACADO_MIN_QTY}
-                          title={item.tier === "Atacado" && item.quantity <= ATACADO_MIN_QTY ? "Quantidade mínima do Atacado: 6 unidades" : undefined}
+                          title={item.tier === "Atacado" && item.quantity <= ATACADO_MIN_QTY ? "Wholesale minimum: 6 units" : undefined}
                           className="rounded-full p-1.5 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-300 dark:hover:bg-gray-800"
                         >
                           <FiMinus className="h-3 w-3" />
@@ -182,13 +182,13 @@ export function MiniCart() {
                 <span className="font-medium">{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Frete</span>
+                <span className="text-muted-foreground">Shipping</span>
                 {shipping ? (
                   <span className={cn("font-medium", shipping.price === 0 ? "text-green-600" : "text-foreground")}>
-                    {shipping.price === 0 ? "Grátis" : formatCurrency(shipping.price)}
+                    {shipping.price === 0 ? "Free" : formatCurrency(shipping.price)}
                   </span>
                 ) : (
-                  <span className="text-xs text-muted-foreground">Calcule acima</span>
+                  <span className="text-xs text-muted-foreground">Calculate above</span>
                 )}
               </div>
               <div className="flex items-center justify-between border-t border-border pt-2 text-base">
@@ -200,7 +200,7 @@ export function MiniCart() {
             {shippingError && (
               <div className="mt-4 flex items-center gap-2 rounded-xl bg-red-50 px-3 py-2.5 text-xs font-medium text-red-600">
                 <FiAlertCircle className="h-4 w-4 shrink-0" />
-                Selecione uma forma de frete antes de continuar
+                Select a shipping method to continue
               </div>
             )}
             <button
@@ -210,20 +210,20 @@ export function MiniCart() {
                 shippingError ? "mt-3" : "mt-4"
               )}
             >
-              Finalizar Compra
+              Checkout
             </button>
             <Link
               href="/carrinho"
               onClick={closeCart}
               className="mt-2 flex w-full items-center justify-center rounded-full border border-border py-3 text-sm font-semibold text-foreground transition-colors hover:bg-gray-50 dark:hover:bg-gray-800"
             >
-              Ver Carrinho Completo
+              View full cart
             </Link>
             <button
               onClick={closeCart}
               className="mt-2 w-full rounded-full py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
-              Continuar Comprando
+              Continue Shopping
             </button>
           </div>
         )}

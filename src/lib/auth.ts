@@ -1,6 +1,6 @@
 import jwt, { type SignOptions } from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "C7drop-fallback-secret";
+const JWT_SECRET = process.env.JWT_SECRET || "Suntecshed-fallback-secret";
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "7d";
 
 export interface JwtPayload {
@@ -21,7 +21,7 @@ export function verifyToken(token: string): JwtPayload | null {
   }
 }
 
-export const AUTH_COOKIE_NAME = "C7drop_token";
+export const AUTH_COOKIE_NAME = "Suntecshed_token";
 
 interface ResetTokenPayload {
   userId: string;

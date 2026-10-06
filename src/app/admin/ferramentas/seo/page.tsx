@@ -185,7 +185,7 @@ export default function SeoPage() {
                   <span className={cn("text-[10px]", (form.title?.length || 0) > 60 ? "text-red-500" : "text-gray-400")}>{form.title?.length || 0}/60</span>
                 </label>
                 <input value={form.title || ""} onChange={(e) => setField("title", e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="C7 Drop | Atacado e Dropshipping" />
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="Suntecshed | Atacado e Dropshipping" />
               </div>
               <div>
                 <label className="mb-1.5 flex items-center justify-between text-xs font-semibold text-gray-600">
@@ -213,7 +213,7 @@ export default function SeoPage() {
                 <div>
                   <label className="mb-1.5 text-xs font-semibold text-gray-600">OG Título</label>
                   <input value={form.ogTitle || ""} onChange={(e) => setField("ogTitle", e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="C7 Drop" />
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-primary" placeholder="Suntecshed" />
                 </div>
                 <ImageUpload label="OG Imagem" value={form.ogImage} onChange={(url) => setField("ogImage", url)} aspectRatio="video" hint="Recomendado: 1200x630px" />
                 <div className="sm:col-span-2">
@@ -235,7 +235,7 @@ export default function SeoPage() {
                 <div className="p-3 bg-white">
                   <p className="text-xs font-bold text-gray-900 truncate">{form.ogTitle || form.title || "Título OG"}</p>
                   <p className="text-[10px] text-gray-500 truncate mt-0.5">{form.ogDescription || form.metaDescription || "Descrição OG"}</p>
-                  <p className="text-[9px] text-gray-400 mt-0.5">C7drop.com.br</p>
+                  <p className="text-[9px] text-gray-400 mt-0.5">Suntecshed.com.br</p>
                 </div>
               </div>
             </div>
@@ -304,7 +304,7 @@ export default function SeoPage() {
               <h3 className="text-xs font-bold text-gray-700">Preview no Google</h3>
               <div className="space-y-0.5">
                 <p className="text-sm font-medium text-blue-700 truncate">{form.title || "Título da Página"}</p>
-                <p className="text-xs text-green-700">C7drop.com.br</p>
+                <p className="text-xs text-green-700">Suntecshed.com.br</p>
                 <p className="text-xs text-gray-600 line-clamp-2">{form.metaDescription || "Meta description da página aparecerá aqui nos resultados de busca."}</p>
               </div>
             </div>

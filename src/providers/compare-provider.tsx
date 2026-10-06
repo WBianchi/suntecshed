@@ -35,7 +35,7 @@ export function CompareProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem("C7drop_compare");
+      const stored = localStorage.getItem("Suntecshed_compare");
       if (stored) setItems(JSON.parse(stored));
     } catch {}
     setHydrated(true);
@@ -43,7 +43,7 @@ export function CompareProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (hydrated) {
-      localStorage.setItem("C7drop_compare", JSON.stringify(items));
+      localStorage.setItem("Suntecshed_compare", JSON.stringify(items));
     }
   }, [items, hydrated]);
 

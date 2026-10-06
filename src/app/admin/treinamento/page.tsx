@@ -189,7 +189,7 @@ export default function TreinamentoPage() {
         </div>
         <div className="rounded-xl border border-gray-100 bg-white p-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
               <FiFilter className="h-5 w-5" />
             </div>
             <div>
@@ -310,7 +310,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete }: {
         )}
         {/* Status badge */}
         {video.status === "processing" && (
-          <span className="absolute left-2 top-2 flex items-center gap-1 rounded-md bg-amber-500/90 px-2 py-0.5 text-[10px] font-bold text-white">
+          <span className="absolute left-2 top-2 flex items-center gap-1 rounded-md bg-brand-500/90 px-2 py-0.5 text-[10px] font-bold text-white">
             <FiLoader className="h-3 w-3 animate-spin" /> Processando
           </span>
         )}
@@ -338,7 +338,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete }: {
             <button onClick={onPlay} className="rounded-lg p-1.5 text-gray-400 hover:bg-blue-50 hover:text-blue-600 transition-colors">
               <FiPlay className="h-3.5 w-3.5" />
             </button>
-            <button onClick={onEdit} className="rounded-lg p-1.5 text-gray-400 hover:bg-amber-50 hover:text-amber-600 transition-colors">
+            <button onClick={onEdit} className="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-600 transition-colors">
               <FiEdit3 className="h-3.5 w-3.5" />
             </button>
             <button onClick={onDelete} className="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600 transition-colors">
@@ -380,7 +380,7 @@ function VideoRow({ video, onPlay, onEdit, onDelete }: {
       </div>
       <div className="flex shrink-0 gap-1">
         <button onClick={onPlay} className="rounded-lg p-2 text-gray-400 hover:bg-blue-50 hover:text-blue-600"><FiPlay className="h-4 w-4" /></button>
-        <button onClick={onEdit} className="rounded-lg p-2 text-gray-400 hover:bg-amber-50 hover:text-amber-600"><FiEdit3 className="h-4 w-4" /></button>
+        <button onClick={onEdit} className="rounded-lg p-2 text-gray-400 hover:bg-brand-50 hover:text-brand-600"><FiEdit3 className="h-4 w-4" /></button>
         <button onClick={onDelete} className="rounded-lg p-2 text-gray-400 hover:bg-red-50 hover:text-red-600"><FiTrash2 className="h-4 w-4" /></button>
       </div>
     </div>

@@ -44,7 +44,7 @@ const methodLabels: Record<string, { label: string; color: string }> = {
   PIX: { label: "PIX", color: "bg-teal-50 text-teal-700" },
   BOLETO: { label: "Boleto", color: "bg-blue-50 text-blue-700" },
   CREDIT_CARD: { label: "Cartão", color: "bg-purple-50 text-purple-700" },
-  WALLET: { label: "Carteira", color: "bg-amber-50 text-amber-700" },
+  WALLET: { label: "Carteira", color: "bg-brand-50 text-brand-700" },
 };
 
 function useTransactions(filters: any) {

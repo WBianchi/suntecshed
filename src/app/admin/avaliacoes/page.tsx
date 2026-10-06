@@ -20,7 +20,7 @@ function Stars({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5">
       {[1, 2, 3, 4, 5].map((i) =>
-        i <= rating ? <FaStar key={i} className="h-3 w-3 text-amber-400" /> : <FaRegStar key={i} className="h-3 w-3 text-gray-300" />
+        i <= rating ? <FaStar key={i} className="h-3 w-3 text-brand-400" /> : <FaRegStar key={i} className="h-3 w-3 text-gray-300" />
       )}
     </div>
   );
@@ -98,9 +98,9 @@ export default function AdminReviewsPage() {
           <p className="mt-0.5 text-sm text-gray-500">{total} avaliações no total</p>
         </div>
         {pendingCount > 0 && (
-          <div className="flex items-center gap-2 rounded-xl bg-amber-50 px-4 py-2">
-            <FiClock className="h-4 w-4 text-amber-500" />
-            <span className="text-sm font-medium text-amber-700">{pendingCount} pendente{pendingCount > 1 ? "s" : ""}</span>
+          <div className="flex items-center gap-2 rounded-xl bg-brand-50 px-4 py-2">
+            <FiClock className="h-4 w-4 text-brand-500" />
+            <span className="text-sm font-medium text-brand-700">{pendingCount} pendente{pendingCount > 1 ? "s" : ""}</span>
           </div>
         )}
       </div>
@@ -159,7 +159,7 @@ export default function AdminReviewsPage() {
               <div key={review.id}
                 className={cn(
                   "rounded-2xl border bg-white p-5 transition-all",
-                  review.approved ? "border-gray-100" : "border-amber-200 bg-amber-50/30"
+                  review.approved ? "border-gray-100" : "border-brand-200 bg-brand-50/30"
                 )}>
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                   {/* Product thumbnail */}
@@ -196,7 +196,7 @@ export default function AdminReviewsPage() {
                       <Stars rating={review.rating} />
                       <span className={cn(
                         "rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                        review.approved ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
+                        review.approved ? "bg-green-100 text-green-700" : "bg-brand-100 text-brand-700"
                       )}>
                         {review.approved ? "Aprovada" : "Pendente"}
                       </span>
@@ -217,7 +217,7 @@ export default function AdminReviewsPage() {
                     ) : (
                       <button onClick={() => approveMut.mutate({ id: review.id, approved: false })}
                         disabled={approveMut.isPending}
-                        className="flex items-center gap-1.5 rounded-lg bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-700 hover:bg-amber-100 disabled:opacity-50">
+                        className="flex items-center gap-1.5 rounded-lg bg-brand-50 px-3 py-2 text-xs font-semibold text-brand-700 hover:bg-brand-100 disabled:opacity-50">
                         <FiXCircle className="h-3.5 w-3.5" /> Rejeitar
                       </button>
                     )}

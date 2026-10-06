@@ -21,7 +21,7 @@ export function AccountVip() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-3 rounded-2xl bg-amber-50/60 p-4">
+      <div className="flex items-center gap-3 rounded-2xl bg-brand-50/60 p-4">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-white">
           <FaCrown className="h-5 w-5" />
         </div>

@@ -64,7 +64,7 @@ export default function EntrarPage() {
       // refreshUser to get role, then redirect
       await refreshUser();
     } else {
-      setError(result.error || "Erro ao fazer login");
+      setError(result.error || "Error signing in");
     }
     setLoading(false);
   };
@@ -74,11 +74,11 @@ export default function EntrarPage() {
     clearMessages();
 
     if (regPassword !== regConfirm) {
-      setError("As senhas não coincidem");
+      setError("Passwords do not match");
       return;
     }
     if (regPassword.length < 6) {
-      setError("A senha deve ter pelo menos 6 caracteres");
+      setError("Password must be at least 6 characters");
       return;
     }
 
@@ -93,7 +93,7 @@ export default function EntrarPage() {
     if (result.success) {
       await refreshUser();
     } else {
-      setError(result.error || "Erro ao criar conta");
+      setError(result.error || "Error creating account");
     }
     setLoading(false);
   };
@@ -110,12 +110,12 @@ export default function EntrarPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "Erro ao processar solicitação");
+        setError(data.error || "Error processing request");
         return;
       }
-      setSuccess(data.message || "Se este email estiver cadastrado, você receberá um link para redefinir sua senha.");
+      setSuccess(data.message || "If this email is registered, you will receive a link to reset your password.");
     } catch {
-      setError("Erro de conexão. Tente novamente.");
+      setError("Connection error. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -123,15 +123,15 @@ export default function EntrarPage() {
 
   const passwordStrength = (pw: string) => {
     if (pw.length === 0) return { level: 0, label: "", color: "" };
-    if (pw.length < 6) return { level: 1, label: "Fraca", color: "bg-red-400" };
+    if (pw.length < 6) return { level: 1, label: "Weak", color: "bg-red-400" };
     const hasUpper = /[A-Z]/.test(pw);
     const hasNumber = /[0-9]/.test(pw);
     const hasSpecial = /[^A-Za-z0-9]/.test(pw);
     const score = [pw.length >= 8, hasUpper, hasNumber, hasSpecial].filter(Boolean).length;
-    if (score <= 1) return { level: 1, label: "Fraca", color: "bg-red-400" };
-    if (score === 2) return { level: 2, label: "Média", color: "bg-yellow-400" };
-    if (score === 3) return { level: 3, label: "Boa", color: "bg-blue-400" };
-    return { level: 4, label: "Forte", color: "bg-green-500" };
+    if (score <= 1) return { level: 1, label: "Weak", color: "bg-red-400" };
+    if (score === 2) return { level: 2, label: "Medium", color: "bg-yellow-400" };
+    if (score === 3) return { level: 3, label: "Good", color: "bg-blue-400" };
+    return { level: 4, label: "Strong", color: "bg-green-500" };
   };
 
   const strength = passwordStrength(regPassword);
@@ -147,7 +147,7 @@ export default function EntrarPage() {
           {/* Logo inside the form */}
           <div className="flex flex-col items-center pt-8 pb-2">
             <Link href="/" className="flex flex-col items-center gap-2">
-              <img src="/logo.png" alt="C7drop" className="h-14 w-auto object-contain" />
+              <img src="/logo.png" alt="Suntecshed" className="h-14 w-auto object-contain" />
             </Link>
           </div>
 
@@ -157,9 +157,9 @@ export default function EntrarPage() {
               <div>
                 <div className="mb-6 text-center">
                   <h2 className="text-xl font-bold text-gray-900" style={{ fontFamily: "var(--font-playfair)" }}>
-                    Bem-vindo de volta
+                    Welcome back
                   </h2>
-                  <p className="mt-1 text-sm text-gray-500">Entre com sua conta para continuar</p>
+                  <p className="mt-1 text-sm text-gray-500">Sign in to your account to continue</p>
                 </div>
 
                 {error && (
@@ -191,7 +191,7 @@ export default function EntrarPage() {
                     <div className="w-full border-t border-gray-200" />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-white px-3 text-[11px] uppercase tracking-wider text-gray-400">ou entre com email</span>
+                    <span className="bg-white px-3 text-[11px] uppercase tracking-wider text-gray-400">or continue with email</span>
                   </div>
                 </div>
 
@@ -204,7 +204,7 @@ export default function EntrarPage() {
                         required
                         value={loginEmail}
                         onChange={(e) => setLoginEmail(e.target.value)}
-                        placeholder="Seu email"
+                        placeholder="Your email"
                         className={inputClass}
                       />
                     </div>
@@ -218,7 +218,7 @@ export default function EntrarPage() {
                         required
                         value={loginPassword}
                         onChange={(e) => setLoginPassword(e.target.value)}
-                        placeholder="Sua senha"
+                        placeholder="Your password"
                         className={inputPasswordClass}
                       />
                       <button
@@ -239,14 +239,14 @@ export default function EntrarPage() {
                         onChange={(e) => setRememberMe(e.target.checked)}
                         className="h-4 w-4 rounded border-gray-300 text-primary accent-primary"
                       />
-                      <span className="text-xs text-gray-500">Lembrar-me</span>
+                      <span className="text-xs text-gray-500">Remember me</span>
                     </label>
                     <button
                       type="button"
                       onClick={() => switchMode("forgot")}
                       className="text-xs font-medium text-primary hover:underline"
                     >
-                      Esqueceu a senha?
+                      Forgot password?
                     </button>
                   </div>
 
@@ -255,17 +255,17 @@ export default function EntrarPage() {
                     disabled={loading}
                     className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-primary-dark active:scale-[0.98] disabled:opacity-50"
                   >
-                    {loading ? <FiLoader className="h-5 w-5 animate-spin" /> : "Entrar"}
+                    {loading ? <FiLoader className="h-5 w-5 animate-spin" /> : "Sign in"}
                   </button>
                 </form>
 
                 <p className="mt-6 text-center text-sm text-gray-500">
-                  Não tem uma conta?{" "}
+                  Don't have an account?{" "}
                   <button
                     onClick={() => switchMode("register")}
                     className="font-semibold text-primary hover:underline"
                   >
-                    Criar conta grátis
+                    Create free account
                   </button>
                 </p>
               </div>
@@ -276,9 +276,9 @@ export default function EntrarPage() {
               <div>
                 <div className="mb-6 text-center">
                   <h2 className="text-xl font-bold text-gray-900" style={{ fontFamily: "var(--font-playfair)" }}>
-                    Criar sua conta
+                    Create your account
                   </h2>
-                  <p className="mt-1 text-sm text-gray-500">Cadastre-se e aproveite ofertas exclusivas</p>
+                  <p className="mt-1 text-sm text-gray-500">Sign up and enjoy exclusive deals</p>
                 </div>
 
                 {error && (
@@ -310,7 +310,7 @@ export default function EntrarPage() {
                     <div className="w-full border-t border-gray-200" />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-white px-3 text-[11px] uppercase tracking-wider text-gray-400">ou cadastre com email</span>
+                    <span className="bg-white px-3 text-[11px] uppercase tracking-wider text-gray-400">or sign up with email</span>
                   </div>
                 </div>
 
@@ -322,7 +322,7 @@ export default function EntrarPage() {
                       required
                       value={regName}
                       onChange={(e) => setRegName(e.target.value)}
-                      placeholder="Nome completo"
+                      placeholder="Full name"
                       className={inputClass}
                     />
                   </div>
@@ -334,7 +334,7 @@ export default function EntrarPage() {
                       required
                       value={regEmail}
                       onChange={(e) => setRegEmail(e.target.value)}
-                      placeholder="Seu email"
+                      placeholder="Your email"
                       className={inputClass}
                     />
                   </div>
@@ -345,7 +345,7 @@ export default function EntrarPage() {
                       type="tel"
                       value={regPhone}
                       onChange={(e) => setRegPhone(e.target.value)}
-                      placeholder="Telefone (opcional)"
+                      placeholder="Phone (optional)"
                       className={inputClass}
                     />
                   </div>
@@ -358,7 +358,7 @@ export default function EntrarPage() {
                         required
                         value={regPassword}
                         onChange={(e) => setRegPassword(e.target.value)}
-                        placeholder="Criar senha (mín. 6 caracteres)"
+                        placeholder="Create password (min. 6 characters)"
                         className={inputPasswordClass}
                       />
                       <button
@@ -381,7 +381,7 @@ export default function EntrarPage() {
                             />
                           ))}
                         </div>
-                        <p className="mt-1 text-[10px] text-gray-400">Força: <span className="font-medium">{strength.label}</span></p>
+                        <p className="mt-1 text-[10px] text-gray-400">Strength: <span className="font-medium">{strength.label}</span></p>
                       </div>
                     )}
                   </div>
@@ -393,7 +393,7 @@ export default function EntrarPage() {
                       required
                       value={regConfirm}
                       onChange={(e) => setRegConfirm(e.target.value)}
-                      placeholder="Confirmar senha"
+                      placeholder="Confirm password"
                       className={`h-12 w-full rounded-full border bg-gray-50/50 pl-11 pr-12 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:bg-white focus:ring-2 ${
                         regConfirm.length > 0 && regConfirm !== regPassword
                           ? "border-red-300 focus:border-red-400 focus:ring-red-100"
@@ -412,17 +412,17 @@ export default function EntrarPage() {
                     disabled={loading}
                     className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-primary-dark active:scale-[0.98] disabled:opacity-50"
                   >
-                    {loading ? <FiLoader className="h-5 w-5 animate-spin" /> : "Criar minha conta"}
+                    {loading ? <FiLoader className="h-5 w-5 animate-spin" /> : "Create my account"}
                   </button>
                 </form>
 
                 <p className="mt-5 text-center text-sm text-gray-500">
-                  Já tem uma conta?{" "}
+                  Already have an account?{" "}
                   <button
                     onClick={() => switchMode("login")}
                     className="font-semibold text-primary hover:underline"
                   >
-                    Fazer login
+                    Sign in
                   </button>
                 </p>
               </div>
@@ -433,10 +433,10 @@ export default function EntrarPage() {
               <div>
                 <div className="mb-6 text-center">
                   <h2 className="text-xl font-bold text-gray-900" style={{ fontFamily: "var(--font-playfair)" }}>
-                    Recuperar senha
+                    Reset password
                   </h2>
                   <p className="mt-1 text-sm text-gray-500">
-                    Informe seu email para redefinir sua senha
+                    Enter your email to reset your password
                   </p>
                 </div>
 
@@ -463,7 +463,7 @@ export default function EntrarPage() {
                       required
                       value={forgotEmail}
                       onChange={(e) => setForgotEmail(e.target.value)}
-                      placeholder="Seu email"
+                      placeholder="Your email"
                       className={inputClass}
                     />
                   </div>
@@ -473,7 +473,7 @@ export default function EntrarPage() {
                     disabled={loading}
                     className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-primary-dark active:scale-[0.98] disabled:opacity-50"
                   >
-                    {loading ? <FiLoader className="h-5 w-5 animate-spin" /> : "Enviar link de recuperação"}
+                    {loading ? <FiLoader className="h-5 w-5 animate-spin" /> : "Send reset link"}
                   </button>
                 </form>
 
@@ -482,7 +482,7 @@ export default function EntrarPage() {
                     onClick={() => switchMode("login")}
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
                   >
-                    <FiArrowLeft className="h-3.5 w-3.5" /> Voltar ao login
+                    <FiArrowLeft className="h-3.5 w-3.5" /> Back to sign in
                   </button>
                 </div>
               </div>
@@ -492,14 +492,14 @@ export default function EntrarPage() {
 
         {/* Footer outside card */}
         <p className="mt-6 text-center text-[11px] text-gray-400">
-          Ao criar uma conta, você concorda com nossos{" "}
-          <Link href="/termos-de-uso" className="underline hover:text-primary">Termos de Uso</Link>{" "}
+          By creating an account you agree to our{" "}
+          <Link href="/termos-de-uso" className="underline hover:text-primary">Terms of Use</Link>{" "}
           e{" "}
-          <Link href="/politica-de-privacidade" className="underline hover:text-primary">Política de Privacidade</Link>.
+          <Link href="/politica-de-privacidade" className="underline hover:text-primary">Privacy Policy</Link>.
         </p>
         <div className="mt-3 text-center">
           <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-gray-400 transition-colors hover:text-primary">
-            <FiArrowLeft className="h-3 w-3" /> Voltar à loja
+            <FiArrowLeft className="h-3 w-3" /> Back to store
           </Link>
         </div>
       </div>

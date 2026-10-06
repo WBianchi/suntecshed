@@ -257,7 +257,7 @@ export default function AdminClientsPage() {
                     <td className="px-5 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button onClick={() => openEditForm(c)}
-                          className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-amber-50 hover:text-amber-600" title="Editar">
+                          className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-brand-50 hover:text-brand-600" title="Editar">
                           <FiEdit2 className="h-4 w-4" />
                         </button>
                         <button onClick={() => { setSelectedClientId(c.id); setDetailOpen(true); }}
@@ -348,7 +348,7 @@ const orderStatusLabels: Record<string, { label: string; color: string }> = {
   DELIVERED: { label: "Entregue", color: "bg-green-50 text-green-700" },
   CANCELLED: { label: "Cancelado", color: "bg-red-50 text-red-700" },
   REFUNDED: { label: "Reembolsado", color: "bg-gray-100 text-gray-600" },
-  MISSING_LABEL: { label: "Ausência de Etiqueta", color: "bg-amber-50 text-amber-700" },
+  MISSING_LABEL: { label: "Ausência de Etiqueta", color: "bg-brand-50 text-brand-700" },
   ORDER_ERROR: { label: "Erro no Pedido", color: "bg-red-100 text-red-800" },
 };
 

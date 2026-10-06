@@ -77,7 +77,7 @@ const DEFAULT_ENABLED = new Set([
   "orderNumber", "createdAt", "customerName", "customerEmail", "productName", "variant", "quantity", "total", "status", "trackingCode", "address",
 ]);
 
-const STORAGE_KEY = "C7drop_export_orders_config";
+const STORAGE_KEY = "Suntecshed_export_orders_config";
 
 function getFieldValue(o: AdminOrder, key: string): string {
   switch (key) {

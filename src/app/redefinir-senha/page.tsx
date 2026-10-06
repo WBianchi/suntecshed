@@ -63,7 +63,7 @@ function RedefinirSenhaForm() {
         <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-xl shadow-black/5">
           <div className="flex flex-col items-center pt-8 pb-2">
             <Link href="/" className="flex flex-col items-center gap-2">
-              <img src="/logo.png" alt="C7drop" className="h-14 w-auto object-contain" />
+              <img src="/logo.png" alt="Suntecshed" className="h-14 w-auto object-contain" />
             </Link>
           </div>
 

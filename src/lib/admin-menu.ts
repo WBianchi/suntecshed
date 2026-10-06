@@ -5,9 +5,8 @@ import {
   FiSmartphone, FiImage, FiFileText, FiTruck,
   FiDollarSign, FiPieChart, FiTrendingUp, FiShoppingBag, FiSliders,
   FiLock, FiDatabase, FiLayers, FiLayout, FiMenu, FiSearch,
-  FiVideo, FiAward,
+  FiVideo,
 } from "react-icons/fi";
-import { FaCrown } from "react-icons/fa";
 
 export interface AdminSubItem {
   label: string;
@@ -30,9 +29,7 @@ export const adminMenuItems: AdminMenuItem[] = [
   { label: "Vendas", href: "/admin/vendas/pedidos", icon: FiShoppingCart },
   { label: "Carrinho Abandonado", href: "/admin/vendas/abandonados", icon: FiShoppingBag },
   { label: "Frete", href: "/admin/frete", icon: FiTruck },
-  { label: "Grupo VIP", href: "/admin/grupo-vip", icon: FaCrown },
   { label: "Recargas", href: "/admin/recargas", icon: FiDollarSign },
-  { label: "Hall da Fama", href: "/admin/hall-da-fama", icon: FiAward },
   {
     label: "Produtos",
     icon: FiBox,

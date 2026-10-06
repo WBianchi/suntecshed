@@ -18,9 +18,9 @@ interface SearchResult {
 const trendingSearches = [
   "Fone Bluetooth",
   "Smartwatch",
-  "Caixa de Som",
-  "Carregador Portátil",
-  "Câmera Digital",
+  "Bluetooth Speaker",
+  "Power Bank",
+  "Digital Camera",
   "Mini Ventilador",
 ];
 
@@ -85,7 +85,7 @@ export function SearchBar() {
         <input
           ref={inputRef}
           type="text"
-          placeholder="O que você está procurando?"
+          placeholder="What are you looking for?"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
@@ -108,7 +108,7 @@ export function SearchBar() {
           type="submit"
           className="shrink-0 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-primary/90"
         >
-          Buscar
+          Search
         </button>
       </form>
 
@@ -154,12 +154,12 @@ export function SearchBar() {
                 onClick={handleSubmit}
                 className="flex w-full items-center justify-center gap-2 border-t border-gray-100 py-3 text-sm font-semibold text-primary hover:bg-gray-50"
               >
-                Ver todos os resultados
+                See all results
               </button>
             </div>
           ) : (
             <div className="py-6 text-center text-sm text-gray-500">
-              Nenhum produto encontrado
+              No products found
             </div>
           )}
         </div>
@@ -170,7 +170,7 @@ export function SearchBar() {
         <div className="absolute left-0 right-0 top-full z-50 mt-2 rounded-2xl border border-border bg-white p-4 shadow-xl dark:bg-gray-900">
           <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             <FiTrendingUp className="h-3.5 w-3.5" />
-            Mais buscados
+            Most searched
           </div>
           <div className="flex flex-wrap gap-2">
             {trendingSearches.map((term) => (

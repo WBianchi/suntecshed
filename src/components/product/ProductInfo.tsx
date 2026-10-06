@@ -7,10 +7,9 @@ import { bestInstallmentPitch } from "@/lib/installments";
 import { useCart } from "@/providers/cart-provider";
 import { useFavorites } from "@/providers/favorites-provider";
 import { ShareModal } from "@/components/product/ShareModal";
-import { GrupoVipModal } from "@/components/layout/GrupoVipModal";
 import { getColorGradient, isLightColor } from "@/lib/color-swatch";
 
-type Tier = "DROPSHIPPING" | "ATACADO" | "GRUPO_VIP";
+type Tier = "DROPSHIPPING" | "ATACADO";
 
 interface VariantData {
   id: string;
@@ -38,13 +37,11 @@ interface ProductInfoProps {
   manageStock: boolean;
   baseStock: number;
   variants: VariantData[];
-  isVip: boolean;
 }
 
 const TIER_LABEL: Record<Tier, string> = {
   DROPSHIPPING: "Dropshipping",
-  ATACADO: "Atacado",
-  GRUPO_VIP: "Grupo Vip",
+  ATACADO: "Wholesale",
 };
 
 function ColorSwatchButton({ value, selected, onClick }: { value: string; selected: boolean; onClick: () => void }) {
@@ -76,22 +73,22 @@ function ColorSwatchButton({ value, selected, onClick }: { value: string; select
 
 export function ProductInfo({
   id, slug, image, name, price, compareAtPrice,
-  description, sku, gtin, ncm, anatelHomologation, manageStock, baseStock, variants, isVip,
+  description, sku, gtin, ncm, anatelHomologation, manageStock, baseStock, variants,
 }: ProductInfoProps) {
-  // Atributo "real" do produto (Cor/Tamanho/etc) — tudo que não é o eixo de tier "Compra"
+  // Atributo "real" do produto (Cor/Size/etc) — tudo que não é o eixo de tier "Compra"
   const realVariants = useMemo(() => variants.filter((v) => v.name !== "Compra"), [variants]);
   const realGroupName = realVariants[0]?.name;
   const realValues = useMemo(() => [...new Set(realVariants.map((v) => v.value))], [realVariants]);
   const hasTiers = variants.some((v) => v.tier);
 
   // Alguns produtos migrados têm 2 atributos reais combinados num valor só
-  // (ex: "127v / Preto" = Voltagem + Cor) porque a migração do WooCommerce
-  // junta tudo que não é o eixo de tier num único campo "Variação". Se der
+  // (ex: "127v / Preto" = Voltage + Cor) porque a migração do WooCommerce
+  // junta tudo que não é o eixo de tier num único campo "Variant". Se der
   // pra separar de forma consistente, mostra um seletor por atributo em vez
   // de um botão só com o valor colado — assim a cor aparece de verdade.
   const AXIS_SEP = " / ";
   const isCompoundGroup =
-    realGroupName === "Variação" &&
+    realGroupName === "Variant" &&
     realValues.length > 0 &&
     realValues.every((v) => v.includes(AXIS_SEP)) &&
     new Set(realValues.map((v) => v.split(AXIS_SEP).length)).size === 1 &&
@@ -111,9 +108,9 @@ export function ProductInfo({
 
   const axisLabels = useMemo(() => {
     function guessLabel(values: string[]): string {
-      if (values.every((v) => /^\d+\s*v$/i.test(v.trim()))) return "Voltagem";
-      if (values.every((v) => /polegada|cent[ií]metro|\bcm\b|\bmm\b|\bmetro/i.test(v))) return "Tamanho";
-      return "Cor";
+      if (values.every((v) => /^\d+\s*v$/i.test(v.trim()))) return "Voltage";
+      if (values.every((v) => /polegada|cent[ií]metro|\bcm\b|\bmm\b|\bmetro/i.test(v))) return "Size";
+      return "Color";
     }
     const seen = new Map<string, number>();
     return axisOptions.map((opts) => {
@@ -132,7 +129,6 @@ export function ProductInfo({
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
-  const [vipModalOpen, setVipModalOpen] = useState(false);
   const { addItem, items } = useCart();
   const { toggleFavorite, isFavorite } = useFavorites();
   const isFavorited = isFavorite(id);
@@ -141,7 +137,7 @@ export function ProductInfo({
   // Dropshipping, mas o cliente pode clicar em qualquer tier que tenha
   // acesso — inclusive um VIP escolher Atacado/Dropshipping manualmente.
   const [selectedTier, setSelectedTier] = useState<Tier | null>(null);
-  const effectiveTier: Tier = selectedTier ?? (isVip ? "GRUPO_VIP" : quantity >= 6 ? "ATACADO" : "DROPSHIPPING");
+  const effectiveTier: Tier = selectedTier ?? (quantity >= 6 ? "ATACADO" : "DROPSHIPPING");
 
   const activeVariant = useMemo(() => {
     if (!hasTiers) {
@@ -182,7 +178,6 @@ export function ProductInfo({
   }
 
   function handleTierClick(tier: Tier) {
-    if (tier === "GRUPO_VIP" && !isVip) { setVipModalOpen(true); return; }
     setSelectedTier(tier);
     if (tier === "ATACADO") updateQuantity(Math.max(quantity, 6));
     if (tier === "DROPSHIPPING") updateQuantity(Math.min(quantity, 5));
@@ -228,16 +223,16 @@ export function ProductInfo({
         <div className="mb-2 flex items-center gap-2">
           {inStock ? (
             <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-600">
-              <span className="h-1.5 w-1.5 rounded-full bg-green-500" /> Em estoque
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500" /> In stock
             </span>
           ) : (
             <span className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-500">
-              Esgotado
+              Sold out
             </span>
           )}
           {manageStock && inStock && (
             <span className="text-xs text-gray-400">
-              {effectiveStock} unidade{effectiveStock !== 1 ? "s" : ""} dispon{effectiveStock !== 1 ? "í" : ""}vel{effectiveStock !== 1 ? "is" : ""}
+              {effectiveStock} available
             </span>
           )}
           {!manageStock && <span className="text-xs text-gray-400">SKU: {effectiveSku}</span>}
@@ -251,7 +246,7 @@ export function ProductInfo({
           <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-400">
             {gtin && <span>EAN: {gtin}</span>}
             {ncm && <span>NCM: {ncm}</span>}
-            {anatelHomologation && <span>Homologação Anatel: {anatelHomologation}</span>}
+            {anatelHomologation && <span>ANATEL Certification: {anatelHomologation}</span>}
           </div>
         )}
       </div>
@@ -260,37 +255,25 @@ export function ProductInfo({
       {hasTiers && (
         <div>
           <label className="mb-3 block text-sm font-semibold text-gray-900">
-            Compra <span className="font-normal text-gray-500">- {TIER_LABEL[effectiveTier]}</span>
+            Purchase <span className="font-normal text-gray-500">- {TIER_LABEL[effectiveTier]}</span>
           </label>
           <div className="flex flex-wrap gap-2">
-            {(["ATACADO", "DROPSHIPPING", "GRUPO_VIP"] as Tier[]).map((tier) => {
-              const locked = tier === "GRUPO_VIP" && !isVip;
-              const active = tier === effectiveTier;
-              return (
-                <button
-                  key={tier}
-                  onClick={() => handleTierClick(tier)}
-                  title={locked ? "Disponível apenas para membros do Grupo VIP — clique para saber mais" : undefined}
-                  className={cn(
-                    "flex items-center gap-1.5 rounded-xl border-2 px-4 py-2.5 text-sm font-medium transition-all",
-                    active
-                      ? "border-primary bg-primary text-white"
-                      : locked
-                      ? "border-gray-100 bg-gray-50 text-gray-400 hover:border-primary/40 hover:text-primary"
-                      : "border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary"
-                  )}
-                >
-                  {locked && <FiLock className="h-3 w-3" />}
-                  {TIER_LABEL[tier]}
-                </button>
-              );
-            })}
+            {(["ATACADO", "DROPSHIPPING"] as Tier[]).map((tier) => (
+              <button
+                key={tier}
+                onClick={() => handleTierClick(tier)}
+                className={cn(
+                  "flex items-center gap-1.5 rounded-xl border-2 px-4 py-2.5 text-sm font-medium transition-all",
+                  tier === effectiveTier
+                    ? "border-primary bg-primary text-white"
+                    : "border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary"
+                )}
+              >
+                {TIER_LABEL[tier]}
+              </button>
+            ))}
           </div>
-          {!isVip && (
-            <p className="mt-2 text-xs text-gray-400">
-              Atacado a partir de 6 unidades. Grupo VIP é exclusivo para membros aprovados.
-            </p>
-          )}
+          <p className="mt-2 text-xs text-gray-400">Wholesale pricing starts at 6 units.</p>
         </div>
       )}
 
@@ -312,14 +295,14 @@ export function ProductInfo({
           )}
         </div>
         <p className="mt-1.5 text-sm text-gray-500">
-          ou em até <span className="font-semibold text-primary">{installmentCount}x de R$ {installment}</span>
+          or up to <span className="font-semibold text-primary">{installmentCount}x of R$ {installment}</span>
         </p>
       </div>
 
       {/* Description */}
       <p className="text-sm leading-relaxed text-gray-600">{description}</p>
 
-      {/* Atributo real composto (ex: Voltagem + Cor combinados na migração) — um seletor por eixo */}
+      {/* Atributo real composto (ex: Voltage + Cor combinados na migração) — um seletor por eixo */}
       {isCompoundGroup &&
         axisOptions.map((opts, axisIdx) => (
           <div key={axisIdx}>
@@ -328,7 +311,7 @@ export function ProductInfo({
             </label>
             <div className="flex flex-wrap gap-2">
               {opts.map((val) =>
-                axisLabels[axisIdx] === "Cor" ? (
+                axisLabels[axisIdx] === "Color" ? (
                   <ColorSwatchButton
                     key={val}
                     value={val}
@@ -366,7 +349,7 @@ export function ProductInfo({
           </div>
         ))}
 
-      {/* Atributo real simples (Cor/Tamanho/etc) */}
+      {/* Atributo real simples (Cor/Size/etc) */}
       {!isCompoundGroup && realGroupName && realValues.length > 0 && (
         <div>
           <label className="mb-3 block text-sm font-semibold text-gray-900">
@@ -401,7 +384,7 @@ export function ProductInfo({
           <button
             onClick={() => updateQuantity(quantity - 1)}
             disabled={effectiveTier === "ATACADO" && quantity <= 6}
-            title={effectiveTier === "ATACADO" && quantity <= 6 ? "Quantidade mínima do Atacado: 6 unidades" : undefined}
+            title={effectiveTier === "ATACADO" && quantity <= 6 ? "Wholesale minimum: 6 units" : undefined}
             className="flex h-12 w-12 items-center justify-center text-gray-500 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-300"
           >
             <FiMinus className="h-4 w-4" />
@@ -410,7 +393,7 @@ export function ProductInfo({
           <button
             onClick={() => updateQuantity(quantity + 1)}
             disabled={plusDisabled}
-            title={plusDisabled ? "Estoque máximo atingido" : undefined}
+            title={plusDisabled ? "Maximum stock reached" : undefined}
             className="flex h-12 w-12 items-center justify-center text-gray-500 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-300"
           >
             <FiPlus className="h-4 w-4" />
@@ -431,22 +414,22 @@ export function ProductInfo({
           {addedToCart ? (
             <>
               <FiCheck className="h-5 w-5" />
-              Adicionado!
+              Added!
             </>
           ) : !inStock ? (
             <>
               <FiShoppingCart className="h-5 w-5" />
-              Esgotado
+              Sold out
             </>
           ) : manageStock && maxAddQty <= 0 ? (
             <>
               <FiShoppingCart className="h-5 w-5" />
-              Já está no carrinho
+              Already in cart
             </>
           ) : (
             <>
               <FiShoppingCart className="h-5 w-5" />
-              Adicionar ao Carrinho
+              Add to Cart
             </>
           )}
         </button>
@@ -465,7 +448,7 @@ export function ProductInfo({
 
         <button
           onClick={handleShare}
-          title="Compartilhar"
+          title="Share"
           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-gray-200 text-gray-400 transition-all hover:border-primary hover:text-primary"
         >
           <FiShare2 className="h-5 w-5" />
@@ -495,7 +478,7 @@ export function ProductInfo({
           <button
             onClick={() => updateQuantity(quantity - 1)}
             disabled={effectiveTier === "ATACADO" && quantity <= 6}
-            title={effectiveTier === "ATACADO" && quantity <= 6 ? "Quantidade mínima do Atacado: 6 unidades" : undefined}
+            title={effectiveTier === "ATACADO" && quantity <= 6 ? "Wholesale minimum: 6 units" : undefined}
             className="flex h-11 w-10 items-center justify-center text-gray-500 disabled:cursor-not-allowed disabled:text-gray-300"
           >
             <FiMinus className="h-3.5 w-3.5" />
@@ -504,7 +487,7 @@ export function ProductInfo({
           <button
             onClick={() => updateQuantity(quantity + 1)}
             disabled={plusDisabled}
-            title={plusDisabled ? "Estoque máximo atingido" : undefined}
+            title={plusDisabled ? "Maximum stock reached" : undefined}
             className="flex h-11 w-10 items-center justify-center text-gray-500 disabled:cursor-not-allowed disabled:text-gray-300"
           >
             <FiPlus className="h-3.5 w-3.5" />
@@ -515,9 +498,9 @@ export function ProductInfo({
       {/* Trust Badges */}
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {[
-          { icon: FiTruck, title: "Envio Rápido", desc: "Para todo o Brasil" },
-          { icon: FiShield, title: "Compra Segura", desc: "Ambiente protegido" },
-          { icon: FiRefreshCw, title: "Troca Grátis", desc: "Em até 30 dias" },
+          { icon: FiTruck, title: "Fast Shipping", desc: "Shipped all over Brazil" },
+          { icon: FiShield, title: "Secure Purchase", desc: "Protected environment" },
+          { icon: FiRefreshCw, title: "Free Returns", desc: "Within 30 days" },
         ].map((badge) => (
           <div key={badge.title} className="flex flex-col items-center gap-1 rounded-xl border border-gray-100 bg-gray-50/50 p-2.5 text-center sm:gap-1.5 sm:p-3">
             <badge.icon className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
@@ -535,7 +518,7 @@ export function ProductInfo({
               R$ {effectivePrice.toFixed(2).replace(".", ",")}
             </p>
             <p className="text-[10px] text-gray-400">
-              ou em até {installmentCount}x de R$ {installment}
+              or up to {installmentCount}x of R$ {installment}
             </p>
           </div>
           <button
@@ -552,22 +535,22 @@ export function ProductInfo({
             {addedToCart ? (
               <>
                 <FiCheck className="h-5 w-5" />
-                Adicionado!
+                Added!
               </>
             ) : !inStock ? (
               <>
                 <FiShoppingCart className="h-5 w-5" />
-                Esgotado
+                Sold out
               </>
             ) : manageStock && maxAddQty <= 0 ? (
               <>
                 <FiShoppingCart className="h-5 w-5" />
-                Já está no carrinho
+                Already in cart
               </>
             ) : (
               <>
                 <FiShoppingCart className="h-5 w-5" />
-                Comprar
+                Buy
               </>
             )}
           </button>
@@ -581,7 +564,6 @@ export function ProductInfo({
         onClose={() => setShareOpen(false)}
       />
     )}
-    {vipModalOpen && <GrupoVipModal onClose={() => setVipModalOpen(false)} />}
     </>
   );
 }

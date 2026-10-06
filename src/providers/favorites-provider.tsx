@@ -49,7 +49,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (user) return;
     try {
-      const stored = localStorage.getItem("C7drop_favorites");
+      const stored = localStorage.getItem("Suntecshed_favorites");
       if (stored) setFavorites(JSON.parse(stored));
     } catch {}
     setHydrated(true);
@@ -57,7 +57,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!hydrated || user) return;
-    localStorage.setItem("C7drop_favorites", JSON.stringify(favorites));
+    localStorage.setItem("Suntecshed_favorites", JSON.stringify(favorites));
   }, [favorites, hydrated, user]);
 
   // Logado: os favoritos vivem no banco (mesma fonte usada em /minha-conta),
@@ -76,7 +76,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
         let localFavorites: FavoriteProduct[] = [];
         try {
-          const stored = localStorage.getItem("C7drop_favorites");
+          const stored = localStorage.getItem("Suntecshed_favorites");
           if (stored) localFavorites = JSON.parse(stored);
         } catch {}
 
@@ -92,7 +92,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
           } catch {}
         }
 
-        localStorage.removeItem("C7drop_favorites");
+        localStorage.removeItem("Suntecshed_favorites");
         setFavorites([...serverFavorites, ...toMerge]);
       } finally {
         setHydrated(true);

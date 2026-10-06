@@ -302,7 +302,7 @@ export default function AdminFretePage() {
                     <td className="px-5 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button onClick={() => openEdit(r)}
-                          className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-amber-50 hover:text-amber-600">
+                          className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-brand-50 hover:text-brand-600">
                           <FiEdit2 className="h-4 w-4" />
                         </button>
                         <button onClick={() => setDeleteTarget(r)}

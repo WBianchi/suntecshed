@@ -59,7 +59,7 @@ async function asaasFetch<T = any>(
     headers: {
       "Content-Type": "application/json",
       access_token: config.apiKey,
-      "User-Agent": "C7drop",
+      "User-Agent": "Suntecshed",
       ...(init?.headers || {}),
     },
   });
@@ -148,7 +148,7 @@ export async function createPixPayment(
       billingType: "PIX",
       value: Number(value.toFixed(2)),
       dueDate: formatDate(dueDate),
-      description: `Pedido ${orderNumber} - C7 Drop`,
+      description: `Pedido ${orderNumber} - Suntecshed`,
       externalReference: orderNumber,
     }),
   });
@@ -183,7 +183,7 @@ export async function createBoletoPayment(
       billingType: "BOLETO",
       value: Number(value.toFixed(2)),
       dueDate: formatDate(dueDate),
-      description: `Pedido ${orderNumber} - C7 Drop`,
+      description: `Pedido ${orderNumber} - Suntecshed`,
       externalReference: orderNumber,
     }),
   });
@@ -252,7 +252,7 @@ export async function createCardPayment(
       customer: customerId,
       billingType: "CREDIT_CARD",
       dueDate: formatDate(new Date()),
-      description: `Pedido ${orderNumber} - C7 Drop`,
+      description: `Pedido ${orderNumber} - Suntecshed`,
       externalReference: orderNumber,
       ...(installments > 1
         ? { installmentCount: installments, totalValue: Number(value.toFixed(2)) }

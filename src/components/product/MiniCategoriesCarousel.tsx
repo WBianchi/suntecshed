@@ -11,6 +11,7 @@ interface CategoryFromAPI {
   name: string;
   slug: string;
   image: string | null;
+  featured: boolean;
   productCount: number;
 }
 
@@ -27,8 +28,10 @@ export function MiniCategoriesCarousel() {
     staleTime: 5 * 60 * 1000,
   });
 
-  // Only show categories that have active products linked
-  const categories = allCategories.filter((c) => c.productCount > 0);
+  // Mesma regra do carrossel da home: só as categorias marcadas como destaque
+  const comProduto = allCategories.filter((c) => c.productCount > 0);
+  const destaques = comProduto.filter((c) => c.featured);
+  const categories = destaques.length > 0 ? destaques : comProduto;
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -44,9 +47,9 @@ export function MiniCategoriesCarousel() {
         <div className="mb-4 flex items-center justify-between sm:mb-6">
           <div className="min-w-0">
             <h2 className="text-lg font-bold text-gray-900 sm:text-2xl" style={{ fontFamily: "var(--font-playfair)" }}>
-              Explore Categorias
+              Explore Categories
             </h2>
-            <p className="mt-0.5 text-xs text-gray-500 sm:mt-1 sm:text-sm">Descubra mais produtos que combinam com você</p>
+            <p className="mt-0.5 text-xs text-gray-500 sm:mt-1 sm:text-sm">Discover more products you'll love</p>
           </div>
           <div className="flex gap-2">
             <button
@@ -94,7 +97,7 @@ export function MiniCategoriesCarousel() {
                 <p className="text-sm font-semibold text-gray-900 group-hover:text-primary">
                   {cat.name}
                 </p>
-                <p className="text-[10px] text-gray-400">{cat.productCount} produtos</p>
+                <p className="text-[10px] text-gray-400">{cat.productCount} products</p>
               </div>
             </Link>
           ))}

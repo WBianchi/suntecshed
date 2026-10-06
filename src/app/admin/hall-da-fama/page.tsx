@@ -39,7 +39,7 @@ const CATEGORIES = [
 ];
 
 const CATEGORY_COLORS: Record<string, string> = {
-  "50k": "bg-amber-100 text-amber-700",
+  "50k": "bg-brand-100 text-brand-700",
   "100k": "bg-orange-100 text-orange-700",
   "500k": "bg-red-100 text-red-700",
   "1m": "bg-purple-100 text-purple-700",
@@ -307,7 +307,7 @@ export default function HallDaFamaAdminPage() {
                         <FiPlay className="h-3.5 w-3.5" />
                       </button>
                       <button onClick={() => { setEditEntry(entry); setShowForm(true); }}
-                        className="rounded-lg p-1.5 text-gray-400 hover:bg-amber-50 hover:text-amber-600 transition-colors"
+                        className="rounded-lg p-1.5 text-gray-400 hover:bg-brand-50 hover:text-brand-600 transition-colors"
                         title="Editar">
                         <FiEdit3 className="h-3.5 w-3.5" />
                       </button>

@@ -48,7 +48,7 @@ export function MiniProductCard({
               discount > 0 ? "bg-primary" : isNew ? "bg-primary" : "bg-primary/80"
             )}
           >
-            {discount > 0 ? `-${discount}%` : isNew ? "Novo" : "Top"}
+            {discount > 0 ? `-${discount}%` : isNew ? "New" : "Top"}
           </span>
         )}
       </div>
@@ -67,7 +67,7 @@ export function MiniProductCard({
           onClick={handleAddToCart}
           className="mt-2 rounded-full bg-primary/10 py-1.5 text-[11px] font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
         >
-          Adicionar
+          Add
         </button>
       </div>
     </Link>

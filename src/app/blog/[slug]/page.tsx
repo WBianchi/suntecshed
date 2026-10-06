@@ -181,8 +181,8 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                             {(post.author || "H")[0].toUpperCase()}
                           </div>
                           <div>
-                            <p className="text-sm font-bold text-gray-900">{post.author || "C7drop"}</p>
-                            <p className="text-[11px] text-gray-500">Equipe C7 Drop</p>
+                            <p className="text-sm font-bold text-gray-900">{post.author || "Suntecshed"}</p>
+                            <p className="text-[11px] text-gray-500">Equipe Suntecshed</p>
                           </div>
                         </div>
                       </div>

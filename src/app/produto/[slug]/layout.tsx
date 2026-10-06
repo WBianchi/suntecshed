@@ -11,10 +11,10 @@ export async function generateMetadata(
     include: { images: { where: { isPrimary: true }, take: 1 } },
   });
 
-  if (!product) return { title: "Produto" };
+  if (!product) return { title: "Product" };
 
   const description = stripHtml(product.shortDescription || product.description || "", 160)
-    || `${product.name} — compre na C7 Drop com procedência garantida.`;
+    || `${product.name} — buy at Suntecshed with guaranteed authenticity.`;
 
   return {
     title: product.name,

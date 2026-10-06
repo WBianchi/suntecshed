@@ -34,15 +34,15 @@ export default function MaintenancePage() {
   const pad = (n: number) => n.toString().padStart(2, "0");
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#F2B705] px-6 text-white">
-      <div className="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-[#FCD34D] opacity-40 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-[#D97706] opacity-50 blur-3xl" />
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#7530fa] px-6 text-white">
+      <div className="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-[#9d6bff] opacity-40 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-[#5a14cf] opacity-50 blur-3xl" />
 
       <div className="relative z-10 flex w-full max-w-lg flex-col items-center rounded-3xl bg-white px-8 py-12 text-center shadow-2xl sm:px-14">
         <div className="mb-6 flex h-20 w-40 items-center justify-center">
           <Image
             src="/logo.png"
-            alt="C7 Drop"
+            alt="Suntecshed"
             width={160}
             height={80}
             className="h-full w-auto object-contain"
@@ -50,7 +50,7 @@ export default function MaintenancePage() {
           />
         </div>
 
-        <h1 className="font-heading text-2xl font-bold text-[#F2B705] sm:text-3xl">
+        <h1 className="font-heading text-2xl font-bold text-[#7530fa] sm:text-3xl">
           Estamos em manutenção
         </h1>
         <p className="mt-3 text-sm text-[#6B7280] sm:text-base">
@@ -66,7 +66,7 @@ export default function MaintenancePage() {
           ].map((unit) => (
             <div
               key={unit.label}
-              className="flex w-20 flex-col items-center rounded-2xl bg-[#F2B705] py-4 text-white sm:w-24"
+              className="flex w-20 flex-col items-center rounded-2xl bg-[#7530fa] py-4 text-white sm:w-24"
             >
               <span className="text-2xl font-bold tabular-nums sm:text-3xl">
                 {pad(unit.value)}

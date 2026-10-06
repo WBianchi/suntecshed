@@ -29,7 +29,7 @@ const orderStatusMap: Record<string, { label: string; color: string; icon: any }
   DELIVERED: { label: "Entregue", color: "bg-green-50 text-green-700", icon: FiCheck },
   CANCELLED: { label: "Cancelado", color: "bg-red-50 text-red-700", icon: FiX },
   REFUNDED: { label: "Reembolsado", color: "bg-gray-100 text-gray-600", icon: FiAlertTriangle },
-  MISSING_LABEL: { label: "Ausência de Etiqueta", color: "bg-amber-50 text-amber-700", icon: FiPaperclip },
+  MISSING_LABEL: { label: "Ausência de Etiqueta", color: "bg-brand-50 text-brand-700", icon: FiPaperclip },
   ORDER_ERROR: { label: "Erro no Pedido", color: "bg-red-100 text-red-800", icon: FiAlertOctagon },
 };
 
@@ -811,9 +811,9 @@ function OrderDetailModal({ order, onClose }: { order: AdminOrder; onClose: () =
           {(order.recipientName || localLabelUrl || order.meServiceId) && (
             <div className="grid gap-4 sm:grid-cols-2">
               {order.recipientName && (
-                <div className="rounded-xl border border-amber-100 bg-amber-50/50 p-4">
+                <div className="rounded-xl border border-brand-100 bg-brand-50/50 p-4">
                   <div className="flex items-center gap-2 mb-1">
-                    <FiUser className="h-4 w-4 text-amber-500" />
+                    <FiUser className="h-4 w-4 text-brand-500" />
                     <span className="text-xs font-semibold text-gray-500">Destinatário (diferente do comprador)</span>
                   </div>
                   <p className="text-sm font-medium text-gray-900">{order.recipientName}</p>
@@ -919,12 +919,12 @@ function OrderDetailModal({ order, onClose }: { order: AdminOrder; onClose: () =
                 </p>
               </div>
               {order.walletAmountUsed > 0 && (
-                <div className="col-span-2 rounded-lg bg-amber-50 px-3 py-2">
-                  <span className="text-xs text-amber-700">Pago com saldo da carteira</span>
-                  <p className="font-semibold text-amber-800">
+                <div className="col-span-2 rounded-lg bg-brand-50 px-3 py-2">
+                  <span className="text-xs text-brand-700">Pago com saldo da carteira</span>
+                  <p className="font-semibold text-brand-800">
                     {formatBRL(order.walletAmountUsed)}
                     {order.walletAmountUsed < order.total && (
-                      <span className="ml-1.5 font-normal text-amber-700">
+                      <span className="ml-1.5 font-normal text-brand-700">
                         (+ {formatBRL(order.total - order.walletAmountUsed)} via {paymentMethodLabels[order.paymentMethod || ""] || "outro método"})
                       </span>
                     )}

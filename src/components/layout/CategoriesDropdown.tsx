@@ -60,7 +60,7 @@ export function CategoriesDropdown() {
         className="flex items-center gap-2 rounded-full bg-muted px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-gray-200"
       >
         <FiGrid className="h-4 w-4" />
-        Categorias
+        Categories
         <FiChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", open && "rotate-180")} />
       </button>
 
@@ -110,9 +110,9 @@ export function CategoriesDropdown() {
 
           <div className="flex items-center justify-between bg-gradient-to-r from-primary/5 to-primary/10 px-8 py-5">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-primary">Promoções</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-primary">Deals</span>
               <p className="text-sm text-muted-foreground">
-                Confira os <strong className="text-foreground">descontos da semana</strong> em produtos selecionados
+                Check out <strong className="text-foreground">this week's discounts</strong> on selected products
               </p>
             </div>
             <Link
@@ -120,7 +120,7 @@ export function CategoriesDropdown() {
               onClick={() => setOpen(false)}
               className="rounded-full bg-primary px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-transform hover:scale-105"
             >
-              Ver Ofertas
+              See Deals
             </Link>
           </div>
         </div>

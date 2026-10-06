@@ -6,9 +6,7 @@ import { SearchBar } from "./SearchBar";
 import { MiniCart } from "./MiniCart";
 import { WalletWidget } from "./WalletWidget";
 import { FavoritesPanel } from "./FavoritesPanel";
-import { SupportWidget } from "./SupportWidget";
 import { CategoriesDropdown } from "./CategoriesDropdown";
-import { GrupoVipButton } from "./GrupoVipButton";
 import { HeaderNotifications } from "./HeaderNotifications";
 import { useAuth } from "@/providers/auth-provider";
 import { getCategoryIcon } from "@/lib/category-icons";
@@ -16,9 +14,8 @@ import { flattenAdminMenu, type AdminMenuEntry } from "@/lib/admin-menu";
 import {
   FiUser, FiChevronDown, FiLogOut, FiMenu, FiX,
   FiPackage, FiHeart, FiTruck, FiHome, FiPhone, FiStar, FiSettings,
-  FiChevronRight, FiShoppingBag, FiPercent,
+  FiChevronRight, FiShoppingBag, FiPercent, FiHeadphones,
 } from "react-icons/fi";
-import { FaCrown, FaTrophy } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -36,15 +33,13 @@ type MenuEntry = AdminMenuEntry;
 // Mesmos módulos (e mesma ordem) do accordion de /minha-conta — o link já
 // abre direto na aba certa via ?tab=.
 const clientMenuEntries: MenuEntry[] = [
-  { type: "link", label: "Meu Perfil", href: "/minha-conta?tab=perfil", icon: FiUser },
-  { type: "link", label: "Meus Pedidos", href: "/minha-conta?tab=pedidos", icon: FiPackage },
-  { type: "link", label: "Meus Favoritos", href: "/minha-conta?tab=favoritos", icon: FiHeart },
-  { type: "link", label: "Minhas Avaliações", href: "/minha-conta?tab=avaliacoes", icon: FiStar },
-  { type: "link", label: "Rastrear Pedido", href: "/minha-conta?tab=rastrear", icon: FiTruck },
-  { type: "link", label: "Configurações", href: "/minha-conta?tab=config", icon: FiSettings },
+  { type: "link", label: "My Profile", href: "/minha-conta?tab=perfil", icon: FiUser },
+  { type: "link", label: "My Orders", href: "/minha-conta?tab=pedidos", icon: FiPackage },
+  { type: "link", label: "My Favorites", href: "/minha-conta?tab=favoritos", icon: FiHeart },
+  { type: "link", label: "My Reviews", href: "/minha-conta?tab=avaliacoes", icon: FiStar },
+  { type: "link", label: "Track Order", href: "/minha-conta?tab=rastrear", icon: FiTruck },
+  { type: "link", label: "Settings", href: "/minha-conta?tab=config", icon: FiSettings },
 ];
-
-const vipMenuEntry: MenuEntry = { type: "link", label: "Grupo VIP", href: "/minha-conta?tab=vip", icon: FaCrown };
 
 // Mesmos itens (e mesmos links) da sidebar do admin — fonte única em
 // @/lib/admin-menu, pra nunca ficar dessincronizado.
@@ -85,12 +80,7 @@ export function Header() {
     router.push("/");
   };
 
-  const vipActive = !!user?.isVip && (!user?.vipExpiresAt || new Date(user.vipExpiresAt).getTime() > Date.now());
-  const menuEntries = user?.role === "ADMIN"
-    ? adminMenuEntries
-    : vipActive
-      ? [...clientMenuEntries.slice(0, -1), vipMenuEntry, clientMenuEntries[clientMenuEntries.length - 1]]
-      : clientMenuEntries;
+  const menuEntries = user?.role === "ADMIN" ? adminMenuEntries : clientMenuEntries;
 
   return (
     <header className="sticky top-0 z-40 w-full">
@@ -99,7 +89,7 @@ export function Header() {
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-3 px-4 py-3 md:gap-4 md:py-4">
           {/* Logo */}
           <Link href="/" className="shrink-0">
-            <img src="/logo.png" alt="C7drop" className="h-9 w-auto object-contain md:h-11" />
+            <img src="/logo.png" alt="Suntecshed" className="h-14 w-auto object-contain md:h-[72px]" />
           </Link>
 
           {/* Categories dropdown - hidden on mobile */}
@@ -112,13 +102,18 @@ export function Header() {
             <SearchBar />
           </div>
 
-          {/* Support / Hall da Fama - hidden on mobile */}
-          <div className="hidden shrink-0 md:block">
-            <SupportWidget />
+          {/* Atendimento — CTA do header */}
+          <div className="hidden shrink-0 items-center gap-3 lg:flex">
+            <a
+              href="https://wa.me/553898842080"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 py-2.5 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-transform hover:scale-105"
+            >
+              <FiHeadphones className="h-3.5 w-3.5" />
+              Support
+            </a>
           </div>
-
-          {/* Grupo VIP */}
-          <GrupoVipButton />
 
           {/* Icons */}
           <div className="flex items-center gap-0.5 md:gap-1">
@@ -126,15 +121,6 @@ export function Header() {
             {user && <div className="hidden md:block"><WalletWidget /></div>}
 
             <FavoritesPanel />
-
-            {/* Hall da Fama - mobile (ícone de troféu ao lado do coração) */}
-            <Link
-              href="/hall-da-fama"
-              className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-gray-100 md:hidden"
-              aria-label="Hall da Fama"
-            >
-              <FaTrophy className="h-5 w-5 text-yellow-500" />
-            </Link>
 
             {/* Mobile: carteira logo depois dos favoritos */}
             {user && <div className="md:hidden"><WalletWidget /></div>}
@@ -161,7 +147,7 @@ export function Header() {
                       {user.name.split(" ")[0]}
                     </p>
                     <p className="text-[10px] text-gray-500">
-                      {user.role === "ADMIN" ? "Admin" : "Cliente"}
+                      {user.role === "ADMIN" ? "Admin" : "Customer"}
                     </p>
                   </div>
                   <FiChevronDown className={`hidden h-3.5 w-3.5 text-gray-400 transition-transform lg:block ${menuOpen ? "rotate-180" : ""}`} />
@@ -180,7 +166,7 @@ export function Header() {
                           <p className="truncate text-sm font-semibold text-gray-900">{user.name}</p>
                           <p className="truncate text-xs text-gray-500">{user.email}</p>
                           <span className="mt-0.5 inline-block rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
-                            {user.role === "ADMIN" ? "Administrador" : "Cliente"}
+                            {user.role === "ADMIN" ? "Administrador" : "Customer"}
                           </span>
                         </div>
                       </div>
@@ -217,7 +203,7 @@ export function Header() {
                         className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-red-600 transition-colors hover:bg-red-50"
                       >
                         <FiLogOut className="h-4 w-4" />
-                        Sair
+                        Log out
                       </button>
                     </div>
                   </div>
@@ -229,7 +215,7 @@ export function Header() {
                 className="hidden items-center gap-2 rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 md:flex"
               >
                 <FiUser className="h-5 w-5" />
-                <span className="hidden text-sm font-semibold lg:block">Entrar</span>
+                <span className="hidden text-sm font-semibold lg:block">Sign in</span>
               </Link>
             )}
 
@@ -265,7 +251,7 @@ export function Header() {
         {/* Mobile Menu Header */}
         <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
           <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
-            <img src="/logo.png" alt="C7drop" className="h-9 w-auto object-contain" />
+            <img src="/logo.png" alt="Suntecshed" className="h-14 w-auto object-contain" />
           </Link>
           <button
             onClick={() => setMobileMenuOpen(false)}
@@ -298,7 +284,7 @@ export function Header() {
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-bold text-white"
               >
                 <FiUser className="h-4 w-4" />
-                Entrar / Criar Conta
+                Sign in / Create account
               </Link>
             </div>
           )}
@@ -306,13 +292,13 @@ export function Header() {
           {/* Nav Links */}
           <div className="border-b border-gray-100 py-2">
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-              <FiHome className="h-4 w-4 text-gray-400" /> Início
+              <FiHome className="h-4 w-4 text-gray-400" /> Home
             </Link>
             <Link href="/produtos" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-              <FiShoppingBag className="h-4 w-4 text-gray-400" /> Todos os Produtos
+              <FiShoppingBag className="h-4 w-4 text-gray-400" /> All Products
             </Link>
             <Link href="/ofertas" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-              <FiPercent className="h-4 w-4 text-gray-400" /> Ofertas
+              <FiPercent className="h-4 w-4 text-gray-400" /> Deals
             </Link>
           </div>
 
@@ -322,7 +308,7 @@ export function Header() {
               onClick={() => setMobileCategoriesOpen((v) => !v)}
               className="flex w-full items-center justify-between px-5 py-2.5 text-[10px] font-bold uppercase tracking-wider text-gray-400"
             >
-              Categorias
+              Categories
               <FiChevronDown className={cn("h-4 w-4 transition-transform", mobileCategoriesOpen && "rotate-180")} />
             </button>
             <div className={cn("overflow-hidden transition-all", mobileCategoriesOpen ? "max-h-[600px] overflow-y-auto" : "max-h-0")}>
@@ -350,7 +336,7 @@ export function Header() {
           {user && (
             <div className="border-b border-gray-100 py-2">
               <p className="px-5 py-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">
-                {user.role === "ADMIN" ? "Admin" : "Minha Conta"}
+                {user.role === "ADMIN" ? "Admin" : "My Account"}
               </p>
               {menuEntries.map((entry, i) =>
                 entry.type === "heading" ? (
@@ -378,7 +364,7 @@ export function Header() {
           {/* Help */}
           <div className="py-2">
             <Link href="/ajuda" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50">
-              <FiPhone className="h-4 w-4 text-gray-400" /> Central de Ajuda
+              <FiPhone className="h-4 w-4 text-gray-400" /> Help Center
             </Link>
           </div>
         </div>
@@ -390,7 +376,7 @@ export function Header() {
               onClick={async () => { setMobileMenuOpen(false); await logout(); router.push("/"); }}
               className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50"
             >
-              <FiLogOut className="h-4 w-4" /> Sair da conta
+              <FiLogOut className="h-4 w-4" /> Log out
             </button>
           </div>
         )}

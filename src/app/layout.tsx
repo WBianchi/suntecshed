@@ -31,21 +31,21 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://c7drop.com.br"),
+  metadataBase: new URL("https://suntecshed.com.br"),
   title: {
-    default: "Início - C7 Drop",
-    template: "%s - C7 Drop",
+    default: "Início - Suntecshed",
+    template: "%s - Suntecshed",
   },
   description:
     "Fornecemos produtos de alta qualidade e procedência, ATACADO E DROPSHIPPING. Com o dropshipping, a sua loja faz a venda do produto, envia a etiqueta dessa transação para nós. E somos nós que vamos enviar o produto para o cliente seu cliente final.",
   keywords:
-    "dropshipping, atacado, fornecedor dropshipping, eletrônicos, acessórios, C7 Drop",
+    "dropshipping, atacado, fornecedor dropshipping, eletrônicos, acessórios, Suntecshed",
   icons: {
     icon: "/favicon.png",
     apple: "/favicon.png",
   },
   openGraph: {
-    title: "C7 Drop - Atacado e Dropshipping",
+    title: "Suntecshed - Atacado e Dropshipping",
     description:
       "Oferecemos produtos de alta qualidade e com total garantia de procedência, tanto no modelo de ATACADO quanto de DROPSHIPPING. No dropshipping, sua loja realiza a venda do produto, envia a etiqueta de transação para nós, e nós nos encarregamos de todo o processo de envio diretamente para o seu cliente final, com agilidade e segurança.",
     type: "website",

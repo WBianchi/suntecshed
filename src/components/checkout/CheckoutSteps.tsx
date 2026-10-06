@@ -4,10 +4,10 @@ import { FiUser, FiTruck, FiCreditCard, FiCheck } from "react-icons/fi";
 import { cn } from "@/lib/utils";
 
 const steps = [
-  { id: 1, label: "Dados", icon: FiUser },
-  { id: 2, label: "Entrega", icon: FiTruck },
-  { id: 3, label: "Pagamento", icon: FiCreditCard },
-  { id: 4, label: "Confirmação", icon: FiCheck },
+  { id: 1, label: "Details", icon: FiUser },
+  { id: 2, label: "Delivery", icon: FiTruck },
+  { id: 3, label: "Payment", icon: FiCreditCard },
+  { id: 4, label: "Confirmation", icon: FiCheck },
 ];
 
 interface CheckoutStepsProps {

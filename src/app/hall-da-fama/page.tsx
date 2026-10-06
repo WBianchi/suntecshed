@@ -41,14 +41,14 @@ const CATEGORIES = [
 ];
 
 const CATEGORY_COLORS: Record<string, string> = {
-  "50k": "bg-amber-500/10 text-amber-400 border-amber-500/20",
+  "50k": "bg-brand-500/10 text-brand-400 border-brand-500/20",
   "100k": "bg-orange-500/10 text-orange-400 border-orange-500/20",
   "500k": "bg-red-500/10 text-red-400 border-red-500/20",
   "1m": "bg-purple-500/10 text-purple-400 border-purple-500/20",
 };
 
 const CATEGORY_BADGES: Record<string, string> = {
-  "50k": "bg-gradient-to-r from-amber-500 to-yellow-500 text-black",
+  "50k": "bg-gradient-to-r from-brand-500 to-yellow-500 text-black",
   "100k": "bg-gradient-to-r from-orange-500 to-red-500 text-white",
   "500k": "bg-gradient-to-r from-red-600 to-rose-600 text-white",
   "1m": "bg-gradient-to-r from-purple-600 to-violet-600 text-white",
@@ -157,10 +157,10 @@ export default function HallDaFamaPage() {
 
   const handleShare = async (entry: HallOfFameEntry) => {
     const url = `${window.location.origin}/hall-da-fama`;
-    const text = `Veja a conquista de ${entry.clientName} no Hall da Fama C7 DROP: ${formatCurrency(entry.salesValue)}`;
+    const text = `Veja a conquista de ${entry.clientName} no Hall da Fama SUNTECSHED: ${formatCurrency(entry.salesValue)}`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: "Hall da Fama C7 DROP", text, url });
+        await navigator.share({ title: "Hall da Fama SUNTECSHED", text, url });
       } catch {}
     } else {
       await navigator.clipboard.writeText(`${text}\n${url}`);
@@ -201,7 +201,7 @@ export default function HallDaFamaPage() {
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               Hall da Fama{" "}
-              <span className="text-primary">C7 DROP</span>
+              <span className="text-primary">SUNTECSHED</span>
             </motion.h1>
 
             <motion.p
@@ -210,7 +210,7 @@ export default function HallDaFamaPage() {
               transition={{ delay: 0.2 }}
               className="mx-auto mt-4 max-w-2xl text-center text-sm text-gray-400 sm:text-base"
             >
-              Conheça os clientes que transformaram oportunidades em grandes resultados com a C7 DROP.
+              Conheça os clientes que transformaram oportunidades em grandes resultados com a SUNTECSHED.
             </motion.p>
 
             {/* Featured Entry */}
@@ -378,7 +378,7 @@ export default function HallDaFamaPage() {
                   Quer fazer parte do Hall da Fama?
                 </h2>
                 <p className="mx-auto mt-3 max-w-lg text-sm text-gray-400 sm:text-base">
-                  Conheça nosso catálogo e comece sua jornada de sucesso com a C7 DROP
+                  Conheça nosso catálogo e comece sua jornada de sucesso com a SUNTECSHED
                 </p>
                 <a href="/produtos"
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-bold text-black shadow-lg shadow-primary/20 transition-all hover:scale-105 hover:shadow-xl hover:shadow-primary/30">

@@ -27,7 +27,7 @@ const statusColors: Record<string, string> = {
   PENDING: "bg-yellow-400", AWAITING_PAYMENT: "bg-orange-400", PAYMENT_CONFIRMED: "bg-blue-400",
   PROCESSING: "bg-indigo-400", SHIPPED: "bg-purple-400", DELIVERED: "bg-green-400",
   CANCELLED: "bg-red-400", REFUNDED: "bg-gray-400",
-  MISSING_LABEL: "bg-amber-500", ORDER_ERROR: "bg-red-600",
+  MISSING_LABEL: "bg-brand-500", ORDER_ERROR: "bg-red-600",
 };
 
 const methodLabels: Record<string, string> = { PIX: "PIX", BOLETO: "Boleto", CREDIT_CARD: "Cartão", WALLET: "Carteira" };

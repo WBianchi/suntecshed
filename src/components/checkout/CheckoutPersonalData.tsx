@@ -62,12 +62,12 @@ export function CheckoutPersonalData({ data, onChange, onNext }: Props) {
 
   const validate = () => {
     const e: Partial<Record<string, string>> = {};
-    if (!data.name.trim()) e.name = "Nome obrigatório";
-    if (!data.lastName.trim()) e.lastName = "Sobrenome obrigatório";
-    if (!data.email.includes("@")) e.email = "Email inválido";
-    if (data.phone.replace(/\D/g, "").length < 10) e.phone = "Telefone inválido";
-    if (data.personType === "fisica" && data.cpf.replace(/\D/g, "").length < 11) e.cpf = "CPF inválido";
-    if (data.personType === "juridica" && data.cnpj.replace(/\D/g, "").length < 14) e.cnpj = "CNPJ inválido";
+    if (!data.name.trim()) e.name = "Name required";
+    if (!data.lastName.trim()) e.lastName = "Last name required";
+    if (!data.email.includes("@")) e.email = "Invalid email";
+    if (data.phone.replace(/\D/g, "").length < 10) e.phone = "Invalid phone";
+    if (data.personType === "fisica" && data.cpf.replace(/\D/g, "").length < 11) e.cpf = "Invalid CPF";
+    if (data.personType === "juridica" && data.cnpj.replace(/\D/g, "").length < 14) e.cnpj = "Invalid CNPJ";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -87,12 +87,12 @@ export function CheckoutPersonalData({ data, onChange, onNext }: Props) {
       const res = await fetch("/api/checkout/upload-label", { method: "POST", body: formData, credentials: "include" });
       const json = await res.json();
       if (!res.ok) {
-        setUploadError(json.error || "Erro ao enviar arquivo");
+        setUploadError(json.error || "Error uploading file");
         return;
       }
       onChange({ ...data, labelUrl: json.url, labelName: json.name });
     } catch {
-      setUploadError("Erro de conexão ao enviar o arquivo");
+      setUploadError("Connection error while uploading the file");
     } finally {
       setUploading(false);
       e.target.value = "";
@@ -100,16 +100,16 @@ export function CheckoutPersonalData({ data, onChange, onNext }: Props) {
   };
 
   const fields: FieldDef[] = [
-    { key: "name", label: "Nome", icon: FiUser, placeholder: "Seu nome", type: "text" },
-    { key: "lastName", label: "Sobrenome", icon: FiUser, placeholder: "Seu sobrenome", type: "text" },
-    { key: "email", label: "Email", icon: FiMail, placeholder: "seu@email.com", type: "email" },
-    { key: "phone", label: "Telefone / WhatsApp", icon: FiPhone, placeholder: "(00) 00000-0000", type: "tel", format: formatPhone },
+    { key: "name", label: "Name", icon: FiUser, placeholder: "Your name", type: "text" },
+    { key: "lastName", label: "Last name", icon: FiUser, placeholder: "Your last name", type: "text" },
+    { key: "email", label: "Email", icon: FiMail, placeholder: "you@email.com", type: "email" },
+    { key: "phone", label: "Phone / WhatsApp", icon: FiPhone, placeholder: "(00) 00000-0000", type: "tel", format: formatPhone },
   ];
 
   return (
     <div className="neo-surface p-5 sm:p-8">
       <h2 className="mb-6 text-lg font-bold text-gray-900" style={{ fontFamily: "var(--font-poppins)" }}>
-        Dados Pessoais
+        Personal Details
       </h2>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -137,7 +137,7 @@ export function CheckoutPersonalData({ data, onChange, onNext }: Props) {
 
       {/* Tipo de Pessoa */}
       <div className="mt-4">
-        <label className="mb-1.5 block text-sm font-medium text-gray-600">Tipo de Pessoa</label>
+        <label className="mb-1.5 block text-sm font-medium text-gray-600">Person Type</label>
         <div className="grid gap-3 sm:grid-cols-2">
           {(["fisica", "juridica"] as const).map((type) => (
             <button
@@ -149,7 +149,7 @@ export function CheckoutPersonalData({ data, onChange, onNext }: Props) {
                 data.personType === type ? "neo-pill-selected text-primary" : "text-gray-600"
               )}
             >
-              {type === "fisica" ? "Pessoa Física" : "Pessoa Jurídica"}
+              {type === "fisica" ? "Individual" : "Company"}
             </button>
           ))}
         </div>
@@ -194,28 +194,28 @@ export function CheckoutPersonalData({ data, onChange, onNext }: Props) {
       <div className="neo-inset mt-6 p-4">
         <div className="flex items-center gap-2">
           <FiPaperclip className="h-4 w-4 text-primary" />
-          <p className="text-sm font-semibold text-gray-900">Anexar Etiqueta (opcional)</p>
+          <p className="text-sm font-semibold text-gray-900">Attach Label (optional)</p>
         </div>
-        <p className="mt-1 text-xs text-gray-500">Anexe a etiqueta de envio fornecida pelo seu fornecedor</p>
+        <p className="mt-1 text-xs text-gray-500">Attach the shipping label provided by your supplier</p>
 
         {data.labelUrl ? (
           <>
             <div className="mt-3 flex items-center justify-between rounded-2xl bg-primary/5 px-4 py-3">
               <a href={data.labelUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
-                <FiFileText className="h-4 w-4" /> {data.labelName || "Arquivo anexado"}
+                <FiFileText className="h-4 w-4" /> {data.labelName || "File attached"}
               </a>
               <button onClick={() => onChange({ ...data, labelUrl: "", labelName: "" })} className="text-gray-400 hover:text-red-500">
                 <FiX className="h-4 w-4" />
               </button>
             </div>
             <p className="mt-2 text-xs text-gray-500">
-              Como a etiqueta já tem o endereço de entrega, a etapa de endereço será pulada e nenhum frete será cobrado.
+              Since the label already has the delivery address, the address step will be skipped and no shipping will be charged.
             </p>
           </>
         ) : (
           <label className="neo-surface-sm mt-3 flex h-12 w-full cursor-pointer items-center justify-center gap-2 text-sm font-medium text-primary">
             {uploading ? <FiLoader className="h-4 w-4 animate-spin" /> : <FiUpload className="h-4 w-4" />}
-            {uploading ? "Enviando..." : "Selecionar arquivo"}
+            {uploading ? "Uploading..." : "Select file"}
             <input type="file" accept="image/*,application/pdf" className="hidden" onChange={handleFileSelect} disabled={uploading} />
           </label>
         )}
@@ -227,7 +227,7 @@ export function CheckoutPersonalData({ data, onChange, onNext }: Props) {
         className="neo-btn mt-6 flex w-full items-center justify-center bg-primary text-sm font-bold uppercase tracking-wide text-white"
         style={{ height: "52px" }}
       >
-        {data.labelUrl ? "Continuar para Pagamento →" : "Continuar para Endereço →"}
+        {data.labelUrl ? "Continue to Payment →" : "Continue to Address →"}
       </button>
     </div>
   );

@@ -99,7 +99,7 @@ export default function AdminGrupoVipPage() {
             <FiClock className="h-4 w-4" />
             <span className="text-xs font-semibold uppercase tracking-wider">Expirando em 7 dias</span>
           </div>
-          <p className="mt-1 text-2xl font-bold text-amber-600">{stats.expiringSoon}</p>
+          <p className="mt-1 text-2xl font-bold text-brand-600">{stats.expiringSoon}</p>
         </div>
       </div>
 

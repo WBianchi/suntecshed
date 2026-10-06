@@ -18,11 +18,11 @@ function timeAgo(iso: string): string {
   const diffMs = Date.now() - new Date(iso).getTime();
   const minutes = Math.floor(diffMs / 60000);
   if (minutes < 1) return "agora";
-  if (minutes < 60) return `${minutes} min atrás`;
+  if (minutes < 60) return `${minutes} min ago`;
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h atrás`;
+  if (hours < 24) return `${hours}h ago`;
   const days = Math.floor(hours / 24);
-  return `${days} dia${days === 1 ? "" : "s"} atrás`;
+  return `${days} day${days === 1 ? "" : "s"} ago`;
 }
 
 function NotificationIcon({ type }: { type: string }) {
@@ -98,7 +98,7 @@ export function HeaderNotifications() {
             <div className="p-4">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-gray-900">
-                  Notificações
+                  Notifications
                 </h3>
                 {totalCount > 5 && (
                   <Link
@@ -106,7 +106,7 @@ export function HeaderNotifications() {
                     onClick={() => setOpen(false)}
                     className="flex items-center gap-1 text-xs font-medium text-primary hover:underline"
                   >
-                    Ver todas ({totalCount})
+                    See all ({totalCount})
                     <FiArrowRight className="h-3 w-3" />
                   </Link>
                 )}
@@ -114,7 +114,7 @@ export function HeaderNotifications() {
               <div className="max-h-80 space-y-1 overflow-y-auto">
                 {notifications.length === 0 && (
                   <p className="py-6 text-center text-xs text-gray-400">
-                    Nenhuma notificação recente.
+                    No recent notifications.
                   </p>
                 )}
                 {notifications.map((n) => {
@@ -184,7 +184,7 @@ export function HeaderNotifications() {
                 onClick={() => setOpen(false)}
                 className="mt-3 flex items-center justify-center gap-1.5 rounded-xl border border-gray-200 py-2.5 text-xs font-semibold text-gray-600 transition-colors hover:bg-gray-50 hover:text-primary"
               >
-                Central de Notificações
+                Notification Center
                 <FiArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

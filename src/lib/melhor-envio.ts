@@ -45,7 +45,7 @@ async function fetchAccountProfile(token: string, baseUrl: string): Promise<Melh
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
-        "User-Agent": "C7 Drop (contato@c7drop.com.br)",
+        "User-Agent": "Suntecshed (contato@suntecshed.com.br)",
       },
     });
     const data = await res.json().catch(() => null);
@@ -112,7 +112,7 @@ export async function getMelhorEnvioConfig(): Promise<MelhorEnvioConfig | null> 
   }
 
   const sender: MelhorEnvioSender = {
-    name: String(cfg.sender_name || "").trim() || profile?.name || "C7 Drop",
+    name: String(cfg.sender_name || "").trim() || profile?.name || "Suntecshed",
     phone: (String(cfg.sender_phone || "").replace(/\D/g, "")) || profile?.phone || "",
     email: String(cfg.sender_email || "").trim() || profile?.email || "",
     document: (String(cfg.sender_document || "").replace(/\D/g, "")) || profile?.document || "",
@@ -159,7 +159,7 @@ async function meFetch(config: MelhorEnvioConfig, path: string, body?: unknown) 
       Authorization: `Bearer ${config.token}`,
       "Content-Type": "application/json",
       Accept: "application/json",
-      "User-Agent": "C7 Drop (contato@c7drop.com.br)",
+      "User-Agent": "Suntecshed (contato@suntecshed.com.br)",
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
@@ -328,7 +328,7 @@ export async function buyShippingLabel(
       receipt: config.receipt,
       own_hand: config.ownHand,
       non_commercial: false,
-      platform: "C7 Drop",
+      platform: "Suntecshed",
     },
   });
 

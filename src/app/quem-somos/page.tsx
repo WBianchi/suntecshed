@@ -52,7 +52,7 @@ export default function QuemSomosPage() {
                 </h2>
                 <div className="mt-6 space-y-4 text-sm leading-relaxed text-gray-600 sm:text-base">
                   <p>
-                    A <strong className="text-gray-900">C7 Drop</strong> fornece produtos de alta qualidade e procedência,
+                    A <strong className="text-gray-900">Suntecshed</strong> fornece produtos de alta qualidade e procedência,
                     tanto no modelo de <strong>Atacado</strong> quanto de <strong>Dropshipping</strong>.
                   </p>
                   <p>
@@ -70,10 +70,10 @@ export default function QuemSomosPage() {
                 <div className="rounded-3xl bg-gradient-to-br from-primary/5 via-primary/10 to-transparent p-8 sm:p-10">
                   <div className="flex h-full min-h-[320px] flex-col items-center justify-center text-center">
                     <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-white shadow-lg shadow-primary/10">
-                      <img src="/logo.png" alt="C7 Drop" className="h-12 w-auto object-contain" />
+                      <img src="/logo.png" alt="Suntecshed" className="h-12 w-auto object-contain" />
                     </div>
                     <h3 className="mt-5 text-xl font-bold text-gray-900" style={{ fontFamily: "var(--font-playfair)" }}>
-                      C7 Drop
+                      Suntecshed
                     </h3>
                     <p className="mt-2 max-w-xs text-sm text-gray-500">
                       Fornecedor para atacado e dropshipping

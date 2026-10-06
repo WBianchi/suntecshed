@@ -28,7 +28,7 @@ Full-stack Next.js 16 e-commerce app (App Router) for a Brazilian home goods/tex
 - Framework: Next.js 16 with React Compiler enabled
 - Styling: Tailwind CSS v4
 - Database: PostgreSQL (Neon) via Prisma 5 — generated client at `src/generated/prisma`
-- Auth: JWT in httpOnly cookie (`C7drop_token`, 7-day expiry, Argon2 passwords) — see `src/lib/auth.ts`
+- Auth: JWT in httpOnly cookie (`Suntecshed_token`, 7-day expiry, Argon2 passwords) — see `src/lib/auth.ts`
 - File storage: Vercel Blob
 - Payments: Asaas
 - Shipping: Frenet + Melhor Envio

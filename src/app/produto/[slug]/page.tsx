@@ -21,7 +21,7 @@ import { FiLoader } from "react-icons/fi";
 
 async function fetchProduct(slug: string) {
   const res = await fetch(`/api/products/${slug}`);
-  if (!res.ok) throw new Error("Produto não encontrado");
+  if (!res.ok) throw new Error("Product not found");
   return res.json();
 }
 
@@ -42,7 +42,7 @@ export default function ProductPage() {
         <main className="flex flex-1 items-center justify-center py-20">
           <div className="flex flex-col items-center gap-3">
             <FiLoader className="h-8 w-8 animate-spin text-primary" />
-            <p className="text-sm text-gray-500">Carregando produto...</p>
+            <p className="text-sm text-gray-500">Loading product...</p>
           </div>
         </main>
         <Footer />
@@ -56,8 +56,8 @@ export default function ProductPage() {
         <Header />
         <main className="flex flex-1 items-center justify-center py-20">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900">Produto não encontrado</h1>
-            <p className="mt-2 text-gray-500">O produto que você procura não existe ou foi removido.</p>
+            <h1 className="text-2xl font-bold text-gray-900">Product not found</h1>
+            <p className="mt-2 text-gray-500">The product you are looking for does not exist or has been removed.</p>
           </div>
         </main>
         <Footer />
@@ -68,7 +68,7 @@ export default function ProductPage() {
   // Map images
   const galleryImages = product.images?.length > 0
     ? product.images.map((img: any) => ({ src: img.url, alt: img.alt || product.name }))
-    : [{ src: "https://placehold.co/800x800?text=Sem+Imagem", alt: product.name }];
+    : [{ src: "https://placehold.co/800x800?text=No+Image", alt: product.name }];
 
   // Discount
   const discount = product.compareAtPrice
@@ -81,15 +81,15 @@ export default function ProductPage() {
   // Build specs from product fields
   const specs: { label: string; value: string }[] = [];
   if (product.sku) specs.push({ label: "SKU", value: product.sku });
-  if (product.barcode) specs.push({ label: "Código de Barras", value: product.barcode });
+  if (product.barcode) specs.push({ label: "Barcode", value: product.barcode });
   if (product.gtin) specs.push({ label: "GTIN", value: product.gtin });
   if (product.ncm) specs.push({ label: "NCM", value: product.ncm });
-  if (product.anatelHomologation) specs.push({ label: "Homologação Anatel", value: product.anatelHomologation });
-  if (product.weight) specs.push({ label: "Peso", value: `${product.weight}g` });
-  if (product.width) specs.push({ label: "Largura", value: `${product.width}cm` });
-  if (product.height) specs.push({ label: "Altura", value: `${product.height}cm` });
-  if (product.length) specs.push({ label: "Comprimento", value: `${product.length}cm` });
-  if (product.manageStock && product.stock !== undefined) specs.push({ label: "Estoque", value: `${product.stock} unidades` });
+  if (product.anatelHomologation) specs.push({ label: "ANATEL Certification", value: product.anatelHomologation });
+  if (product.weight) specs.push({ label: "Weight", value: `${product.weight}g` });
+  if (product.width) specs.push({ label: "Width", value: `${product.width}cm` });
+  if (product.height) specs.push({ label: "Height", value: `${product.height}cm` });
+  if (product.length) specs.push({ label: "Length", value: `${product.length}cm` });
+  if (product.manageStock && product.stock !== undefined) specs.push({ label: "Stock", value: `${product.stock} units` });
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -126,7 +126,6 @@ export default function ProductPage() {
               manageStock={product.manageStock}
               baseStock={product.stock}
               variants={product.variants || []}
-              isVip={user?.isVip || false}
             />
           </div>
         </section>
@@ -136,7 +135,7 @@ export default function ProductPage() {
           <div className="mx-auto max-w-[1440px] px-4">
             <ProductTabs
               productId={product.id}
-              description={product.description || "<p>Sem descrição detalhada.</p>"}
+              description={product.description || "<p>No detailed description.</p>"}
               specs={specs}
             />
           </div>
@@ -150,7 +149,7 @@ export default function ProductPage() {
           id: p.id,
           name: p.name,
           slug: p.slug,
-          image: p.image || "https://placehold.co/400x400?text=Sem+Imagem",
+          image: p.image || "https://placehold.co/400x400?text=No+Image",
           price: p.price,
           compareAtPrice: p.compareAtPrice,
         }))} />
@@ -160,8 +159,8 @@ export default function ProductPage() {
           <section className="border-t border-gray-100 py-12">
             <div className="mx-auto max-w-[1440px] px-4">
               <SectionHeader
-                title="Produtos Relacionados"
-                subtitle="Quem viu este produto também gostou"
+                title="Related Products"
+                subtitle="People who viewed this product also liked"
               />
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 {product.related.map((rel: any) => (
@@ -172,7 +171,7 @@ export default function ProductPage() {
                     slug={rel.slug}
                     price={rel.price}
                     compareAtPrice={rel.compareAtPrice}
-                    image={rel.image || "https://placehold.co/600x600?text=Sem+Imagem"}
+                    image={rel.image || "https://placehold.co/600x600?text=No+Image"}
                     isNew={rel.isNew}
                     bestSeller={rel.bestSeller}
                   />

@@ -32,7 +32,7 @@ export default function PagamentosIntegrationPage() {
           { value: "6", label: "Até 6x" }, { value: "10", label: "Até 10x" }, { value: "12", label: "Até 12x" },
         ]},
         { key: "auto_confirm_pix", label: "Auto-confirmar pedido no PIX", type: "toggle", hint: "Confirmar pedido automaticamente quando PIX for pago" },
-        { key: "notification_email", label: "E-mail para Notificações", type: "text", placeholder: "financeiro@C7drop.com.br" },
+        { key: "notification_email", label: "E-mail para Notificações", type: "text", placeholder: "financeiro@Suntecshed.com.br" },
       ]}
     />
   );

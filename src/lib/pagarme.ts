@@ -121,7 +121,7 @@ export async function createCardPayment(
         {
           code: orderNumber,
           amount: amountCents,
-          description: `Pedido ${orderNumber} - C7 Drop`,
+          description: `Pedido ${orderNumber} - Suntecshed`,
           quantity: 1,
         },
       ],
@@ -146,7 +146,7 @@ export async function createCardPayment(
           payment_method: "credit_card",
           credit_card: {
             installments,
-            statement_descriptor: "C7DROP",
+            statement_descriptor: "SUNTECSHED",
             card: {
               number: creditCard.number.replace(/\D/g, ""),
               holder_name: creditCard.holderName,

@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       token,
     });
 
-    response.cookies.set("C7drop_token", token, {
+    response.cookies.set("Suntecshed_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",

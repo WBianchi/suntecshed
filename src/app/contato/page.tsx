@@ -16,7 +16,7 @@ const contactInfo = [
   {
     icon: FiPhone,
     title: "Telefone",
-    value: "(21) 99879-2729",
+    value: "(38) 9884-2080",
     sub: "Seg a Sex, 8h às 18h",
     href: "tel:+556****8684",
     color: "bg-primary/10 text-primary",
@@ -24,33 +24,33 @@ const contactInfo = [
   {
     icon: FiMessageCircle,
     title: "WhatsApp",
-    value: "(21) 99879-2729",
+    value: "(38) 9884-2080",
     sub: "Resposta em até 30 min",
-    href: "https://wa.me/5521998792729",
+    href: "https://wa.me/553898842080",
     color: "bg-primary/10 text-primary",
   },
   {
     icon: FiMail,
     title: "E-mail",
-    value: "c7drop@gmail.com",
+    value: "suntecshed@gmail.com",
     sub: "Respondemos em até 24h",
-    href: "mailto:c7drop@gmail.com",
+    href: "mailto:suntecshed@gmail.com",
     color: "bg-primary/10 text-primary",
   },
   {
     icon: FiMapPin,
     title: "Endereço",
-    value: "Parque Dom Pedro II, 268 — Apto 22",
-    sub: "Centro — São Paulo, SP, 01022-050",
-    href: "https://www.google.com/maps/dir/?api=1&destination=Parque+Dom+Pedro+II,+268,+Centro,+São+Paulo,+SP,+01022-050",
+    value: "Endereço virtual",
+    sub: "Loja 100% online — entregamos em todo o Brasil",
+    href: "/prazo-de-entrega",
     color: "bg-primary/10 text-primary",
   },
 ];
 
 const socials = [
-  { icon: FiInstagram, name: "Instagram", handle: "@C7drop", href: "https://instagram.com/C7drop", color: "hover:bg-primary/10 hover:text-primary hover:border-primary/30" },
-  { icon: FiFacebook, name: "Facebook", handle: "/C7drop", href: "https://facebook.com/C7drop", color: "hover:bg-primary/10 hover:text-primary hover:border-primary/30" },
-  { icon: FiYoutube, name: "YouTube", handle: "C7 Drop", href: "https://youtube.com/@C7drop", color: "hover:bg-primary/10 hover:text-primary hover:border-primary/30" },
+  { icon: FiInstagram, name: "Instagram", handle: "@Suntecshed", href: "https://instagram.com/Suntecshed", color: "hover:bg-primary/10 hover:text-primary hover:border-primary/30" },
+  { icon: FiFacebook, name: "Facebook", handle: "/Suntecshed", href: "https://facebook.com/Suntecshed", color: "hover:bg-primary/10 hover:text-primary hover:border-primary/30" },
+  { icon: FiYoutube, name: "YouTube", handle: "Suntecshed", href: "https://youtube.com/@Suntecshed", color: "hover:bg-primary/10 hover:text-primary hover:border-primary/30" },
 ];
 
 const subjects = [
@@ -208,13 +208,19 @@ export default function ContatoPage() {
 
               {/* Sidebar */}
               <div className="space-y-6">
-                {/* Map */}
-                <div className="overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3821.8!2d-49.26!3d-16.70!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDQyJzAwLjAiUyA0OcKwMTUnMzYuMCJX!5e0!3m2!1spt-BR!2sbr!4v1"
-                    width="100%" height="260" style={{ border: 0 }} allowFullScreen loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade" title="Localização"
-                    className="w-full" />
+                {/* Endereço virtual — sem loja física */}
+                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                  <div className="mb-3 flex items-center gap-2">
+                    <FiMapPin className="h-4 w-4 text-primary" />
+                    <h3 className="text-sm font-bold text-gray-900">Endereço virtual</h3>
+                  </div>
+                  <p className="text-xs leading-relaxed text-gray-500">
+                    Não temos loja física: a operação é 100% online e enviamos para todo o Brasil
+                    pelos Correios e transportadoras parceiras.
+                  </p>
+                  <a href="/prazo-de-entrega" className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">
+                    Ver prazos e formas de envio
+                  </a>
                 </div>
 
                 {/* Hours */}

@@ -7,7 +7,7 @@ const statusConfig: Record<string, { label: string; icon: React.ComponentType<{ 
   PENDING: { label: "Pendente", icon: FiClock, cls: "bg-gray-100 text-gray-600" },
   AWAITING_PAYMENT: { label: "Aguard. Pagamento", icon: FiDollarSign, cls: "bg-yellow-50 text-yellow-600" },
   PAYMENT_CONFIRMED: { label: "Pago", icon: FiCheckCircle, cls: "bg-green-50 text-green-600" },
-  PROCESSING: { label: "Processando", icon: FiLoader, cls: "bg-amber-50 text-amber-600" },
+  PROCESSING: { label: "Processando", icon: FiLoader, cls: "bg-brand-50 text-brand-600" },
   SHIPPED: { label: "Enviado", icon: FiTruck, cls: "bg-blue-50 text-blue-600" },
   DELIVERED: { label: "Entregue", icon: FiCheckCircle, cls: "bg-emerald-50 text-emerald-600" },
   CANCELLED: { label: "Cancelado", icon: FiXCircle, cls: "bg-red-50 text-red-500" },

@@ -23,7 +23,7 @@ const statusConfig: Record<string, { label: string; color: string; icon: any }> 
   DELIVERED: { label: "Entregue", color: "bg-green-100 text-green-700", icon: FiCheck },
   CANCELLED: { label: "Cancelado", color: "bg-red-100 text-red-700", icon: FiX },
   REFUNDED: { label: "Reembolsado", color: "bg-gray-100 text-gray-600", icon: FiX },
-  MISSING_LABEL: { label: "Aguardando Etiqueta de Envio", color: "bg-amber-100 text-amber-700", icon: FiClock },
+  MISSING_LABEL: { label: "Aguardando Etiqueta de Envio", color: "bg-brand-100 text-brand-700", icon: FiClock },
   ORDER_ERROR: { label: "Pedido em Análise", color: "bg-red-100 text-red-800", icon: FiX },
 };
 
@@ -244,8 +244,8 @@ export function AccountOrders() {
                   )}
                   {order.walletAmountUsed > 0 && (
                     <div className="flex justify-between text-xs">
-                      <span className="text-amber-600">Pago com saldo da carteira</span>
-                      <span className="font-medium text-amber-600">- {formatCurrency(order.walletAmountUsed)}</span>
+                      <span className="text-brand-600">Pago com saldo da carteira</span>
+                      <span className="font-medium text-brand-600">- {formatCurrency(order.walletAmountUsed)}</span>
                     </div>
                   )}
                   <div className="flex justify-between border-t border-gray-100 pt-2 text-sm">
@@ -268,7 +268,7 @@ export function AccountOrders() {
                   )}
                   {order.labelUrl && (
                     <a href={order.labelUrl} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-1 rounded-lg bg-amber-50 px-2.5 py-1 text-[10px] font-medium text-amber-700 hover:underline">
+                      className="flex items-center gap-1 rounded-lg bg-brand-50 px-2.5 py-1 text-[10px] font-medium text-brand-700 hover:underline">
                       <FiPaperclip className="h-3 w-3" /> Ver etiqueta anexada
                     </a>
                   )}

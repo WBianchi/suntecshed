@@ -11,7 +11,7 @@ export async function generateMetadata(
 
   return {
     title: category.name,
-    description: category.description || `Confira os produtos de ${category.name} na C7 Drop — atacado e dropshipping com procedência garantida.`,
+    description: category.description || `Confira os produtos de ${category.name} na Suntecshed — atacado e dropshipping com procedência garantida.`,
     openGraph: category.image ? { images: [category.image] } : undefined,
   };
 }

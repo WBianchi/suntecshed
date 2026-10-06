@@ -53,7 +53,7 @@ export function FavoritesPanel() {
       >
         <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <h3 className="text-lg font-bold">
-            Favoritos{" "}
+            Favorites{" "}
             <span className="text-sm font-normal text-muted-foreground">
               ({count})
             </span>
@@ -70,9 +70,9 @@ export function FavoritesPanel() {
           {count === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <FiHeart className="mb-4 h-16 w-16 text-muted-foreground/30" />
-              <p className="text-lg font-semibold text-foreground">Nenhum favorito</p>
+              <p className="text-lg font-semibold text-foreground">No favorites yet</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Salve seus produtos preferidos aqui
+                Save your favorite products here
               </p>
             </div>
           ) : (
@@ -115,7 +115,7 @@ export function FavoritesPanel() {
                         className="flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-primary/90"
                       >
                         <FiShoppingCart className="h-3 w-3" />
-                        Adicionar
+                        Add
                       </button>
                       <button
                         onClick={() => removeFavorite(item.id)}

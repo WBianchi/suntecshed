@@ -233,11 +233,11 @@ export default function TrocasDevolucoes() {
               Nossa equipe está pronta para ajudar. Entre em contato e resolveremos tudo para você.
             </p>
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <a href="https://wa.me/5521998792729" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/553898842080" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-primary hover:shadow-lg transition-all">
                 <FiMessageCircle className="h-4 w-4" /> WhatsApp
               </a>
-              <a href="mailto:contato@C7drop.com.br"
+              <a href="mailto:contato@Suntecshed.com.br"
                 className="flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-all">
                 <FiMail className="h-4 w-4" /> E-mail
               </a>

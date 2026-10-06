@@ -72,7 +72,7 @@ export function ProductCard({
     e.preventDefault();
     e.stopPropagation();
     const slugBase = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-    downloadFiles([{ url: image, name: `${slugBase || "produto"}.jpg` }]);
+    downloadFiles([{ url: image, name: `${slugBase || "product"}.jpg` }]);
   };
 
   return (
@@ -91,11 +91,11 @@ export function ProductCard({
         <div className="absolute left-1.5 top-1.5 flex flex-col gap-1 sm:left-2 sm:top-2">
           {outOfStock ? (
             <span className="rounded-full bg-red-600 px-1.5 py-0.5 text-[9px] font-bold text-white sm:px-2 sm:text-[10px]">
-              Esgotado
+              Sold out
             </span>
           ) : (
             <span className="rounded-full bg-green-600 px-1.5 py-0.5 text-[9px] font-bold text-white sm:px-2 sm:text-[10px]">
-              Em Estoque
+              In stock
             </span>
           )}
           {discount > 0 && (
@@ -105,7 +105,7 @@ export function ProductCard({
           )}
           {isNew && (
             <span className="rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold text-white sm:px-2 sm:text-[10px]">
-              Novo
+              New
             </span>
           )}
           {bestSeller && (
@@ -129,7 +129,7 @@ export function ProductCard({
           </button>
           <button
             onClick={handleToggleCompare}
-            title="Comparar"
+            title="Compare"
             className={cn(
               "flex h-7 w-7 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur-sm transition-all hover:scale-110 sm:h-8 sm:w-8",
               comparing ? "text-primary" : "text-gray-500 hover:text-primary"
@@ -139,7 +139,7 @@ export function ProductCard({
           </button>
           <button
             onClick={handleDownloadImage}
-            title="Baixar imagem"
+            title="Download image"
             className="flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-gray-500 shadow-sm backdrop-blur-sm transition-all hover:scale-110 hover:text-primary sm:h-8 sm:w-8"
           >
             <FiDownload className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -150,7 +150,7 @@ export function ProductCard({
         <button
           onClick={handleAddToCart}
           disabled={outOfStock}
-          title={outOfStock ? "Produto esgotado" : "Adicionar ao carrinho"}
+          title={outOfStock ? "Out of stock" : "Add to cart"}
           className={cn(
             "absolute bottom-1.5 right-1.5 flex h-8 w-8 items-center justify-center rounded-full text-white shadow-md transition-all sm:bottom-2 sm:right-2 sm:h-9 sm:w-9",
             outOfStock ? "cursor-not-allowed bg-gray-300" : "bg-primary hover:scale-110"
@@ -169,7 +169,7 @@ export function ProductCard({
               key={i}
               className={cn(
                 "h-2.5 w-2.5 sm:h-3 sm:w-3",
-                i < rating ? "text-amber-400" : "text-gray-200 dark:text-gray-700"
+                i < rating ? "text-brand-400" : "text-gray-200 dark:text-gray-700"
               )}
             />
           ))}
@@ -198,7 +198,7 @@ export function ProductCard({
         </div>
 
         <p className="mt-1 truncate text-[9px] text-muted-foreground sm:text-[11px]">
-          ou em até {bestInstallmentPitch(price).n}x de {formatCurrency(bestInstallmentPitch(price).installmentValue)}
+          or up to {bestInstallmentPitch(price).n}x of {formatCurrency(bestInstallmentPitch(price).installmentValue)}
         </p>
       </div>
     </div>

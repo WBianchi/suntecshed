@@ -57,10 +57,10 @@ export function BuyTogetherSection({ products = [] }: BuyTogetherSectionProps) {
       <div className="mx-auto max-w-[1440px] px-4">
         <div className="mb-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900" style={{ fontFamily: "var(--font-playfair)" }}>
-            Aproveite e Leve Junto
+            Buy Together & Save
           </h2>
           <p className="mt-1.5 text-sm text-gray-500">
-            Combine produtos e ganhe <span className="font-semibold text-primary">5% extra de desconto</span>
+            Combine products and get <span className="font-semibold text-primary">5% extra discount</span>
           </p>
         </div>
 
@@ -142,7 +142,7 @@ export function BuyTogetherSection({ products = [] }: BuyTogetherSectionProps) {
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs font-semibold text-gray-900 sm:text-sm">
-                    {selectedProducts.length} {selectedProducts.length === 1 ? "produto" : "produtos"}
+                    {selectedProducts.length} {selectedProducts.length === 1 ? "product" : "products"}
                   </p>
                   <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2">
                     {totalOriginal > totalCombo && (
@@ -167,9 +167,9 @@ export function BuyTogetherSection({ products = [] }: BuyTogetherSectionProps) {
                 )}
               >
                 {added ? (
-                  <><FiCheck className="h-4 w-4 sm:h-5 sm:w-5" /> Adicionados!</>
+                  <><FiCheck className="h-4 w-4 sm:h-5 sm:w-5" /> Added!</>
                 ) : (
-                  <><FiShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" /> Adicionar Combo</>
+                  <><FiShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" /> Add Combo</>
                 )}
               </button>
             </div>

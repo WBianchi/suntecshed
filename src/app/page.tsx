@@ -5,6 +5,7 @@ import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { CategoriesCarousel } from "@/components/home/CategoriesCarousel";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
+import { CentralBanner } from "@/components/home/CentralBanner";
 import { PromoProducts } from "@/components/home/PromoProducts";
 import { BestSellers } from "@/components/home/BestSellers";
 import { OutOfStockProducts } from "@/components/home/OutOfStockProducts";
@@ -18,6 +19,7 @@ export default function Home() {
         <HeroSlider />
         <CategoriesCarousel />
         <FeaturedProducts />
+        <CentralBanner />
         <PromoProducts />
         <BestSellers />
         <OutOfStockProducts />

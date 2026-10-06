@@ -39,7 +39,7 @@ export function MobileBottomNav() {
           )}
         >
           <FiHome className={cn("h-5 w-5", pathname === "/" && "stroke-[2.5]")} />
-          <span>Início</span>
+          <span>Home</span>
         </Link>
 
         {/* Abre a mesma busca expansiva que já fica sob o header no mobile,
@@ -49,7 +49,7 @@ export function MobileBottomNav() {
           className="flex flex-col items-center gap-0.5 px-3 py-2.5 text-[10px] font-medium text-gray-400 transition-colors"
         >
           <FiSearch className="h-5 w-5" />
-          <span>Buscar</span>
+          <span>Search</span>
         </button>
 
         {/* Center Cart Button */}
@@ -65,7 +65,7 @@ export function MobileBottomNav() {
               </span>
             )}
           </Link>
-          <span className="mt-1 text-[10px] font-medium text-primary">Carrinho</span>
+          <span className="mt-1 text-[10px] font-medium text-primary">Cart</span>
         </div>
 
         {/* Abre o mesmo painel de favoritos do header, em vez de navegar
@@ -80,7 +80,7 @@ export function MobileBottomNav() {
               {favCount}
             </span>
           )}
-          <span>Favoritos</span>
+          <span>Favorites</span>
         </button>
 
         <Link
@@ -91,7 +91,7 @@ export function MobileBottomNav() {
           )}
         >
           <FiUser className={cn("h-5 w-5", pathname === accountHref && "stroke-[2.5]")} />
-          <span>{user ? "Conta" : "Entrar"}</span>
+          <span>{user ? "Account" : "Sign in"}</span>
         </Link>
       </div>
     </nav>

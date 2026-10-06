@@ -25,7 +25,7 @@ interface TrackingResult {
 }
 
 const statusConfig: Record<string, { icon: any; color: string; bg: string }> = {
-  PENDING: { icon: FiClock, color: "text-amber-600", bg: "bg-amber-50" },
+  PENDING: { icon: FiClock, color: "text-brand-600", bg: "bg-brand-50" },
   CONFIRMED: { icon: FiCheckCircle, color: "text-blue-600", bg: "bg-blue-50" },
   PROCESSING: { icon: FiBox, color: "text-purple-600", bg: "bg-purple-50" },
   SHIPPED: { icon: FiTruck, color: "text-cyan-600", bg: "bg-cyan-50" },

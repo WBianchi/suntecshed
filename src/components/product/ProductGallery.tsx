@@ -31,7 +31,7 @@ export function ProductGallery({ images, discount, productName = "produto" }: Pr
   const slugBase = productName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   const handleDownloadAll = () => {
     downloadFiles(
-      images.map((img, i) => ({ url: img.src, name: `${slugBase || "produto"}-${i + 1}.jpg` }))
+      images.map((img, i) => ({ url: img.src, name: `${slugBase || "product"}-${i + 1}.jpg` }))
     );
   };
 

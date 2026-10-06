@@ -755,7 +755,7 @@ export function ProductModal({ open, onClose, product }: ProductModalProps) {
                     <p className="text-xs font-semibold text-gray-400">Preview do Google</p>
                     <div className="mt-2">
                       <p className="text-lg text-blue-700 hover:underline">{form.seoTitle || form.name}</p>
-                      <p className="text-sm text-green-700">C7drop.com.br/produto/{form.slug}</p>
+                      <p className="text-sm text-green-700">Suntecshed.com.br/produto/{form.slug}</p>
                       <p className="mt-0.5 text-sm text-gray-600">{form.seoDescription || form.shortDescription || "Descrição do produto..."}</p>
                     </div>
                   </div>

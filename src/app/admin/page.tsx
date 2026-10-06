@@ -41,12 +41,12 @@ const statusColors: Record<string, string> = {
   PENDING: "bg-gray-400",
   AWAITING_PAYMENT: "bg-yellow-500",
   PAYMENT_CONFIRMED: "bg-green-500",
-  PROCESSING: "bg-amber-500",
+  PROCESSING: "bg-brand-500",
   SHIPPED: "bg-blue-500",
   DELIVERED: "bg-emerald-500",
   CANCELLED: "bg-red-400",
   REFUNDED: "bg-purple-400",
-  MISSING_LABEL: "bg-amber-500",
+  MISSING_LABEL: "bg-brand-500",
   ORDER_ERROR: "bg-red-600",
 };
 
@@ -191,7 +191,7 @@ export default function AdminPage() {
           { label: "Clientes", value: totals.customers, icon: FiUsers, cls: "text-purple-600 bg-purple-50" },
           { label: "Pedidos total", value: totals.orders, icon: FiPackage, cls: "text-green-600 bg-green-50" },
           { label: "Estoque baixo", value: totals.lowStock, icon: FiAlertCircle, cls: totals.lowStock > 0 ? "text-red-600 bg-red-50" : "text-gray-600 bg-gray-50" },
-          { label: "Cupons ativos", value: totals.coupons, icon: FiTag, cls: "text-amber-600 bg-amber-50" },
+          { label: "Cupons ativos", value: totals.coupons, icon: FiTag, cls: "text-brand-600 bg-brand-50" },
         ].map((t) => (
           <div key={t.label} className="flex items-center gap-2 rounded-xl border border-gray-100 bg-white px-3 py-2">
             <div className={cn("flex h-7 w-7 items-center justify-center rounded-lg", t.cls)}>
@@ -233,7 +233,7 @@ export default function AdminPage() {
           value={formatBRL(kpis.avgTicket.value)}
           change={kpis.avgTicket.change}
           icon={FiBarChart2}
-          iconBg="bg-amber-50 text-amber-600"
+          iconBg="bg-brand-50 text-brand-600"
         />
       </div>
 
@@ -263,7 +263,7 @@ export default function AdminPage() {
                 { label: "Vendas hoje", value: formatBRL(today.revenue), icon: FiDollarSign, color: "text-green-500" },
                 { label: "Pedidos hoje", value: String(today.orders), icon: FiShoppingBag, color: "text-blue-500" },
                 { label: "Visitantes", value: String(today.visitors), icon: FiEye, color: "text-purple-500" },
-                { label: "Taxa de conversão", value: `${today.conversion}%`, icon: FiTrendingUp, color: "text-amber-500" },
+                { label: "Taxa de conversão", value: `${today.conversion}%`, icon: FiTrendingUp, color: "text-brand-500" },
               ].map((stat) => (
                 <div key={stat.label} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">

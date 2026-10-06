@@ -84,7 +84,7 @@ export function CompareBar() {
 
                     <div className="mt-1 flex items-center gap-0.5">
                       {Array.from({ length: 5 }).map((_, i) => (
-                        <FaStar key={i} className={cn("h-3 w-3", i < (item.rating || 0) ? "text-amber-400" : "text-gray-200")} />
+                        <FaStar key={i} className={cn("h-3 w-3", i < (item.rating || 0) ? "text-brand-400" : "text-gray-200")} />
                       ))}
                       {!!item.reviewCount && <span className="ml-1 text-[10px] text-gray-400">({item.reviewCount})</span>}
                     </div>

@@ -10,7 +10,7 @@ interface SectionHeaderProps {
   linkText?: string;
 }
 
-export function SectionHeader({ title, subtitle, href, linkText = "Ver todos" }: SectionHeaderProps) {
+export function SectionHeader({ title, subtitle, href, linkText = "See all" }: SectionHeaderProps) {
   return (
     <div className="mb-6 flex items-end justify-between gap-4 sm:mb-8">
       <div className="min-w-0">

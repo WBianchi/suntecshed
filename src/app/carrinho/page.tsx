@@ -35,7 +35,7 @@ export default function CarrinhoPage() {
       <main className="flex-1 bg-gray-50/50 pb-20 md:pb-0">
         {/* Breadcrumb */}
         <div className="mx-auto max-w-[1440px] px-4 py-4">
-          <Breadcrumb items={[{ label: "Carrinho" }]} />
+          <Breadcrumb items={[{ label: "Cart" }]} />
         </div>
 
         <div className="mx-auto max-w-[1440px] px-4 pb-12">
@@ -47,13 +47,13 @@ export default function CarrinhoPage() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: "var(--font-poppins)" }}>
-                  Meu Carrinho
+                  My Cart
                 </h1>
                 <p className="text-sm text-gray-500">
-                  {itemCount} {itemCount === 1 ? "item" : "itens"}
+                  {itemCount} {itemCount === 1 ? "item" : "items"}
                   {totalSavings > 0 && (
                     <span className="ml-2 text-green-600">
-                      (economizando R$ {totalSavings.toFixed(2).replace(".", ",")})
+                      (saving R$ {totalSavings.toFixed(2).replace(".", ",")})
                     </span>
                   )}
                 </p>
@@ -76,16 +76,16 @@ export default function CarrinhoPage() {
                 <FiShoppingBag className="h-8 w-8 text-gray-400" />
               </div>
               <h2 className="mt-5 text-xl font-bold text-gray-900" style={{ fontFamily: "var(--font-poppins)" }}>
-                Seu carrinho está vazio
+                Your cart is empty
               </h2>
               <p className="mt-2 max-w-sm text-center text-sm text-gray-500">
-                Adicione produtos ao carrinho para continuar. Temos ofertas incríveis esperando por você!
+                Add products to your cart to continue. Great deals are waiting for you!
               </p>
               <Link
                 href="/produtos"
                 className="mt-6 flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-bold text-white transition-all hover:bg-primary-dark active:scale-[0.98]"
               >
-                Explorar Produtos
+                Browse Products
               </Link>
             </div>
           ) : (
@@ -143,8 +143,8 @@ export default function CarrinhoPage() {
           {/* Suggested Products */}
           <section className="mt-14 border-t border-gray-200 pt-10">
             <SectionHeader
-              title="Você também pode gostar"
-              subtitle="Produtos que combinam com o que você escolheu"
+              title="You may also like"
+              subtitle="Products that match your picks"
               href="/produtos"
             />
             <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6">
@@ -152,7 +152,7 @@ export default function CarrinhoPage() {
                 <MiniProductCard
                   key={product.id}
                   {...product}
-                  image={product.image || "https://placehold.co/400x400?text=Sem+Imagem"}
+                  image={product.image || "https://placehold.co/400x400?text=No+Image"}
                 />
               ))}
             </div>

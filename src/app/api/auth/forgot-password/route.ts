@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
     if (user) {
       const token = signResetToken(user.id);
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://c7drop.com.br";
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://suntecshed.com.br";
       const resetUrl = `${baseUrl}/redefinir-senha?token=${token}`;
       try {
         await sendPasswordResetEmail(user.email, user.name, resetUrl);

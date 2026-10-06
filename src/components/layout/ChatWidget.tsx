@@ -6,7 +6,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 
 const WHATSAPP_URL =
-  "https://api.whatsapp.com/send/?phone=5521998792729&text&type=phone_number&app_absent=0";
+  "https://api.whatsapp.com/send/?phone=553898842080&text&type=phone_number&app_absent=0";
 
 interface Message {
   id: string;
@@ -18,17 +18,17 @@ interface Message {
 const initialMessages: Message[] = [
   {
     id: "1",
-    text: "Olá! 👋 Sou a atendente virtual da C7 Drop. Como posso te ajudar hoje?",
+    text: "Hi! 👋 I am the Suntecshed virtual assistant. How can I help you today?",
     sender: "bot",
     time: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
   },
 ];
 
 const quickReplies = [
-  "Rastrear pedido",
-  "Trocas e devoluções",
-  "Formas de pagamento",
-  "Falar com atendente",
+  "Track order",
+  "Returns & exchanges",
+  "Payment methods",
+  "Talk to an agent",
 ];
 
 export function ChatWidget() {
@@ -59,7 +59,7 @@ export function ChatWidget() {
     setTimeout(() => {
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Obrigada pela mensagem! Em breve um atendente irá te responder. Nosso horário de atendimento é de Seg-Sex, 8h às 18h. 😊",
+        text: "Thanks for your message! An agent will reply shortly. Our support hours are Mon-Fri, 8am to 6pm. 😊",
         sender: "bot",
         time: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
       };
@@ -123,10 +123,10 @@ export function ChatWidget() {
                 </span>
               </div>
               <div className="flex-1">
-                <h4 className="text-sm font-bold text-white">C7drop Atendente</h4>
+                <h4 className="text-sm font-bold text-white">Suntecshed Support</h4>
                 <div className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-xs text-white/80">Online agora</span>
+                  <span className="text-xs text-white/80">Online now</span>
                 </div>
               </div>
               <button
@@ -212,7 +212,7 @@ export function ChatWidget() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Digite sua mensagem..."
+              placeholder="Type your message..."
               className="flex-1 bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-400"
             />
             <button

@@ -107,21 +107,21 @@ export default function FormasDePagamentoPage() {
               </div>
 
               {/* Carteira */}
-              <div className="group rounded-3xl border-2 border-amber-100 bg-gradient-to-br from-amber-50 to-white p-6 transition-all hover:border-amber-200 hover:shadow-lg sm:p-8">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-600 text-white shadow-lg shadow-amber-600/20">
+              <div className="group rounded-3xl border-2 border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 transition-all hover:border-brand-200 hover:shadow-lg sm:p-8">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-lg shadow-brand-600/20">
                   <FiDollarSign className="h-6 w-6" />
                 </div>
                 <h2 className="mt-5 text-xl font-bold text-gray-900" style={{ fontFamily: "var(--font-playfair)" }}>Carteira</h2>
-                <p className="mt-2 text-sm text-gray-500">Pague com o saldo da sua carteira C7 Drop. Confirmação instantânea.</p>
+                <p className="mt-2 text-sm text-gray-500">Pague com o saldo da sua carteira Suntecshed. Confirmação instantânea.</p>
                 <div className="mt-5 space-y-2.5">
                   <div className="flex items-center gap-2 text-xs text-gray-600">
-                    <FiCheckCircle className="h-4 w-4 text-amber-500" /> Aprovação imediata
+                    <FiCheckCircle className="h-4 w-4 text-brand-500" /> Aprovação imediata
                   </div>
                   <div className="flex items-center gap-2 text-xs text-gray-600">
-                    <FiCheckCircle className="h-4 w-4 text-amber-500" /> Recarregue via Pix ou cartão
+                    <FiCheckCircle className="h-4 w-4 text-brand-500" /> Recarregue via Pix ou cartão
                   </div>
                   <div className="flex items-center gap-2 text-xs text-gray-600">
-                    <FiCheckCircle className="h-4 w-4 text-amber-500" /> Sem taxa adicional
+                    <FiCheckCircle className="h-4 w-4 text-brand-500" /> Sem taxa adicional
                   </div>
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function FormasDePagamentoPage() {
                         <td className="px-5 py-3 text-sm text-gray-600">{row.exemplo}</td>
                         <td className="px-5 py-3 text-right">
                           {row.juros ? (
-                            <span className="rounded-full bg-amber-50 px-2.5 py-0.5 text-[10px] font-semibold text-amber-600">Com juros</span>
+                            <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-[10px] font-semibold text-brand-600">Com juros</span>
                           ) : (
                             <span className="rounded-full bg-green-50 px-2.5 py-0.5 text-[10px] font-semibold text-green-600">Sem juros</span>
                           )}

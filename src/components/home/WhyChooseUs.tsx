@@ -47,7 +47,7 @@ export function WhyChooseUs() {
       <div className="mx-auto max-w-[1440px] px-4">
         <div className="mb-6 text-center sm:mb-10">
           <h2 className="text-xl font-bold text-gray-900 sm:text-3xl" style={{ fontFamily: "var(--font-poppins)" }}>
-            Por que escolher a C7drop?
+            Por que escolher a Suntecshed?
           </h2>
           <p className="mx-auto mt-1.5 max-w-lg text-xs text-gray-500 sm:mt-2 sm:text-sm">
             Produtos de qualidade com procedência garantida, em atacado e dropshipping

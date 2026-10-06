@@ -276,7 +276,7 @@ export function CategoryFilters({ categorySlug, sortBy, onSortChange, onFilterCh
                       className={cn(
                         "h-3.5 w-3.5",
                         i <= Number(r.value)
-                          ? selectedRating === r.value ? "fill-white text-white" : "fill-amber-400 text-amber-400"
+                          ? selectedRating === r.value ? "fill-white text-white" : "fill-brand-400 text-brand-400"
                           : selectedRating === r.value ? "text-white/40" : "text-gray-300"
                       )}
                     />

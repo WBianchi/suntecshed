@@ -84,7 +84,7 @@ const faqCategories: FaqCategory[] = [
       { q: "Como criar uma conta?", a: "Clique em 'Entrar' no topo do site e depois em 'Criar conta'. Preencha seus dados e pronto!" },
       { q: "Esqueci minha senha, o que faço?", a: "Na página de login, clique em 'Esqueci minha senha'. Enviaremos um link de recuperação para seu e-mail cadastrado." },
       { q: "Como alterar meus dados?", a: "Acesse 'Minha Conta' e clique em 'Editar Perfil'. Você pode alterar nome, telefone, endereço e senha." },
-      { q: "Posso excluir minha conta?", a: "Sim. Entre em contato conosco pelo e-mail contato@C7drop.com.br e solicitaremos a exclusão conforme a LGPD." },
+      { q: "Posso excluir minha conta?", a: "Sim. Entre em contato conosco pelo e-mail contato@Suntecshed.com.br e solicitaremos a exclusão conforme a LGPD." },
     ],
   },
 ];
@@ -235,11 +235,11 @@ export default function AjudaPage() {
                 Nossa equipe está pronta para ajudar. Entre em contato por qualquer canal.
               </p>
               <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-                <a href="https://wa.me/5521998792729" target="_blank" rel="noopener noreferrer"
+                <a href="https://wa.me/553898842080" target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 rounded-full bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700 transition-all">
                   <FiMessageCircle className="h-4 w-4" /> WhatsApp
                 </a>
-                <a href="mailto:contato@C7drop.com.br"
+                <a href="mailto:contato@Suntecshed.com.br"
                   className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-all">
                   <FiMail className="h-4 w-4" /> E-mail
                 </a>
