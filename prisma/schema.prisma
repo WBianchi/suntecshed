@@ -1,0 +1,1049 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// ENUMS
+// ============================================
+
+enum UserRole {
+  ADMIN
+  CLIENT
+}
+
+enum PricingTier {
+  DROPSHIPPING
+  ATACADO
+  GRUPO_VIP
+}
+
+enum OrderStatus {
+  PENDING
+  AWAITING_PAYMENT
+  PAYMENT_CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+  MISSING_LABEL // Ausência de Etiqueta
+  ORDER_ERROR   // Erro no Pedido
+}
+
+enum PaymentMethod {
+  PIX
+  BOLETO // mantido só por compatibilidade com pedidos migrados do WooCommerce
+  CREDIT_CARD
+  WALLET
+}
+
+enum PaymentStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+enum CouponType {
+  PERCENTAGE
+  FIXED
+  FREE_SHIPPING
+}
+
+enum CouponAppliesTo {
+  ORDER
+  PRODUCT
+  SHIPPING
+  CATEGORY
+}
+
+enum BannerPosition {
+  HERO
+  HIGHLIGHT
+  CENTRAL
+  SIDEBAR
+}
+
+enum ItemAlignment {
+  LEFT
+  CENTER
+  RIGHT
+}
+
+// ============================================
+// USER / AUTH
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  role          UserRole  @default(CLIENT)
+  name          String
+  email         String    @unique
+  password      String
+  phone         String?
+  cpf           String?   @unique
+  cnpj          String?   @unique
+  avatar        String?
+  
+  // Address
+  street        String?
+  number        String?
+  complement    String?
+  neighborhood  String?
+  city          String?
+  state         String?
+  zipCode       String?
+  country       String?   @default("Brasil")
+  
+  // Metrics
+  totalPurchases  Float     @default(0)
+  cashback        Float     @default(0)
+
+  // Grupo VIP — aprovado manualmente pelo admin, libera o preço/tier "Grupo VIP"
+  isVip           Boolean   @default(false)
+  vipActivatedAt  DateTime?
+  vipExpiresAt    DateTime?
+
+  // Relations
+  orders          Order[]
+  reviews         Review[]
+  favorites       Favorite[]
+  addresses       Address[]
+  abandonedCarts  AbandonedCart[]
+  walletTransactions WalletTransaction[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("users")
+}
+
+// Carteira / saldo (cashback) — User.cashback guarda o saldo atual,
+// WalletTransaction é o extrato/ledger completo de cada crédito e débito.
+enum WalletTransactionType {
+  CREDIT
+  DEBIT
+}
+
+enum WalletTransactionSource {
+  MANUAL          // crédito/débito feito manualmente pelo admin em /admin/recargas
+  RECHARGE_PIX    // cliente recarregou via Pix manual
+  RECHARGE_CARD   // cliente recarregou via cartão (Pagar.me/Asaas)
+  ORDER_CASHBACK  // cashback ganho em uma compra
+  ORDER_PAYMENT   // saldo usado como pagamento em uma compra
+  MIGRATION       // importado do WooCommerce (woo_wallet)
+}
+
+model WalletTransaction {
+  id           String                  @id @default(cuid())
+  userId       String
+  user         User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type         WalletTransactionType
+  amount       Float
+  balanceAfter Float
+  source       WalletTransactionSource
+  description  String?
+  orderId      String?
+  createdBy    String?                 // id do admin, quando source = MANUAL
+  createdAt    DateTime                @default(now())
+
+  @@index([userId])
+  @@map("wallet_transactions")
+}
+
+model Address {
+  id            String  @id @default(cuid())
+  userId        String
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label         String?  // "Casa", "Trabalho", etc
+  name          String
+  phone         String?
+  street        String
+  number        String
+  complement    String?
+  neighborhood  String
+  city          String
+  state         String
+  zipCode       String
+  country       String  @default("Brasil")
+  isDefault     Boolean @default(false)
+  
+  orders        Order[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("addresses")
+}
+
+// ============================================
+// BRANDS
+// ============================================
+
+model Brand {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  image       String?
+  description String?
+  active      Boolean   @default(true)
+  order       Int       @default(0)
+
+  products    Product[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("brands")
+}
+
+// ============================================
+// CATEGORIES
+// ============================================
+
+model Category {
+  id            String      @id @default(cuid())
+  name          String
+  slug          String      @unique
+  description   String?
+  image         String?
+  icon          String?
+  parentId      String?
+  parent        Category?   @relation("CategoryChildren", fields: [parentId], references: [id])
+  children      Category[]  @relation("CategoryChildren")
+  featured      Boolean     @default(false)
+  order         Int         @default(0)
+  
+  products      ProductCategory[]
+  coupons       CouponCategory[]
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("categories")
+}
+
+// ============================================
+// PRODUCTS
+// ============================================
+
+model Product {
+  id              String    @id @default(cuid())
+  name            String
+  slug            String    @unique
+  description     String?
+  shortDescription String?
+  sku             String?   @unique
+  barcode         String?
+  gtin            String?
+  ncm             String?
+  anatelHomologation String? // Nº de homologação Anatel (produtos eletrônicos que exigem)
+  linha           String?   // Linha / modelo do produto (ex: "Renascença (Camesa)", "Flow (Camesa)")
+
+  price           Float
+  compareAtPrice  Float?
+  costPrice       Float?
+  
+  weight          Float?    // em gramas
+  width           Float?    // em cm
+  height          Float?    // em cm
+  length          Float?    // em cm
+  
+  stock           Int       @default(0)
+  lowStockAlert   Int       @default(5)
+  manageStock     Boolean   @default(true)
+  
+  featured        Boolean   @default(false)
+  bestSeller      Boolean   @default(false)
+  mostSearched    Boolean   @default(false)
+  isNew           Boolean   @default(false)
+  active          Boolean   @default(true)
+  
+  // SEO
+  seoTitle        String?
+  seoDescription  String?
+  seoKeywords     String?
+  
+  // Brand
+  brandId         String?
+  brand           Brand?    @relation(fields: [brandId], references: [id], onDelete: SetNull)
+  
+  // Relations
+  images          ProductImage[]
+  categories      ProductCategory[]
+  variants        ProductVariant[]
+  reviews         Review[]
+  favorites       Favorite[]
+  orderItems      OrderItem[]
+  abandonedCartItems AbandonedCartItem[]
+  couponProducts  CouponProduct[]
+  logs            ProductLog[]
+  
+  // Related & Buy Together (self-relations)
+  relatedTo       ProductRelation[]   @relation("RelatedFrom")
+  relatedFrom     ProductRelation[]   @relation("RelatedTo")
+  buyTogetherTo   ProductBuyTogether[] @relation("BuyTogetherFrom")
+  buyTogetherFrom ProductBuyTogether[] @relation("BuyTogetherTo")
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@map("products")
+}
+
+model ProductImage {
+  id          String  @id @default(cuid())
+  productId   String
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String
+  alt         String?
+  order       Int     @default(0)
+  isPrimary   Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+
+  @@map("product_images")
+}
+
+model ProductCategory {
+  id          String   @id @default(cuid())
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, categoryId])
+  @@map("product_categories")
+}
+
+model ProductVariant {
+  id          String       @id @default(cuid())
+  productId   String
+  product     Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name        String  // ex: "Cor", "Tamanho"
+  value       String  // ex: "Azul", "King"
+  tier        PricingTier? // Dropshipping / Atacado / Grupo VIP — quando o variant representa um preço por tier de compra
+  price       Float?
+  stock       Int          @default(0)
+  sku         String?
+  image       String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("product_variants")
+}
+
+model ProductRelation {
+  id          String  @id @default(cuid())
+  productId   String
+  product     Product @relation("RelatedFrom", fields: [productId], references: [id], onDelete: Cascade)
+  relatedId   String
+  related     Product @relation("RelatedTo", fields: [relatedId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, relatedId])
+  @@map("product_relations")
+}
+
+model ProductBuyTogether {
+  id          String  @id @default(cuid())
+  productId   String
+  product     Product @relation("BuyTogetherFrom", fields: [productId], references: [id], onDelete: Cascade)
+  togetherId  String
+  together    Product @relation("BuyTogetherTo", fields: [togetherId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, togetherId])
+  @@map("product_buy_together")
+}
+
+// ============================================
+// PRODUCT LOGS (alterações de estoque e preço)
+// ============================================
+
+model ProductLog {
+  id          String   @id @default(cuid())
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productName String
+  type        String   // STOCK_CHANGE, PRICE_CHANGE, STOCK_OUT
+  oldValue    Float
+  newValue    Float
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([productId])
+  @@map("product_logs")
+}
+
+// ============================================
+// REVIEWS
+// ============================================
+
+model Review {
+  id          String  @id @default(cuid())
+  productId   String
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating      Int     // 1-5
+  title       String?
+  comment     String?
+  approved    Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("reviews")
+}
+
+// ============================================
+// FAVORITES
+// ============================================
+
+model Favorite {
+  id          String  @id @default(cuid())
+  userId      String
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, productId])
+  @@map("favorites")
+}
+
+// ============================================
+// ORDERS
+// ============================================
+
+model Order {
+  id              String        @id @default(cuid())
+  orderNumber     String        @unique
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  addressId       String?
+  address         Address?      @relation(fields: [addressId], references: [id])
+  
+  status          OrderStatus   @default(PENDING)
+  paymentMethod   PaymentMethod?
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentId       String?       // ID do Asaas
+  
+  subtotal        Float
+  shipping        Float         @default(0)
+  discount        Float         @default(0)
+  total           Float
+  
+  couponId        String?
+  coupon          Coupon?       @relation(fields: [couponId], references: [id])
+  
+  trackingCode    String?
+  shippingMethod  String?
+  // ID numérico do serviço cotado no Melhor Envio (ex: "2" = SEDEX) — só
+  // preenchido quando o cliente escolheu uma opção real de transportadora
+  // (não uma regra de frete própria nem etiqueta anexada). Necessário pra
+  // comprar a etiqueta depois direto do admin.
+  meServiceId     String?
+  // ID do envio já comprado/gerado no Melhor Envio (dinheiro já debitado da
+  // conta) — preenchido assim que o checkout+geração são confirmados, antes
+  // de tentar buscar o PDF da etiqueta. Existe pra nunca comprar de novo só
+  // porque o passo de gerar o PDF falhou: uma nova tentativa usa esse ID
+  // pra só rebuscar o PDF, sem debitar o saldo outra vez.
+  meCartId        String?
+
+  notes           String?
+
+  // Snapshot imutável do endereço/documento usados no momento da compra
+  // (útil sobretudo para pedidos migrados do WooCommerce, sem Address vinculado)
+  shippingSnapshot Json?
+  // Status original da loja antiga (ex: "wc-pagamento-aprova"), preservado como referência
+  legacyStatus     String?
+
+  // Dropshipping: quem recebe pode ser diferente de quem compra — exigido pelo Melhor Envio
+  recipientName     String?
+  recipientDocument String? // CPF ou CNPJ do destinatário
+  // Etiqueta de envio anexada pelo comprador (fornecida pelo fornecedor dele)
+  labelUrl          String?
+
+  items           OrderItem[]
+
+  deletedAt       DateTime? // preenchido ao mover pra lixeira (soft delete)
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  name        String
+  price       Float
+  quantity    Int
+  variant     String?
+  image       String?
+
+  @@map("order_items")
+}
+
+// ============================================
+// COUPONS (WooCommerce-style)
+// ============================================
+
+model Coupon {
+  id                  String          @id @default(cuid())
+  code                String          @unique
+  name                String
+  description         String?
+  
+  type                CouponType      @default(PERCENTAGE)
+  appliesTo           CouponAppliesTo @default(ORDER)
+  value               Float           // percentage or fixed amount
+  
+  minOrderValue       Float?
+  maxDiscount         Float?
+  
+  usageLimit          Int?            // uso geral do cupom
+  usageLimitPerUser   Int?            // uso por usuario
+  usageCount          Int             @default(0)
+  
+  startDate           DateTime?
+  endDate             DateTime?
+  active              Boolean         @default(true)
+  
+  // Filters
+  allowedCities       String[]        // array de cidades
+  allowedStates       String[]        // array de estados
+  allowedZipCodes     String[]        // array de ceps
+  allowedRegions      String[]        // array de regioes
+  
+  // Relations
+  orders              Order[]
+  products            CouponProduct[]
+  categories          CouponCategory[]
+
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  @@map("coupons")
+}
+
+model CouponProduct {
+  id        String  @id @default(cuid())
+  couponId  String
+  coupon    Coupon  @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([couponId, productId])
+  @@map("coupon_products")
+}
+
+model CouponCategory {
+  id          String   @id @default(cuid())
+  couponId    String
+  coupon      Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([couponId, categoryId])
+  @@map("coupon_categories")
+}
+
+// ============================================
+// ABANDONED CARTS
+// ============================================
+
+model AbandonedCart {
+  id          String              @id @default(cuid())
+  userId      String?
+  user        User?               @relation(fields: [userId], references: [id])
+  sessionId   String?
+  email       String?
+  total       Float               @default(0)
+  recovered   Boolean             @default(false)
+  
+  items       AbandonedCartItem[]
+
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@map("abandoned_carts")
+}
+
+model AbandonedCartItem {
+  id              String        @id @default(cuid())
+  abandonedCartId String
+  abandonedCart   AbandonedCart @relation(fields: [abandonedCartId], references: [id], onDelete: Cascade)
+  productId       String
+  product         Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity        Int
+  price           Float
+  variant         String?
+
+  @@map("abandoned_cart_items")
+}
+
+// ============================================
+// HOME CATEGORY CAROUSEL
+// ============================================
+
+model HomeCategoryItem {
+  id          String   @id @default(cuid())
+  categoryId  String?
+  title       String
+  image       String?
+  link        String?  // auto-generated from category slug if categoryId set
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("home_category_items")
+}
+
+// ============================================
+// HEADER CONFIG
+// ============================================
+
+model HeaderConfig {
+  id              String   @id @default(cuid())
+  logo            String?
+  logoWhite       String?
+  logoHeight      Int?     @default(40)
+  showSearch      Boolean  @default(true)
+  showCart         Boolean  @default(true)
+  showFavorites   Boolean  @default(true)
+  showAccount     Boolean  @default(true)
+  topBarText      String?  // "Frete Grátis acima de R$299"
+  topBarBgColor   String?  @default("#1a1a1a")
+  topBarTextColor String?  @default("#ffffff")
+  topBarActive    Boolean  @default(true)
+  menuItems       Json     @default("[]") // [{label, href, children: [{label, href}]}]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("header_config")
+}
+
+// ============================================
+// FOOTER CONFIG
+// ============================================
+
+model FooterConfig {
+  id              String   @id @default(cuid())
+  logo            String?
+  logoWhite       String?
+  description     String?
+  copyright       String?
+  showNewsletter  Boolean  @default(true)
+  newsletterTitle String?  @default("Receba nossas novidades")
+  newsletterText  String?
+  columns         Json     @default("[]") // [{title, links: [{label, href}]}]
+  socialLinks     Json     @default("{}") // {instagram, facebook, tiktok, youtube, pinterest}
+  paymentMethods  Json     @default("[]") // ["pix","boleto","visa","mastercard","elo","amex"]
+  contactEmail    String?
+  contactPhone    String?
+  contactWhatsapp String?
+  contactAddress  String?
+  bgColor         String?  @default("#1a1a1a")
+  textColor       String?  @default("#ffffff")
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("footer_config")
+}
+
+// ============================================
+// BANNERS
+// ============================================
+
+model Banner {
+  id              String          @id @default(cuid())
+  position        BannerPosition  @default(HERO)
+  
+  bgImage         String?
+  bgImageMobile   String?
+  bgColor         String?
+  overlayImage    String?         // img solta pra direita ou esquerda
+  overlayPosition ItemAlignment   @default(RIGHT)
+  
+  badge           String?
+  title           String?
+  paragraph       String?
+  
+  button1Text     String?
+  button1Link     String?
+  button1Font     String?
+  button1Color    String?         // bg color
+  button1TextColor String?
+  button2Text     String?
+  button2Link     String?
+  button2Font     String?
+  button2Color    String?
+  button2TextColor String?
+  
+  titleSize       String?         // "text-3xl", "text-5xl", etc
+  paragraphSize   String?
+  titleFont       String?
+  paragraphFont   String?
+  
+  itemsPosition   ItemAlignment   @default(LEFT)
+  
+  effect          String?         // "fade", "zoom", etc
+  transition      String?
+  animation       String?
+  
+  order           Int             @default(0)
+  active          Boolean         @default(true)
+
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@map("banners")
+}
+
+// ============================================
+// SEO / SETTINGS
+// ============================================
+
+model SeoSettings {
+  id              String  @id @default(cuid())
+  page            String  @unique // "home", "products", "about", etc
+  title           String?
+  metaDescription String?
+  metaKeywords    String?
+  favicon         String?
+  ogImage         String?
+  ogTitle         String?
+  ogDescription   String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("seo_settings")
+}
+
+model GlobalSettings {
+  id                  String  @id @default(cuid())
+  storeName           String  @default("C7 Drop")
+  storeEmail          String?
+  storePhone          String?
+  storeWhatsapp       String?
+  storeAddress        String?
+  storeLogo           String?
+  storeLogoWhite      String?
+  storeFavicon        String?
+  
+  // Social
+  instagram           String?
+  facebook            String?
+  tiktok              String?
+  youtube             String?
+  
+  // Shipping
+  freeShippingMinValue Float?
+  defaultShippingDays  Int?
+  
+  // Discount Rules
+  enableCashback       Boolean @default(false)
+  cashbackPercentage   Float   @default(0)
+  enableFirstPurchaseDiscount Boolean @default(false)
+  firstPurchaseDiscount Float  @default(0)
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("global_settings")
+}
+
+// ============================================
+// BLOG / NEWS
+// ============================================
+
+model BlogPost {
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  excerpt       String?
+  content       String?
+  coverImage    String?
+  author        String?
+  tags          String[]
+  published     Boolean   @default(false)
+  publishedAt   DateTime?
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("blog_posts")
+}
+
+// ============================================
+// NEWSLETTER
+// ============================================
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  active    Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+
+  @@map("newsletter_subscribers")
+}
+
+// ============================================
+// INTEGRATIONS
+// ============================================
+
+model IntegrationSetting {
+  id          String   @id @default(cuid())
+  provider    String   @unique // melhor_envio, asaas, google_analytics, google_tag_manager, google_adsense, facebook_pixel, instagram, smtp, whatsapp_api, etc.
+  enabled     Boolean  @default(false)
+  config      Json     @default("{}") // JSON with provider-specific keys
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("integration_settings")
+}
+
+// ============================================
+// FRETE (regras próprias, por localização)
+// ============================================
+
+model ShippingRule {
+  id              String   @id @default(cuid())
+  name            String   // "Embalagem", "DBA AMAZON", "MAGALU", "FLEX"...
+  price           Float
+  estimatedDays   Int?
+
+  // Escopo — deixe em branco pra aplicar em qualquer lugar dentro do nível acima
+  country         String?  @default("Brasil")
+  state           String?  // ex: "SP" — null = qualquer estado
+  city            String?  // null = qualquer cidade
+  cepRangeStart   String?  // só dígitos, ex: "01000000"
+  cepRangeEnd     String?
+
+  active          Boolean  @default(true)
+  order           Int      @default(0)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("shipping_rules")
+}
+
+// ============================================
+// ANALYTICS / REPORTS
+// ============================================
+
+model PageView {
+  id          String   @id @default(cuid())
+  page        String
+  sessionId   String?
+  userId      String?
+  ip          String?
+  userAgent   String?
+  referrer    String?
+  duration    Int?     // seconds
+
+  createdAt   DateTime @default(now())
+
+  @@map("page_views")
+}
+
+model ProductClick {
+  id          String   @id @default(cuid())
+  productId   String
+  sessionId   String?
+  userId      String?
+
+  createdAt   DateTime @default(now())
+
+  @@map("product_clicks")
+}
+
+// ============================================
+// RATE LIMITING
+// ============================================
+
+// Contador de janela fixa — uma linha por (key, endpoint, windowStart),
+// incrementada atomicamente via INSERT ... ON CONFLICT DO UPDATE. Não é
+// "uma linha por tentativa": isso permitia uma corrida onde muitas
+// requisições liam a mesma contagem antes de qualquer uma gravar,
+// deixando passar muito mais que o limite configurado sob rajada.
+model RateLimitEntry {
+  id          String   @id @default(cuid())
+  key         String   // chave composta: "ip:<ip>", "user:<userId>" ou "global:<algo>"
+  endpoint    String   // qual endpoint: "/api/orders"
+  count       Int      @default(1)
+  windowStart DateTime @default(now())
+
+  createdAt   DateTime @default(now())
+
+  @@unique([key, endpoint, windowStart])
+  @@index([windowStart])
+  @@map("rate_limit_entries")
+}
+
+// ============================================
+// DISPAROS — EMAIL MARKETING
+// ============================================
+
+model EmailTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  subject     String
+  body        String   @db.Text
+  footer      String?  @db.Text
+  
+  campaigns   EmailCampaign[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("email_templates")
+}
+
+model EmailCampaign {
+  id            String    @id @default(cuid())
+  name          String
+  templateId    String
+  template      EmailTemplate @relation(fields: [templateId], references: [id])
+  
+  status        String    @default("draft") // draft, scheduled, sending, sent, failed
+  recipientType String    @default("all")   // all, segment, specific
+  recipientIds  String[]  // user IDs if specific
+  
+  scheduledAt   DateTime?
+  sentAt        DateTime?
+  totalSent     Int       @default(0)
+  totalFailed   Int       @default(0)
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("email_campaigns")
+}
+
+// ============================================
+// DISPAROS — WHATSAPP
+// ============================================
+
+model WhatsAppConfig {
+  id            String   @id @default(cuid())
+  sessionName   String   @default("default")
+  status        String   @default("disconnected") // disconnected, connecting, connected
+  phone         String?
+  qrCode        String?  @db.Text
+  
+  wahaUrl       String?
+  wahaApiKey    String?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("whatsapp_config")
+}
+
+model WhatsAppTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  message     String   @db.Text
+  footer      String?
+  
+  campaigns   WhatsAppCampaign[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("whatsapp_templates")
+}
+
+model WhatsAppCampaign {
+  id            String    @id @default(cuid())
+  name          String
+  templateId    String
+  template      WhatsAppTemplate @relation(fields: [templateId], references: [id])
+  
+  status        String    @default("draft") // draft, scheduled, sending, sent, failed
+  recipientType String    @default("all")   // all, segment, specific
+  recipientIds  String[]  // user IDs if specific
+  
+  scheduledAt   DateTime?
+  sentAt        DateTime?
+  totalSent     Int       @default(0)
+  totalFailed   Int       @default(0)
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("whatsapp_campaigns")
+}
+
+// ============================================
+// TREINAMENTO — VÍDEOS
+// ============================================
+
+model TrainingVideo {
+  id          String   @id @default(cuid())
+  title       String
+  description String?  @db.Text
+  category    String   @default("geral")
+  thumbnail   String?
+  videoUrl    String
+  originalUrl String?
+  duration    Int?     // seconds
+  fileSize    Int?     // bytes
+  status      String   @default("processing") // processing, ready, error
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("training_videos")
+}
+
+// ============================================
+// HALL DA FAMA
+// ============================================
+
+model HallOfFameEntry {
+  id              String   @id @default(cuid())
+  clientName      String                    // Nome do cliente
+  title           String                    // Título da conquista
+  salesValue      Float                     // Valor alcançado em vendas (em reais)
+  description     String?  @db.Text         // Descrição curta ou depoimento
+  youtubeUrl      String                    // Link do vídeo do YouTube
+  youtubeId       String                    // ID extraído do vídeo do YouTube
+  thumbnail       String?                   // Thumbnail gerada automaticamente
+  clientPhoto     String?                   // Foto do cliente
+  trophyPhoto     String?                   // Foto da placa ou troféu (opcional)
+  achievementDate DateTime?                 // Data da conquista
+  category        String   @default("50k")  // Categoria: 50k, 100k, 500k, 1m
+  displayOrder    Int      @default(0)      // Ordem de exibição
+  active          Boolean  @default(true)   // Status ativo/inativo
+  featured        Boolean  @default(false)  // Marcar como destaque
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("hall_of_fame_entries")
+}
